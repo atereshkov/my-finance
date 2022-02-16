@@ -5,6 +5,8 @@ import WelcomeFeature
 import LoginFeature
 import RegistrationFeature
 import TabBarFeature
+import SavingsListFeature
+import SavingsDetailsFeature
 
 import AppState
 
@@ -50,7 +52,9 @@ public struct AppView: View {
     var tabBarView: some View {
         TabBarView(providers: [
             homeTabProvider,
-            myBooksTabProvider
+            savingsTabProvider,
+            depositsTabProvider,
+            investmentsTabProvider
         ])
     }
 
@@ -59,25 +63,42 @@ public struct AppView: View {
             systemImageName: "house.fill",
             tabName: "Home"
         ) {
-            return AnyView(Text("First Tab"))
+            return AnyView(Text("Home").padding())
         }
     }
 
-    var myBooksTabProvider: TabViewProvider {
+    var savingsTabProvider: TabViewProvider {
         return TabViewProvider(
-            systemImageName: "book.fill",
-            tabName: "My Books"
+            systemImageName: "dollarsign.circle.fill",
+            tabName: "Savings"
         ) {
-//            return AnyView(MyBooksListView(
-//                viewModel: MyBooksViewModel(),
-//                bookDetailViewProvider: { id in bookDetail(id: id) }
-//            ))
-            return AnyView(Text("Hello").padding())
+            return AnyView(SavingsListView(
+                viewModel: SavingsListViewModel(),
+                savingsDetailViewProvider: { id in savingsDetail(id: id) }
+            ))
         }
     }
 
-//    func bookDetail(id: String) -> some View {
-//        BookDetailsView(id: id)
-//    }
+    func savingsDetail(id: String) -> some View {
+        SavingsDetailsView(id: id)
+    }
+
+    var depositsTabProvider: TabViewProvider {
+        return TabViewProvider(
+            systemImageName: "building.columns.fill",
+            tabName: "Deposits"
+        ) {
+            return AnyView(Text("Deposits").padding())
+        }
+    }
+
+    var investmentsTabProvider: TabViewProvider {
+        return TabViewProvider(
+            systemImageName: "waveform.circle.fill",
+            tabName: "Investments"
+        ) {
+            return AnyView(Text("Investments").padding())
+        }
+    }
 
 }

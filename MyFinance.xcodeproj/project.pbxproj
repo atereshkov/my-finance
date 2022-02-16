@@ -10,8 +10,8 @@
 		CB39814D27BD6AC300F17C87 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39814C27BD6AC300F17C87 /* Tests_iOS.swift */; };
 		CB39815927BD6AC300F17C87 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39815827BD6AC300F17C87 /* Tests_macOS.swift */; };
 		CB39815B27BD6AC300F17C87 /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39815A27BD6AC300F17C87 /* Tests_macOSLaunchTests.swift */; };
-		CB39815C27BD6AC300F17C87 /* MyFinanceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39813427BD6ABF00F17C87 /* MyFinanceApp.swift */; };
-		CB39815D27BD6AC300F17C87 /* MyFinanceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39813427BD6ABF00F17C87 /* MyFinanceApp.swift */; };
+		CB39815C27BD6AC300F17C87 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39813427BD6ABF00F17C87 /* App.swift */; };
+		CB39815D27BD6AC300F17C87 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39813427BD6ABF00F17C87 /* App.swift */; };
 		CB39816027BD6AC300F17C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB39813627BD6AC300F17C87 /* Assets.xcassets */; };
 		CB39816127BD6AC300F17C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB39813627BD6AC300F17C87 /* Assets.xcassets */; };
 		CB3981A927BD822900F17C87 /* AppCore in Frameworks */ = {isa = PBXBuildFile; productRef = CB3981A827BD822900F17C87 /* AppCore */; };
@@ -36,7 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CB39813427BD6ABF00F17C87 /* MyFinanceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFinanceApp.swift; sourceTree = "<group>"; };
+		CB39813427BD6ABF00F17C87 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CB39813627BD6AC300F17C87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB39813B27BD6AC300F17C87 /* MyFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB39814127BD6AC300F17C87 /* MyFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +55,8 @@
 		CB3981AA27BD824700F17C87 /* AppState */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppState; path = MyFinancePackages/AppState; sourceTree = "<group>"; };
 		CB3981AB27BD827000F17C87 /* TabBarFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TabBarFeature; path = MyFinanceFeatures/TabBarFeature; sourceTree = "<group>"; };
 		CB3981B727BD86E600F17C87 /* All Unit Tests (iOS).xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "All Unit Tests (iOS).xctestplan"; sourceTree = "<group>"; };
+		CB3981BB27BD976600F17C87 /* SavingsListFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SavingsListFeature; path = MyFinanceFeatures/SavingsListFeature; sourceTree = "<group>"; };
+		CB3981BC27BD982600F17C87 /* SavingsDetailsFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SavingsDetailsFeature; path = MyFinanceFeatures/SavingsDetailsFeature; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +110,7 @@
 		CB39813327BD6ABF00F17C87 /* MyFinance */ = {
 			isa = PBXGroup;
 			children = (
-				CB39813427BD6ABF00F17C87 /* MyFinanceApp.swift */,
+				CB39813427BD6ABF00F17C87 /* App.swift */,
 				CB39813627BD6AC300F17C87 /* Assets.xcassets */,
 			);
 			path = MyFinance;
@@ -165,6 +167,8 @@
 				CB3981A027BD816300F17C87 /* RegistrationFeature */,
 				CB3981AB27BD827000F17C87 /* TabBarFeature */,
 				CB3981A327BD819000F17C87 /* WelcomeFeature */,
+				CB3981BB27BD976600F17C87 /* SavingsListFeature */,
+				CB3981BC27BD982600F17C87 /* SavingsDetailsFeature */,
 				CB3981A627BD81A600F17C87 /* MyFinanceComponentsKit */,
 				CB3981A727BD822200F17C87 /* AppCore */,
 				CB3981AA27BD824700F17C87 /* AppState */,
@@ -344,7 +348,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB39815C27BD6AC300F17C87 /* MyFinanceApp.swift in Sources */,
+				CB39815C27BD6AC300F17C87 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB39815D27BD6AC300F17C87 /* MyFinanceApp.swift in Sources */,
+				CB39815D27BD6AC300F17C87 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

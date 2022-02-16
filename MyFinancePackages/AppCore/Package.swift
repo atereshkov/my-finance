@@ -17,7 +17,9 @@ let package = Package(
         .package(path: "../LoginFeature"),
         .package(path: "../RegistrationFeature"),
         .package(path: "../TabBarFeature"),
-        .package(path: "../WelcomeFeature")
+        .package(path: "../WelcomeFeature"),
+        .package(path: "../SavingsListFeature"),
+        .package(path: "../SavingsDetailsFeature")
     ],
     targets: [
         .target(
@@ -28,7 +30,9 @@ let package = Package(
                 "LoginFeature",
                 "RegistrationFeature",
                 "TabBarFeature",
-                "WelcomeFeature"
+                "WelcomeFeature",
+                "SavingsListFeature",
+                "SavingsDetailsFeature"
             ]),
         .testTarget(
             name: "AppCoreTests",
