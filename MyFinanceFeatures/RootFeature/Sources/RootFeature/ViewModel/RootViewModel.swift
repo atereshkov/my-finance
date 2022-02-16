@@ -5,7 +5,7 @@ import AppState
 
 public class RootViewModel: ObservableObject {
 
-    @Published var isAuthorized: Bool = true
+    @Published var isAuthorized: Bool = false
 
     private var subscriptions: Set<AnyCancellable> = []
 

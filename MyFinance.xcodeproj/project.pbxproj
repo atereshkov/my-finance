@@ -16,6 +16,7 @@
 		CB39816027BD6AC300F17C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB39813627BD6AC300F17C87 /* Assets.xcassets */; };
 		CB39816127BD6AC300F17C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB39813627BD6AC300F17C87 /* Assets.xcassets */; };
 		CB3981A927BD822900F17C87 /* AppCore in Frameworks */ = {isa = PBXBuildFile; productRef = CB3981A827BD822900F17C87 /* AppCore */; };
+		CB3981B527BD854D00F17C87 /* AppCore in Frameworks */ = {isa = PBXBuildFile; productRef = CB3981B427BD854D00F17C87 /* AppCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +56,6 @@
 		CB3981A727BD822200F17C87 /* AppCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppCore; path = MyFinancePackages/AppCore; sourceTree = "<group>"; };
 		CB3981AA27BD824700F17C87 /* AppState */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppState; path = MyFinancePackages/AppState; sourceTree = "<group>"; };
 		CB3981AB27BD827000F17C87 /* TabBarFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TabBarFeature; path = MyFinanceFeatures/TabBarFeature; sourceTree = "<group>"; };
-		CB3981AC27BD83C700F17C87 /* MyFinance--iOS--Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MyFinance--iOS--Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB3981B527BD854D00F17C87 /* AppCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +95,6 @@
 		CB39812E27BD6ABE00F17C87 = {
 			isa = PBXGroup;
 			children = (
-				CB3981AC27BD83C700F17C87 /* MyFinance--iOS--Info.plist */,
 				CB39819E27BD814E00F17C87 /* Packages */,
 				CB39813327BD6ABF00F17C87 /* Shared */,
 				CB39814227BD6AC300F17C87 /* macOS */,
@@ -210,6 +210,7 @@
 			);
 			name = "MyFinance (macOS)";
 			packageProductDependencies = (
+				CB3981B427BD854D00F17C87 /* AppCore */,
 			);
 			productName = "MyFinance (macOS)";
 			productReference = CB39814127BD6AC300F17C87 /* MyFinance.app */;
@@ -769,6 +770,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		CB3981A827BD822900F17C87 /* AppCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppCore;
+		};
+		CB3981B427BD854D00F17C87 /* AppCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppCore;
 		};
