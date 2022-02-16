@@ -1,0 +1,80 @@
+{
+  "configurations" : [
+    {
+      "id" : "39D07A10-8F7B-4346-9AEA-2311DC4A97CB",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MyFinance.xcodeproj",
+        "identifier" : "CB39814727BD6AC300F17C87",
+        "name" : "Tests iOS"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinancePackages\/AppCore",
+        "identifier" : "AppCoreTests",
+        "name" : "AppCoreTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinancePackages\/AppState",
+        "identifier" : "AppStateTests",
+        "name" : "AppStateTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/LoginFeature",
+        "identifier" : "LoginFeatureTests",
+        "name" : "LoginFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinancePackages\/MyFinanceComponentsKit",
+        "identifier" : "MyFinanceComponentsKitTests",
+        "name" : "MyFinanceComponentsKitTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/RegistrationFeature",
+        "identifier" : "RegistrationFeatureTests",
+        "name" : "RegistrationFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/RootFeature",
+        "identifier" : "RootFeatureTests",
+        "name" : "RootFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/TabBarFeature",
+        "identifier" : "TabBarFeatureTests",
+        "name" : "TabBarFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/WelcomeFeature",
+        "identifier" : "WelcomeFeatureTests",
+        "name" : "WelcomeFeatureTests"
+      }
+    }
+  ],
+  "version" : 1
+}
