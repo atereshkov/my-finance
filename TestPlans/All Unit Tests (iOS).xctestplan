@@ -35,30 +35,16 @@
     },
     {
       "target" : {
-        "containerPath" : "container:MyFinanceFeatures\/LoginFeature",
-        "identifier" : "LoginFeatureTests",
-        "name" : "LoginFeatureTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:MyFinancePackages\/MyFinanceComponentsKit",
-        "identifier" : "MyFinanceComponentsKitTests",
-        "name" : "MyFinanceComponentsKitTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:MyFinanceFeatures\/RegistrationFeature",
-        "identifier" : "RegistrationFeatureTests",
-        "name" : "RegistrationFeatureTests"
-      }
-    },
-    {
-      "target" : {
         "containerPath" : "container:MyFinanceFeatures\/RootFeature",
         "identifier" : "RootFeatureTests",
         "name" : "RootFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/WelcomeFeature",
+        "identifier" : "WelcomeFeatureTests",
+        "name" : "WelcomeFeatureTests"
       }
     },
     {
@@ -70,9 +56,72 @@
     },
     {
       "target" : {
-        "containerPath" : "container:MyFinanceFeatures\/WelcomeFeature",
-        "identifier" : "WelcomeFeatureTests",
-        "name" : "WelcomeFeatureTests"
+        "containerPath" : "container:MyFinanceFeatures\/LoginFeature",
+        "identifier" : "LoginFeatureTests",
+        "name" : "LoginFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/RegistrationFeature",
+        "identifier" : "RegistrationFeatureTests",
+        "name" : "RegistrationFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinancePackages\/MyFinanceComponentsKit",
+        "identifier" : "MyFinanceComponentsKitTests",
+        "name" : "MyFinanceComponentsKitTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/DepositsListFeature",
+        "identifier" : "DepositsListFeatureTests",
+        "name" : "DepositsListFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/DepositsDetailsFeature",
+        "identifier" : "DepositsDetailsFeatureTests",
+        "name" : "DepositsDetailsFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/SavingsDetailsFeature",
+        "identifier" : "SavingsDetailsFeatureTests",
+        "name" : "SavingsDetailsFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/SavingsListFeature",
+        "identifier" : "SavingsListFeatureTests",
+        "name" : "SavingsListFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/GoalsListFeature",
+        "identifier" : "GoalsListFeatureTests",
+        "name" : "GoalsListFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/GoalDetailsFeature",
+        "identifier" : "GoalDetailsFeatureTests",
+        "name" : "GoalDetailsFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/AddGoalFeature",
+        "identifier" : "AddGoalFeatureTests",
+        "name" : "AddGoalFeatureTests"
       }
     }
   ],

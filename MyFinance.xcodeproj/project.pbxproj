@@ -57,6 +57,11 @@
 		CB3981B727BD86E600F17C87 /* All Unit Tests (iOS).xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "All Unit Tests (iOS).xctestplan"; sourceTree = "<group>"; };
 		CB3981BB27BD976600F17C87 /* SavingsListFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SavingsListFeature; path = MyFinanceFeatures/SavingsListFeature; sourceTree = "<group>"; };
 		CB3981BC27BD982600F17C87 /* SavingsDetailsFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SavingsDetailsFeature; path = MyFinanceFeatures/SavingsDetailsFeature; sourceTree = "<group>"; };
+		CB3981BD27BE89AC00F17C87 /* DepositsListFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DepositsListFeature; path = MyFinanceFeatures/DepositsListFeature; sourceTree = "<group>"; };
+		CB3981BE27BE8C1800F17C87 /* DepositsDetailsFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DepositsDetailsFeature; path = MyFinanceFeatures/DepositsDetailsFeature; sourceTree = "<group>"; };
+		CB3981BF27BEA0BF00F17C87 /* GoalsListFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GoalsListFeature; path = MyFinanceFeatures/GoalsListFeature; sourceTree = "<group>"; };
+		CB3981C127BEA22000F17C87 /* GoalDetailsFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GoalDetailsFeature; path = MyFinanceFeatures/GoalDetailsFeature; sourceTree = "<group>"; };
+		CB3981C227BEC79000F17C87 /* AddGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalFeature; path = MyFinanceFeatures/AddGoalFeature; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +167,9 @@
 		CB39819E27BD814E00F17C87 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				CB3981A727BD822200F17C87 /* AppCore */,
+				CB3981AA27BD824700F17C87 /* AppState */,
+				CB3981A627BD81A600F17C87 /* MyFinanceComponentsKit */,
 				CB3981A127BD818100F17C87 /* RootFeature */,
 				CB39819F27BD814E00F17C87 /* LoginFeature */,
 				CB3981A027BD816300F17C87 /* RegistrationFeature */,
@@ -169,9 +177,11 @@
 				CB3981A327BD819000F17C87 /* WelcomeFeature */,
 				CB3981BB27BD976600F17C87 /* SavingsListFeature */,
 				CB3981BC27BD982600F17C87 /* SavingsDetailsFeature */,
-				CB3981A627BD81A600F17C87 /* MyFinanceComponentsKit */,
-				CB3981A727BD822200F17C87 /* AppCore */,
-				CB3981AA27BD824700F17C87 /* AppState */,
+				CB3981BD27BE89AC00F17C87 /* DepositsListFeature */,
+				CB3981BE27BE8C1800F17C87 /* DepositsDetailsFeature */,
+				CB3981BF27BEA0BF00F17C87 /* GoalsListFeature */,
+				CB3981C127BEA22000F17C87 /* GoalDetailsFeature */,
+				CB3981C227BEC79000F17C87 /* AddGoalFeature */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

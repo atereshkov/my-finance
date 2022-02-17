@@ -7,6 +7,11 @@ import RegistrationFeature
 import TabBarFeature
 import SavingsListFeature
 import SavingsDetailsFeature
+import DepositsListFeature
+import DepositsDetailsFeature
+import GoalsListFeature
+import GoalDetailsFeature
+import AddGoalFeature
 
 import AppState
 
@@ -54,7 +59,8 @@ public struct AppView: View {
             homeTabProvider,
             savingsTabProvider,
             depositsTabProvider,
-            investmentsTabProvider
+            investmentsTabProvider,
+            goalsTabProvider
         ])
     }
 
@@ -88,8 +94,15 @@ public struct AppView: View {
             systemImageName: "building.columns.fill",
             tabName: "Deposits"
         ) {
-            return AnyView(Text("Deposits").padding())
+            return AnyView(DepositsListView(
+                viewModel: DepositsListViewModel(),
+                depositsDetailsViewProvider: { id in depositsDetails(id: id) }
+            ))
         }
+    }
+
+    func depositsDetails(id: String) -> some View {
+        DepositsDetailsView(id: id)
     }
 
     var investmentsTabProvider: TabViewProvider {
@@ -99,6 +112,23 @@ public struct AppView: View {
         ) {
             return AnyView(Text("Investments").padding())
         }
+    }
+
+    var goalsTabProvider: TabViewProvider {
+        return TabViewProvider(
+            systemImageName: "target",
+            tabName: "Goals"
+        ) {
+            return AnyView(GoalsListView(
+                viewModel: GoalsListViewModel(),
+                goalDetailsViewProvider: { id in goalDetails(id: id) },
+                addGoalViewProvider: { AddGoalView() }
+            ))
+        }
+    }
+
+    func goalDetails(id: String) -> some View {
+        GoalDetailsView(id: id)
     }
 
 }
