@@ -2,18 +2,21 @@ import SwiftUI
 
 import MyFinanceAssetsKit
 
-public struct GoalDetailsView<EditGoal: View>: View {
+public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
 
     @ObservedObject var viewModel: GoalDetailsViewModel
 
     private var editGoalViewProvider: (_ id: String) -> EditGoal
+    private var addGoalStepViewProvider: () -> AddGoalStep
 
     public init(
         viewModel: GoalDetailsViewModel,
-        editGoalViewProvider: @escaping (_ id: String) -> EditGoal
+        editGoalViewProvider: @escaping (_ id: String) -> EditGoal,
+        addGoalStepViewProvider: @escaping () -> AddGoalStep
     ) {
         self.viewModel = viewModel
         self.editGoalViewProvider = editGoalViewProvider
+        self.addGoalStepViewProvider = addGoalStepViewProvider
     }
 
     public var body: some View {
@@ -28,7 +31,7 @@ public struct GoalDetailsView<EditGoal: View>: View {
     var content: some View {
         ZStack {
             Color.primaryBackground.ignoresSafeArea()
-            text
+            list
                 .navigationBarTitle(Text("Goal \(viewModel.id)"))
                 .navigationBarItems(trailing: navBarButtons)
         }
@@ -38,6 +41,8 @@ public struct GoalDetailsView<EditGoal: View>: View {
         switch viewModel.routingState.currentModalSheet {
         case .editGoal:
             return AnyView(editGoalViewProvider(viewModel.id))
+        case .addGoalStep:
+            return AnyView(addGoalStepViewProvider())
         case .none:
             return AnyView(Text(""))
         }
@@ -56,8 +61,65 @@ public struct GoalDetailsView<EditGoal: View>: View {
         )
     }
 
-    var text: some View {
-        Text("Goal Details ID: \(viewModel.id)").padding()
+    var list: some View {
+//        ScrollView {
+//            chart
+//            details
+//            changesList
+//        }
+        List {
+            Section {
+                chart
+            }
+            Section {
+                details
+            }
+            Section {
+                addGoalStepButton
+                HStack {
+                    Image(systemName: "calendar")
+                    Text("02/14/2022")
+                    Spacer()
+                    Text("+ 200")
+                }
+                    .swipeActions {
+                        Button("Delete") {
+
+                        }
+                        .tint(.red)
+                        Button("Edit") {
+
+                        }
+                        .tint(.blue)
+                    }
+                HStack {
+                    Image(systemName: "calendar")
+                    Text("02/14/2022")
+                    Spacer()
+                    Text("+ 200")
+                }
+            }
+        }
+    }
+
+    var addGoalStepButton: some View {
+        Button(
+            action: viewModel.addStepGoalAction,
+            label: {
+                HStack {
+                    Image(systemName: "plus").imageScale(.large)
+                    Text("Add step goal")
+                }
+            }
+        )
+    }
+
+    var chart: some View {
+        Text("Chart")
+    }
+
+    var details: some View {
+        Text("Details")
     }
 
 }

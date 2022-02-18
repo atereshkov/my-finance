@@ -15,6 +15,7 @@ import GoalsListFeature
 import GoalDetailsFeature
 import AddGoalFeature
 import EditGoalFeature
+import AddGoalStepFeature
 
 public struct AppView: View {
 
@@ -123,15 +124,20 @@ public struct AppView: View {
             return AnyView(GoalsListView(
                 viewModel: GoalsListViewModel(),
                 goalDetailsViewProvider: { id in goalDetails(id: id) },
-                addGoalViewProvider: { AddGoalView(viewModel: AddGoalViewModel()) }
+                addGoalViewProvider: { addGoalView() }
             ))
         }
+    }
+
+    func addGoalView() -> some View {
+        AddGoalView(viewModel: AddGoalViewModel())
     }
 
     func goalDetails(id: String) -> some View {
         GoalDetailsView(
             viewModel: GoalDetailsViewModel(id: id),
-            editGoalViewProvider: { id in editGoal(id: id) }
+            editGoalViewProvider: { id in editGoal(id: id) },
+            addGoalStepViewProvider: { AddGoalStepView(viewModel: AddGoalStepViewModel()) }
         )
     }
 

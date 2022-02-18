@@ -12,8 +12,11 @@ public class GoalDetailsViewModel: ObservableObject {
     }
 
     func editGoalAction() {
-        routingState.currentModalSheet = .editGoal
-        routingState.showModalSheet = true
+        routingState.show(.editGoal)
+    }
+
+    func addStepGoalAction() {
+        routingState.show(.addGoalStep)
     }
 
 }

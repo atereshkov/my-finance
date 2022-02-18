@@ -19,11 +19,11 @@ public class EditGoalViewModel: ObservableObject {
     @Published var state: EditGoalViewState = .start
 
     @Published var goalMeasureOptions = [
-        GoalMeasureViewItem(id: "percent", name: "%"),
         GoalMeasureViewItem(id: "USD", name: "USD"),
         GoalMeasureViewItem(id: "EUR", name: "EUR"),
         GoalMeasureViewItem(id: "RUB", name: "RUB"),
-        GoalMeasureViewItem(id: "BYN", name: "BYN")
+        GoalMeasureViewItem(id: "BYN", name: "BYN"),
+        GoalMeasureViewItem(id: "percent", name: "%")
     ]
 
     public init(id: String) {
