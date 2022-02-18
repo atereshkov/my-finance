@@ -1,5 +1,7 @@
 import SwiftUI
 
+import MyFinanceAssetsKit
+
 public struct GoalsListView<GoalDetails: View, AddGoal: View>: View {
 
     @ObservedObject var viewModel: GoalsListViewModel
@@ -37,7 +39,7 @@ extension GoalsListView {
                 goals
                     .padding([.leading, .trailing], 18)
                     .navigationBarTitle(Text("My Goals"), displayMode: .inline)
-                    .navigationBarItems(trailing: buttons)
+                    .navigationBarItems(trailing: navBarButtons)
             }
         }
     }
@@ -51,7 +53,7 @@ extension GoalsListView {
         }
     }
 
-    var buttons: some View {
+    var navBarButtons: some View {
         HStack {
             dashboardButton
             addButton

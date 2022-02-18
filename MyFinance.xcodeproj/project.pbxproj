@@ -63,6 +63,7 @@
 		CB3981C127BEA22000F17C87 /* GoalDetailsFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GoalDetailsFeature; path = MyFinanceFeatures/GoalDetailsFeature; sourceTree = "<group>"; };
 		CB3981C227BEC79000F17C87 /* AddGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalFeature; path = MyFinanceFeatures/AddGoalFeature; sourceTree = "<group>"; };
 		CB3981C327BEDA6100F17C87 /* MyFinanceAssetsKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceAssetsKit; path = MyFinancePackages/MyFinanceAssetsKit; sourceTree = "<group>"; };
+		CB767ADF27C027F2007A635A /* EditGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalFeature; path = MyFinanceFeatures/EditGoalFeature; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +185,7 @@
 				CB3981BF27BEA0BF00F17C87 /* GoalsListFeature */,
 				CB3981C127BEA22000F17C87 /* GoalDetailsFeature */,
 				CB3981C227BEC79000F17C87 /* AddGoalFeature */,
+				CB767ADF27C027F2007A635A /* EditGoalFeature */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

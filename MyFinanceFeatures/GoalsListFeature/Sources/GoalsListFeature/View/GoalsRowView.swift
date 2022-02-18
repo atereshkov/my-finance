@@ -13,29 +13,28 @@ struct GoalsRowView: View {
                 endPoint: .bottomTrailing
             )
             HStack {
-                VStack(alignment: .center) {
+                VStack {
+
+                    MeasureBadgeView(title: "USD")
                     CircleView(title: "99%")
                         .frame(width: 60, height: 60, alignment: .center)
-                    MeasureBadgeView(title: "$")
                 }
 
                 VStack(alignment: .leading) {
-                    Text(item.name)
-                        .foregroundColor(.labelPrimaryText)
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .lineLimit(2)
-                        .padding(.bottom, 5)
+                    HStack {
+                        Text("5000 by 31/12/2022")
+                            .foregroundColor(.labelPrimaryText)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .lineLimit(2)
+                            .padding(.bottom, 5)
+                    }
 
-                    Text("Goal")
-                        .foregroundColor(.labelPrimaryText)
-                        .padding(.bottom, 5)
-
-                    Text("Start")
+                    Text("Start $ 1000 - 01/01/2022")
                         .foregroundColor(.labelPrimaryText)
                         .padding(.bottom, 5)
 
-                    Text("Done")
+                    Text("Done $ 1500")
                         .foregroundColor(.labelPrimaryText)
                         .padding(.bottom, 5)
                 }

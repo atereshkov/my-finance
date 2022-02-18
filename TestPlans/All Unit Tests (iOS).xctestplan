@@ -123,6 +123,13 @@
         "identifier" : "AddGoalFeatureTests",
         "name" : "AddGoalFeatureTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/EditGoalFeature",
+        "identifier" : "EditGoalFeatureTests",
+        "name" : "EditGoalFeatureTests"
+      }
     }
   ],
   "version" : 1

@@ -11,11 +11,15 @@ let package = Package(
             name: "GoalDetailsFeature",
             targets: ["GoalDetailsFeature"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(path: "../MyFinanceAssetsKit")
+    ],
     targets: [
         .target(
             name: "GoalDetailsFeature",
-            dependencies: []),
+            dependencies: [
+                "MyFinanceAssetsKit"
+            ]),
         .testTarget(
             name: "GoalDetailsFeatureTests",
             dependencies: ["GoalDetailsFeature"]),

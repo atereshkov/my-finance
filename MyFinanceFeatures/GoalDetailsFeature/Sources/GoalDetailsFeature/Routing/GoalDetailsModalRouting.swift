@@ -1,0 +1,3 @@
+enum GoalDetailsModalRouting {
+    case editGoal
+}

@@ -1,3 +1,0 @@
-enum HomeModalRoutingType {
-    case addGoal
-}

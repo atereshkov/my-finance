@@ -24,7 +24,8 @@ let package = Package(
         .package(path: "../DepositsDetailsFeature"),
         .package(path: "../GoalsListFeature"),
         .package(path: "../GoalDetailsFeature"),
-        .package(path: "../AddGoalFeature")
+        .package(path: "../AddGoalFeature"),
+        .package(path: "../EditGoalFeature")
     ],
     targets: [
         .target(
@@ -42,7 +43,8 @@ let package = Package(
                 "DepositsDetailsFeature",
                 "GoalsListFeature",
                 "GoalDetailsFeature",
-                "AddGoalFeature"
+                "AddGoalFeature",
+                "EditGoalFeature"
             ]),
         .testTarget(
             name: "AppCoreTests",

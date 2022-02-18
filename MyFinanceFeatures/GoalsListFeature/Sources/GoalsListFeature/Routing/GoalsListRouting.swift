@@ -4,9 +4,9 @@ struct GoalsListRouting: Equatable {
 
     // MARK: - Sheet
     var showModalSheet: Bool = false
-    var currentModalSheet: HomeModalRoutingType?
+    var currentModalSheet: GoalsListModalRoutingType?
 
-    // MARK: - Book Details
+    // MARK: - Goal Details
 
     /// Goals ID to navigate
     var goalsDetails: String?

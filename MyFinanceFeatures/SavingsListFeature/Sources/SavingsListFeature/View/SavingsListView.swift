@@ -1,5 +1,7 @@
 import SwiftUI
 
+import MyFinanceAssetsKit
+
 public struct SavingsListView<SavingsDetail: View>: View {
 
     @ObservedObject var viewModel: SavingsListViewModel
@@ -24,10 +26,13 @@ extension SavingsListView {
 
     var content: some View {
         NavigationView {
-            savings
-            .padding([.leading, .trailing], 18)
-            .navigationBarTitle(Text("My Savings"), displayMode: .inline)
-            .navigationBarItems(trailing: buttons)
+            ZStack {
+                Color.primaryBackground.ignoresSafeArea()
+                savings
+                        .padding([.leading, .trailing], 18)
+                        .navigationBarTitle(Text("My Savings"), displayMode: .inline)
+                        .navigationBarItems(trailing: buttons)
+            }
         }
     }
 

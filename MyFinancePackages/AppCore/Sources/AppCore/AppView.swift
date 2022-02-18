@@ -1,5 +1,7 @@
 import SwiftUI
 
+import AppState
+
 import RootFeature
 import WelcomeFeature
 import LoginFeature
@@ -12,8 +14,7 @@ import DepositsDetailsFeature
 import GoalsListFeature
 import GoalDetailsFeature
 import AddGoalFeature
-
-import AppState
+import EditGoalFeature
 
 public struct AppView: View {
 
@@ -128,7 +129,14 @@ public struct AppView: View {
     }
 
     func goalDetails(id: String) -> some View {
-        GoalDetailsView(id: id)
+        GoalDetailsView(
+            viewModel: GoalDetailsViewModel(id: id),
+            editGoalViewProvider: { id in editGoal(id: id) }
+        )
+    }
+
+    func editGoal(id: String) -> some View {
+        EditGoalView(viewModel: EditGoalViewModel(id: id))
     }
 
 }
