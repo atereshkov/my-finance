@@ -11,11 +11,15 @@ let package = Package(
             name: "TabBarFeature",
             targets: ["TabBarFeature"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(path: "../MyFinanceAssetsKit")
+    ],
     targets: [
         .target(
             name: "TabBarFeature",
-            dependencies: []),
+            dependencies: [
+                "MyFinanceAssetsKit"
+            ]),
         .testTarget(
             name: "TabBarFeatureTests",
             dependencies: ["TabBarFeature"]),

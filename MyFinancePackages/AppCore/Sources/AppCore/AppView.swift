@@ -122,7 +122,7 @@ public struct AppView: View {
             return AnyView(GoalsListView(
                 viewModel: GoalsListViewModel(),
                 goalDetailsViewProvider: { id in goalDetails(id: id) },
-                addGoalViewProvider: { AddGoalView() }
+                addGoalViewProvider: { AddGoalView(viewModel: AddGoalViewModel()) }
             ))
         }
     }

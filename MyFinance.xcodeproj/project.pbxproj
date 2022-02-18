@@ -62,6 +62,7 @@
 		CB3981BF27BEA0BF00F17C87 /* GoalsListFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GoalsListFeature; path = MyFinanceFeatures/GoalsListFeature; sourceTree = "<group>"; };
 		CB3981C127BEA22000F17C87 /* GoalDetailsFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GoalDetailsFeature; path = MyFinanceFeatures/GoalDetailsFeature; sourceTree = "<group>"; };
 		CB3981C227BEC79000F17C87 /* AddGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalFeature; path = MyFinanceFeatures/AddGoalFeature; sourceTree = "<group>"; };
+		CB3981C327BEDA6100F17C87 /* MyFinanceAssetsKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceAssetsKit; path = MyFinancePackages/MyFinanceAssetsKit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +171,7 @@
 				CB3981A727BD822200F17C87 /* AppCore */,
 				CB3981AA27BD824700F17C87 /* AppState */,
 				CB3981A627BD81A600F17C87 /* MyFinanceComponentsKit */,
+				CB3981C327BEDA6100F17C87 /* MyFinanceAssetsKit */,
 				CB3981A127BD818100F17C87 /* RootFeature */,
 				CB39819F27BD814E00F17C87 /* LoginFeature */,
 				CB3981A027BD816300F17C87 /* RegistrationFeature */,

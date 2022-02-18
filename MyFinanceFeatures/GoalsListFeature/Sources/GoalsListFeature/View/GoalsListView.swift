@@ -32,10 +32,13 @@ extension GoalsListView {
 
     var content: some View {
         NavigationView {
-            goals
-            .padding([.leading, .trailing], 18)
-            .navigationBarTitle(Text("My Goals"), displayMode: .inline)
-            .navigationBarItems(trailing: buttons)
+            ZStack {
+                Color.primaryBackground.ignoresSafeArea()
+                goals
+                    .padding([.leading, .trailing], 18)
+                    .navigationBarTitle(Text("My Goals"), displayMode: .inline)
+                    .navigationBarItems(trailing: buttons)
+            }
         }
     }
 
@@ -64,7 +67,6 @@ extension GoalsListView {
 
     var dashboardButton: some View {
         Button(
-//            action: viewModel.accountAction,
             action: { },
             label: { Image(systemName: "arrow.up.right").imageScale(.large) }
         )

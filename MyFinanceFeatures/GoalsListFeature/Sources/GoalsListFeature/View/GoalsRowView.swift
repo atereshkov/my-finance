@@ -1,46 +1,53 @@
 import SwiftUI
 
+import MyFinanceAssetsKit
+
 struct GoalsRowView: View {
     var item: GoalsViewItem
 
     var body: some View {
         ZStack(alignment: .leading) {
-            Color.gray
+            LinearGradient(
+                gradient: Gradient(colors: [.primaryBackground80, .primaryBackground90]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
             HStack {
-                CircleView(title: "99%")
-                    .frame(width: 60, height: 60, alignment: .center)
+                VStack(alignment: .center) {
+                    CircleView(title: "99%")
+                        .frame(width: 60, height: 60, alignment: .center)
+                    MeasureBadgeView(title: "$")
+                }
 
                 VStack(alignment: .leading) {
                     Text(item.name)
+                        .foregroundColor(.labelPrimaryText)
                         .font(.headline)
                         .fontWeight(.bold)
                         .lineLimit(2)
                         .padding(.bottom, 5)
 
-                    Text(item.name)
+                    Text("Goal")
+                        .foregroundColor(.labelPrimaryText)
                         .padding(.bottom, 5)
 
-                    HStack(alignment: .center) {
-                        Image(systemName: "mappin")
-                        Text(item.name)
-                    }
-                    .padding(.bottom, 5)
+                    Text("Start")
+                        .foregroundColor(.labelPrimaryText)
+                        .padding(.bottom, 5)
 
-//                    HStack {
-//                        ForEach(categories, id: \.self) { category in
-//                            CategoryPill(title: category)
-//                        }
-//                    }
+                    Text("Done")
+                        .foregroundColor(.labelPrimaryText)
+                        .padding(.bottom, 5)
                 }
                 .padding(.horizontal, 5)
             }
             .padding(15)
         }
-        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 
-struct CategoryPill: View {
+struct MeasureBadgeView: View {
 
     var title: String
     var fontSize: CGFloat = 12.0
@@ -50,7 +57,7 @@ struct CategoryPill: View {
             Text(title)
                 .font(.system(size: fontSize, weight: .regular))
                 .lineLimit(1)
-                .foregroundColor(.white)
+                .foregroundColor(.labelPrimaryText)
                 .padding(5)
                 .background(Color.green)
                 .cornerRadius(5)
@@ -67,7 +74,7 @@ struct CircleView: View {
             Circle()
                 .fill(
                     LinearGradient(
-                        gradient: Gradient(colors: [.orange, .blue]),
+                        gradient: Gradient(colors: [.secondaryColor, .secondaryColor]),
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
@@ -75,7 +82,7 @@ struct CircleView: View {
             VStack {
                 Text(title)
                     .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.labelPrimaryText)
             }
         }
     }
