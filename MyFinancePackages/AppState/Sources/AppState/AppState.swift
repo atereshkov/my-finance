@@ -3,7 +3,6 @@ public struct AppState: Equatable {
     public var user = UserData()
     public var data = DataState()
     public var routing = ViewRouting()
-    public var system = System()
 
     public init() {
 
@@ -24,25 +23,18 @@ public extension AppState {
 
 public extension AppState {
     struct DataState: Equatable {
-        var books: [String] = []
+        var goals: [String] = []
     }
 }
 
 public extension AppState {
     struct ViewRouting: Equatable {
-
-    }
-}
-
-public extension AppState {
-    struct System: Equatable {
-        var isActive: Bool = false
+        
     }
 }
 
 public func == (lhs: AppState, rhs: AppState) -> Bool {
     return lhs.auth == rhs.auth &&
         lhs.routing == rhs.routing &&
-        lhs.system == rhs.system &&
         lhs.user == rhs.user
 }

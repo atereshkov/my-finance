@@ -24,8 +24,7 @@ public class GoalsListViewModel: ObservableObject {
     }
 
     func addGoalAction() {
-        routingState.currentModalSheet = .addGoal
-        routingState.showModalSheet = true
+        routingState.show(.addGoal)
     }
 
 }

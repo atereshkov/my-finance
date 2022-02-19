@@ -7,12 +7,12 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
     @ObservedObject var viewModel: GoalDetailsViewModel
 
     private var editGoalViewProvider: (_ id: String) -> EditGoal
-    private var addGoalStepViewProvider: () -> AddGoalStep
+    private var addGoalStepViewProvider: (_ id: String) -> AddGoalStep
 
     public init(
         viewModel: GoalDetailsViewModel,
         editGoalViewProvider: @escaping (_ id: String) -> EditGoal,
-        addGoalStepViewProvider: @escaping () -> AddGoalStep
+        addGoalStepViewProvider: @escaping (_ id: String) -> AddGoalStep
     ) {
         self.viewModel = viewModel
         self.editGoalViewProvider = editGoalViewProvider
@@ -42,7 +42,7 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
         case .editGoal:
             return AnyView(editGoalViewProvider(viewModel.id))
         case .addGoalStep:
-            return AnyView(addGoalStepViewProvider())
+            return AnyView(addGoalStepViewProvider(viewModel.id))
         case .none:
             return AnyView(Text(""))
         }
@@ -62,11 +62,6 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
     }
 
     var list: some View {
-//        ScrollView {
-//            chart
-//            details
-//            changesList
-//        }
         List {
             Section {
                 chart
@@ -82,16 +77,16 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
                     Spacer()
                     Text("+ 200")
                 }
-                    .swipeActions {
-                        Button("Delete") {
+                .swipeActions {
+                    Button("Delete") {
 
-                        }
-                        .tint(.red)
-                        Button("Edit") {
-
-                        }
-                        .tint(.blue)
                     }
+                    .tint(.red)
+                    Button("Edit") {
+
+                    }
+                    .tint(.blue)
+                }
                 HStack {
                     Image(systemName: "calendar")
                     Text("02/14/2022")

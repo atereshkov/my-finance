@@ -4,6 +4,8 @@ public class AddGoalStepViewModel: ObservableObject {
 
     private var cancellables: Set<AnyCancellable> = []
 
+    private let id: String
+
     // MARK: Input
 
     @Published var amount: String?
@@ -13,8 +15,8 @@ public class AddGoalStepViewModel: ObservableObject {
     @Published var routingState = AddGoalStepRouting()
     @Published var state: AddGoalStepViewState = .start
 
-    public init() {
-
+    public init(id: String) {
+        self.id = id
     }
 
     func addGoalStepAction() {

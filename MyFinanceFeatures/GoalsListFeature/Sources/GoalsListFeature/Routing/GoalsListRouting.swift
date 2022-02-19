@@ -11,4 +11,9 @@ struct GoalsListRouting: Equatable {
     /// Goals ID to navigate
     var goalsDetails: String?
 
+    mutating func show(_ sheet: GoalsListModalRoutingType) {
+        self.currentModalSheet = sheet
+        self.showModalSheet = true
+    }
+
 }

@@ -65,6 +65,7 @@
 		CB3981C327BEDA6100F17C87 /* MyFinanceAssetsKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceAssetsKit; path = MyFinancePackages/MyFinanceAssetsKit; sourceTree = "<group>"; };
 		CB767ADF27C027F2007A635A /* EditGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalFeature; path = MyFinanceFeatures/EditGoalFeature; sourceTree = "<group>"; };
 		CB767AE127C04505007A635A /* AddGoalStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalStepFeature; path = MyFinanceFeatures/AddGoalStepFeature; sourceTree = "<group>"; };
+		CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				CB39819E27BD814E00F17C87 /* Packages */,
+				CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */,
 				CB39813327BD6ABF00F17C87 /* MyFinance */,
 				CB3981B627BD86B600F17C87 /* TestPlans */,
 				CB39814227BD6AC300F17C87 /* macOS */,
@@ -543,7 +545,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = atereshkov.myreads.MyFinance;
+				PRODUCT_BUNDLE_IDENTIFIER = atereshkov.myfinance.dev;
 				PRODUCT_NAME = MyFinance;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -575,7 +577,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = atereshkov.myreads.MyFinance;
+				PRODUCT_BUNDLE_IDENTIFIER = atereshkov.myfinance.dev;
 				PRODUCT_NAME = MyFinance;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -606,7 +608,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = atereshkov.myreads.MyFinance;
+				PRODUCT_BUNDLE_IDENTIFIER = atereshkov.myfinance.dev;
 				PRODUCT_NAME = MyFinance;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -635,7 +637,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = atereshkov.myreads.MyFinance;
+				PRODUCT_BUNDLE_IDENTIFIER = atereshkov.myfinance.dev;
 				PRODUCT_NAME = MyFinance;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;

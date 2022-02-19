@@ -130,19 +130,26 @@ public struct AppView: View {
     }
 
     func addGoalView() -> some View {
-        AddGoalView(viewModel: AddGoalViewModel())
+        AddGoalView(viewModel: AddGoalViewModel(
+            appState: appState,
+            service: AddGoalDataService(appState: appState))
+        )
     }
 
     func goalDetails(id: String) -> some View {
         GoalDetailsView(
             viewModel: GoalDetailsViewModel(id: id),
             editGoalViewProvider: { id in editGoal(id: id) },
-            addGoalStepViewProvider: { AddGoalStepView(viewModel: AddGoalStepViewModel()) }
+            addGoalStepViewProvider: { id in addGoalStep(id: id) }
         )
     }
 
     func editGoal(id: String) -> some View {
         EditGoalView(viewModel: EditGoalViewModel(id: id))
+    }
+
+    func addGoalStep(id: String) -> some View {
+        AddGoalStepView(viewModel: AddGoalStepViewModel(id: id))
     }
 
 }

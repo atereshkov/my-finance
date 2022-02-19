@@ -7,7 +7,6 @@ public struct EditGoalView: View {
     @State var goalMeasureIndex: Int = 0
     @State var startDate = Date()
     @State var endDate = Date()
-    @State var perShareToggle: Bool = false
 
     public init(viewModel: EditGoalViewModel) {
         self.viewModel = viewModel

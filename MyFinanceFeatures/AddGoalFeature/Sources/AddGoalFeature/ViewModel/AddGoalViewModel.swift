@@ -1,8 +1,12 @@
 import Combine
 
+import AppState
+
 public class AddGoalViewModel: ObservableObject {
 
     private var cancellables: Set<AnyCancellable> = []
+
+    private let dataService: AddGoalDataServiceType
 
     // MARK: Input
 
@@ -26,14 +30,32 @@ public class AddGoalViewModel: ObservableObject {
         GoalMeasureViewItem(id: "percent", name: "%")
     ]
 
-    public init() {
+    public init(
+        appState: Store<AppState>,
+        service: AddGoalDataService
+    ) {
+        self.dataService = service
+
         $name
             .sink { [weak self] in self?.title = $0 ?? "New Goal" }
             .store(in: &cancellables)
     }
 
     func addGoalAction() {
-        
+        dataService
+            .addGoal()
+//            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    Swift.print(error)
+                case .finished:
+                    break
+                }
+            }, receiveValue: { [weak self] _ in
+                self?.onDisappear()
+            })
+            .store(in: &cancellables)
     }
 
     func onAppear() {
