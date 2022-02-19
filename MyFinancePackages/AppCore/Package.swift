@@ -26,7 +26,8 @@ let package = Package(
         .package(path: "../GoalDetailsFeature"),
         .package(path: "../AddGoalFeature"),
         .package(path: "../EditGoalFeature"),
-        .package(path: "../AddGoalStepFeature")
+        .package(path: "../AddGoalStepFeature"),
+        .package(path: "../FirebaseFramework")
     ],
     targets: [
         .target(
@@ -46,7 +47,8 @@ let package = Package(
                 "GoalDetailsFeature",
                 "AddGoalFeature",
                 "EditGoalFeature",
-                "AddGoalStepFeature"
+                "AddGoalStepFeature",
+                "FirebaseFramework"
             ]),
         .testTarget(
             name: "AppCoreTests",

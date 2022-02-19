@@ -137,6 +137,20 @@
         "identifier" : "AddGoalStepFeatureTests",
         "name" : "AddGoalStepFeatureTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinancePackages\/MyFinanceAssetsKit",
+        "identifier" : "MyFinanceAssetsKitTests",
+        "name" : "MyFinanceAssetsKitTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinancePackages\/Repositories",
+        "identifier" : "RepositoriesTests",
+        "name" : "RepositoriesTests"
+      }
     }
   ],
   "version" : 1

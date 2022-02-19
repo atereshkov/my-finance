@@ -16,6 +16,7 @@
 		CB39816127BD6AC300F17C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB39813627BD6AC300F17C87 /* Assets.xcassets */; };
 		CB3981A927BD822900F17C87 /* AppCore in Frameworks */ = {isa = PBXBuildFile; productRef = CB3981A827BD822900F17C87 /* AppCore */; };
 		CB3981B527BD854D00F17C87 /* AppCore in Frameworks */ = {isa = PBXBuildFile; productRef = CB3981B427BD854D00F17C87 /* AppCore */; };
+		CB767AE527C0F44C007A635A /* GoogleService-Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		CB767ADF27C027F2007A635A /* EditGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalFeature; path = MyFinanceFeatures/EditGoalFeature; sourceTree = "<group>"; };
 		CB767AE127C04505007A635A /* AddGoalStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalStepFeature; path = MyFinanceFeatures/AddGoalStepFeature; sourceTree = "<group>"; };
 		CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CB767AE427C0F0F7007A635A /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Repositories; path = MyFinancePackages/Repositories; sourceTree = "<group>"; };
+		CB79922C27C0F87100259A77 /* FirebaseFramework */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FirebaseFramework; path = MyFinancePackages/FirebaseFramework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +109,6 @@
 			isa = PBXGroup;
 			children = (
 				CB39819E27BD814E00F17C87 /* Packages */,
-				CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */,
 				CB39813327BD6ABF00F17C87 /* MyFinance */,
 				CB3981B627BD86B600F17C87 /* TestPlans */,
 				CB39814227BD6AC300F17C87 /* macOS */,
@@ -120,6 +122,7 @@
 		CB39813327BD6ABF00F17C87 /* MyFinance */ = {
 			isa = PBXGroup;
 			children = (
+				CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */,
 				CB39813427BD6ABF00F17C87 /* App.swift */,
 				CB39813627BD6AC300F17C87 /* Assets.xcassets */,
 			);
@@ -190,6 +193,8 @@
 				CB3981C227BEC79000F17C87 /* AddGoalFeature */,
 				CB767ADF27C027F2007A635A /* EditGoalFeature */,
 				CB767AE127C04505007A635A /* AddGoalStepFeature */,
+				CB767AE427C0F0F7007A635A /* Repositories */,
+				CB79922C27C0F87100259A77 /* FirebaseFramework */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -366,6 +371,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB767AE527C0F44C007A635A /* GoogleService-Info.plist in Sources */,
 				CB39815C27BD6AC300F17C87 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

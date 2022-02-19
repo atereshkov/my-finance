@@ -12,13 +12,13 @@ let package = Package(
             targets: ["Repositories"]),
     ],
     dependencies: [
-        .package(name: "Firebase", url: "https://github.com/firebase/firebase-ios-sdk.git", from: "8.0.0"),
+        .package(path: "../FirebaseFramework")
     ],
     targets: [
         .target(
             name: "Repositories",
             dependencies: [
-                .product(name: "FirebaseFirestore", package: "Firebase"),
+                "FirebaseFramework"
             ]),
         .testTarget(
             name: "RepositoriesTests",
