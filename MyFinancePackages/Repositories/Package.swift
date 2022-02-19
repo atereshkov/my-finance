@@ -12,13 +12,15 @@ let package = Package(
             targets: ["Repositories"]),
     ],
     dependencies: [
-        .package(path: "../FirebaseFramework")
+        .package(path: "../FirebaseFramework"),
+        .package(path: "../MyFinanceDomain")
     ],
     targets: [
         .target(
             name: "Repositories",
             dependencies: [
-                "FirebaseFramework"
+                "FirebaseFramework",
+                "MyFinanceDomain"
             ]),
         .testTarget(
             name: "RepositoriesTests",

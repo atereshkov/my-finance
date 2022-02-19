@@ -11,11 +11,15 @@ let package = Package(
             name: "AppState",
             targets: ["AppState"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(path: "../MyFinanceDomain")
+    ],
     targets: [
         .target(
             name: "AppState",
-            dependencies: []),
+            dependencies: [
+                "MyFinanceDomain"
+            ]),
         .testTarget(
             name: "AppStateTests",
             dependencies: ["AppState"]),

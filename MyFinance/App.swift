@@ -6,9 +6,10 @@ import AppCore
 struct MyFinanceApp: App {
 
     let environment = AppEnvironment.start()
+    let bootstrap: AppBootstrap
 
     init() {
-        let bootstrap = AppBootstrap(state: environment.appState)
+        bootstrap = AppBootstrap(appState: environment.appState)
         bootstrap.boot()
     }
 

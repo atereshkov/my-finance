@@ -1,3 +1,4 @@
+import Foundation
 import Combine
 
 import AppState
@@ -30,6 +31,8 @@ public class AddGoalViewModel: ObservableObject {
         GoalMeasureViewItem(id: "percent", name: "%")
     ]
 
+    @Published var dismissAction: Bool = false
+
     public init(
         appState: Store<AppState>,
         service: AddGoalDataService
@@ -41,10 +44,10 @@ public class AddGoalViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func addGoalAction() {
+    func addGoalAction(measureIndex: Int, startDate: Date, endDate: Date) {
         dataService
-            .addGoal()
-//            .receive(on: DispatchQueue.main)
+            .addGoal(name: name ?? "")
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
@@ -65,6 +68,7 @@ public class AddGoalViewModel: ObservableObject {
     func onDisappear() {
         routingState.isPresented = false
         cancellables.removeAll()
+        state = .dismiss
     }
 
 }

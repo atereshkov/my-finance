@@ -1,6 +1,7 @@
 import SwiftUI
 
 import AppState
+import Repositories
 
 import RootFeature
 import WelcomeFeature
@@ -122,7 +123,7 @@ public struct AppView: View {
             tabName: "Goals"
         ) {
             return AnyView(GoalsListView(
-                viewModel: GoalsListViewModel(),
+                viewModel: GoalsListViewModel(appState: appState),
                 goalDetailsViewProvider: { id in goalDetails(id: id) },
                 addGoalViewProvider: { addGoalView() }
             ))
@@ -132,7 +133,7 @@ public struct AppView: View {
     func addGoalView() -> some View {
         AddGoalView(viewModel: AddGoalViewModel(
             appState: appState,
-            service: AddGoalDataService(appState: appState))
+            service: AddGoalDataService(appState: appState, goalRepository: FirebaseGoalRepository()))
         )
     }
 

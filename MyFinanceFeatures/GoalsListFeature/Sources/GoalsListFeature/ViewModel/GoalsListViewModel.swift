@@ -1,26 +1,36 @@
 import Foundation
+import Combine
+
+import AppState
 
 public class GoalsListViewModel: ObservableObject {
 
+//    private let appState: Store<AppState>
+
+    private var cancellables: Set<AnyCancellable> = []
+
     // MARK: Output
 
-    @Published var goals: [GoalsViewItem] = [
-        GoalsViewItem(id: "1", name: "Goals 1"),
-        GoalsViewItem(id: "2", name: "Goals 2"),
-        GoalsViewItem(id: "3", name: "Goals 3")
-    ]
-
+    @Published var goals: [GoalsViewItem] = []
     @Published var routingState = GoalsListRouting()
 
-    public init() {
-//        cancelBag.collect {
-//            $routingState
-//                .sink { session.appState[\.routing.home] = $0 }
-//
-//            session.appState.map(\.data.portfolios)
-//                .removeDuplicates()
-//                .assign(to: \.portfolios, on: self)
-//        }
+    public init(appState: Store<AppState>) {
+//        self.appState = appState
+
+        appState.map(\.data.goals)
+            .sink { [weak self] data in
+                self?.goals = data.map { GoalsViewItem($0) }
+            }
+            .store(in: &cancellables)
+    }
+
+    func onAppear() {
+//        appState.map(\.data.goals)
+//            .sink { [weak self] data in
+//                let s = self?.appState[\.data.goals]
+//                self?.goals = data.map { GoalsViewItem(id: $0, name: $0) }
+//            }
+//            .store(in: &cancellables)
     }
 
     func addGoalAction() {

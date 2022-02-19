@@ -37,6 +37,10 @@ struct GoalsRowView: View {
                     Text("Done $ 1500")
                         .foregroundColor(.labelPrimaryText)
                         .padding(.bottom, 5)
+
+                    Text(item.name)
+                        .foregroundColor(.labelPrimaryText)
+                        .padding(.bottom, 5)
                 }
                 .padding(.horizontal, 5)
             }

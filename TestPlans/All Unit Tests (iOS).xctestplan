@@ -151,6 +151,13 @@
         "identifier" : "RepositoriesTests",
         "name" : "RepositoriesTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinancePackages\/MyFinanceDomain",
+        "identifier" : "MyFinanceDomainTests",
+        "name" : "MyFinanceDomainTests"
+      }
     }
   ],
   "version" : 1

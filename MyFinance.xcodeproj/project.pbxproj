@@ -64,11 +64,13 @@
 		CB3981C127BEA22000F17C87 /* GoalDetailsFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GoalDetailsFeature; path = MyFinanceFeatures/GoalDetailsFeature; sourceTree = "<group>"; };
 		CB3981C227BEC79000F17C87 /* AddGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalFeature; path = MyFinanceFeatures/AddGoalFeature; sourceTree = "<group>"; };
 		CB3981C327BEDA6100F17C87 /* MyFinanceAssetsKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceAssetsKit; path = MyFinancePackages/MyFinanceAssetsKit; sourceTree = "<group>"; };
+		CB43C43E27C1338300D1F291 /* Listeners */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Listeners; path = MyFinancePackages/Listeners; sourceTree = "<group>"; };
 		CB767ADF27C027F2007A635A /* EditGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalFeature; path = MyFinanceFeatures/EditGoalFeature; sourceTree = "<group>"; };
 		CB767AE127C04505007A635A /* AddGoalStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalStepFeature; path = MyFinanceFeatures/AddGoalStepFeature; sourceTree = "<group>"; };
 		CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB767AE427C0F0F7007A635A /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Repositories; path = MyFinancePackages/Repositories; sourceTree = "<group>"; };
 		CB79922C27C0F87100259A77 /* FirebaseFramework */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FirebaseFramework; path = MyFinancePackages/FirebaseFramework; sourceTree = "<group>"; };
+		CB79922D27C111B000259A77 /* MyFinanceDomain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceDomain; path = MyFinancePackages/MyFinanceDomain; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,8 @@
 				CB767AE127C04505007A635A /* AddGoalStepFeature */,
 				CB767AE427C0F0F7007A635A /* Repositories */,
 				CB79922C27C0F87100259A77 /* FirebaseFramework */,
+				CB79922D27C111B000259A77 /* MyFinanceDomain */,
+				CB43C43E27C1338300D1F291 /* Listeners */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

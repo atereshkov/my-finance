@@ -4,28 +4,28 @@
 import PackageDescription
 
 let package = Package(
-    name: "AddGoalFeature",
+    name: "Listeners",
     platforms: [.iOS(.v15), .macOS(.v11)],
     products: [
         .library(
-            name: "AddGoalFeature",
-            targets: ["AddGoalFeature"]),
+            name: "Listeners",
+            targets: ["Listeners"]),
     ],
     dependencies: [
+        .package(path: "../FirebaseFramework"),
         .package(path: "../AppState"),
-        .package(path: "../Repositories"),
         .package(path: "../MyFinanceDomain")
     ],
     targets: [
         .target(
-            name: "AddGoalFeature",
+            name: "Listeners",
             dependencies: [
+                "FirebaseFramework",
                 "AppState",
-                "Repositories",
                 "MyFinanceDomain"
             ]),
         .testTarget(
-            name: "AddGoalFeatureTests",
-            dependencies: ["AddGoalFeature"]),
+            name: "ListenersTests",
+            dependencies: ["Listeners"]),
     ]
 )

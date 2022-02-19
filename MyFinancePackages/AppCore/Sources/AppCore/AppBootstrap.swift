@@ -1,15 +1,39 @@
 import AppState
 
+import FirebaseFramework
+import Listeners
+
 public class AppBootstrap {
 
-    private let state: Store<AppState>
+    private let appState: Store<AppState>
+    private var listeners: [Listener] = []
 
-    public init(state: Store<AppState>) {
-        self.state = state
+    public init(appState: Store<AppState>) {
+        self.appState = appState
     }
 
     public func boot() {
-        state[\.auth.isAuthorized] = true
+        bootFirebase()
+        bootListeners()
+    }
+
+}
+
+private extension AppBootstrap {
+
+    func bootFirebase() {
+        let firebase = FirebaseFramework()
+        firebase.boot()
+    }
+
+    func bootListeners() {
+        listeners = [
+            AuthListener(appState: appState),
+            GoalsListener(appState: appState)
+        ]
+        for listener in listeners {
+            listener.start()
+        }
     }
 
 }

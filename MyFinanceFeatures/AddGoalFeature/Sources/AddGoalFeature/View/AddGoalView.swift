@@ -8,6 +8,8 @@ public struct AddGoalView: View {
     @State var startDate = Date()
     @State var endDate = Date()
 
+    @Environment(\.dismiss) var dismiss
+
     public init(viewModel: AddGoalViewModel) {
         self.viewModel = viewModel
     }
@@ -16,6 +18,11 @@ public struct AddGoalView: View {
         content
             .onAppear(perform: viewModel.onAppear)
             .onDisappear(perform: viewModel.onDisappear)
+            .onChange(of: viewModel.state) { state in
+                if state == .dismiss {
+                    dismiss()
+                }
+             }
     }
 
     var content: some View {
@@ -87,13 +94,19 @@ public struct AddGoalView: View {
             return AnyView(addButton)
         case .loading:
             return AnyView(loadingView)
+        case .dismiss:
+            return AnyView(EmptyView())
         }
     }
 
     var addButton: some View {
         Section {
             Button(action: {
-                viewModel.addGoalAction()
+                viewModel.addGoalAction(
+                    measureIndex: goalMeasureIndex,
+                    startDate: startDate,
+                    endDate: endDate
+                )
             }, label: {
                 HStack {
                     Spacer()

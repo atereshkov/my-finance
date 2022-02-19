@@ -1,3 +1,5 @@
+import MyFinanceDomain
+
 public struct AppState: Equatable {
     public var auth = AuthState()
     public var user = UserData()
@@ -17,13 +19,13 @@ public extension AppState {
 
 public extension AppState {
     struct UserData: Equatable {
-        var id: String?
+        public var id: String? = "my-id"
     }
 }
 
 public extension AppState {
     struct DataState: Equatable {
-        var goals: [String] = []
+        public var goals: [GoalDVO] = []
     }
 }
 
