@@ -45,8 +45,17 @@ public class AddGoalViewModel: ObservableObject {
     }
 
     func addGoalAction(measureIndex: Int, startDate: Date, endDate: Date) {
+        let data: [String: Any] = [
+            "name": name ?? "",
+            "measure": goalMeasureOptions[measureIndex].id,
+            "goalValue": goal ?? "",
+            "startValue": start ?? "",
+            "startDate": startDate,
+            "endDate": endDate
+        ]
+
         dataService
-            .addGoal(name: name ?? "")
+            .addGoal(data: data)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -55,7 +64,8 @@ public class AddGoalViewModel: ObservableObject {
                 case .finished:
                     break
                 }
-            }, receiveValue: { [weak self] _ in
+            }, receiveValue: { [weak self] value in
+                Swift.print("123123123")
                 self?.onDisappear()
             })
             .store(in: &cancellables)
@@ -69,6 +79,10 @@ public class AddGoalViewModel: ObservableObject {
         routingState.isPresented = false
         cancellables.removeAll()
         state = .dismiss
+    }
+
+    deinit {
+        Swift.print("123123 deinit")
     }
 
 }
