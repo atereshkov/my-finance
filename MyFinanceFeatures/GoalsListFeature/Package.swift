@@ -13,14 +13,16 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../MyFinanceAssetsKit"),
-        .package(path: "../MyFinanceDomain")
+        .package(path: "../MyFinanceDomain"),
+        .package(path: "../MyFinanceComponentsKit")
     ],
     targets: [
         .target(
             name: "GoalsListFeature",
             dependencies: [
                 "MyFinanceAssetsKit",
-                "MyFinanceDomain"
+                "MyFinanceDomain",
+                "MyFinanceComponentsKit"
             ]),
         .testTarget(
             name: "GoalsListFeatureTests",

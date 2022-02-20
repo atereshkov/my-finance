@@ -4,10 +4,6 @@ public struct EditGoalView: View {
 
     @ObservedObject var viewModel: EditGoalViewModel
 
-    @State var goalMeasureIndex: Int = 0
-    @State var startDate = Date()
-    @State var endDate = Date()
-
     public init(viewModel: EditGoalViewModel) {
         self.viewModel = viewModel
     }
@@ -39,7 +35,7 @@ public struct EditGoalView: View {
                 Text("Measure")
                     .foregroundColor(Color.gray)
                 Spacer()
-                Picker(viewModel.goalMeasureOptions[goalMeasureIndex].name, selection: $goalMeasureIndex) {
+                Picker(viewModel.goalMeasureOptions[viewModel.goalMeasureIndex].name, selection: $viewModel.goalMeasureIndex) {
                     ForEach(0..<viewModel.goalMeasureOptions.count) { index in
                         Text(viewModel.goalMeasureOptions[index].name).tag(index)
                     }
@@ -48,8 +44,8 @@ public struct EditGoalView: View {
             }
             HStack {
                 TextField("Goal", text: Binding(
-                            get: { viewModel.goal ?? "" },
-                            set: { viewModel.goal = $0 })
+                            get: { viewModel.goalValue ?? "" },
+                            set: { viewModel.goalValue = $0 })
                 )
                 .keyboardType(.decimalPad)
             }
@@ -61,21 +57,23 @@ public struct EditGoalView: View {
                 .keyboardType(.decimalPad)
             }
             HStack {
-                TextField("Done", text: Binding(
-                            get: { viewModel.done ?? "" },
-                            set: { viewModel.done = $0 })
+                TextField("Current", text: Binding(
+                            get: { viewModel.current ?? "" },
+                            set: { viewModel.current = $0 })
                 )
                 .keyboardType(.decimalPad)
+                .disabled(true)
+                .foregroundColor(Color.gray.opacity(0.5))
             }
         }
     }
 
     var dateSection: some View {
         Section {
-            DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+            DatePicker("Start Date", selection: $viewModel.startDate, displayedComponents: .date)
                 .datePickerStyle(DefaultDatePickerStyle())
                 .frame(maxHeight: 400)
-            DatePicker("End Date", selection: $endDate, displayedComponents: .date)
+            DatePicker("End Date", selection: $viewModel.endDate, displayedComponents: .date)
                 .datePickerStyle(DefaultDatePickerStyle())
                 .frame(maxHeight: 400)
         }

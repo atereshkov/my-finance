@@ -1,5 +1,6 @@
 import SwiftUI
 
+import MyFinanceComponentsKit
 import MyFinanceAssetsKit
 
 struct GoalsRowView: View {
@@ -14,15 +15,14 @@ struct GoalsRowView: View {
             )
             HStack {
                 VStack {
-
-                    MeasureBadgeView(title: "USD")
-                    CircleView(title: "99%")
+                    MeasureBadgeView(title: item.measure)
+                    CircleView(title: item.percentCompleted ?? "0%")
                         .frame(width: 60, height: 60, alignment: .center)
                 }
 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("5000 by 31/12/2022")
+                        Text("\(item.goalValue) by \(item.friendlyEndDate)")
                             .foregroundColor(.labelPrimaryText)
                             .font(.headline)
                             .fontWeight(.bold)
@@ -30,11 +30,11 @@ struct GoalsRowView: View {
                             .padding(.bottom, 5)
                     }
 
-                    Text("Start $ 1000 - 01/01/2022")
+                    Text("Start \(item.startValue) - \(item.friendlyStartDate)")
                         .foregroundColor(.labelPrimaryText)
                         .padding(.bottom, 5)
 
-                    Text("Done $ 1500")
+                    Text("Current \(item.currentValue)")
                         .foregroundColor(.labelPrimaryText)
                         .padding(.bottom, 5)
 
@@ -47,24 +47,6 @@ struct GoalsRowView: View {
             .padding(15)
         }
         .clipShape(RoundedRectangle(cornerRadius: 12))
-    }
-}
-
-struct MeasureBadgeView: View {
-
-    var title: String
-    var fontSize: CGFloat = 12.0
-
-    var body: some View {
-        ZStack {
-            Text(title)
-                .font(.system(size: fontSize, weight: .regular))
-                .lineLimit(1)
-                .foregroundColor(.labelPrimaryText)
-                .padding(5)
-                .background(Color.green)
-                .cornerRadius(5)
-        }
     }
 }
 

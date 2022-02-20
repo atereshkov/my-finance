@@ -139,14 +139,23 @@ public struct AppView: View {
 
     func goalDetails(id: String) -> some View {
         GoalDetailsView(
-            viewModel: GoalDetailsViewModel(id: id),
+            viewModel: GoalDetailsViewModel(id: id, appState: appState),
             editGoalViewProvider: { id in editGoal(id: id) },
             addGoalStepViewProvider: { id in addGoalStep(id: id) }
         )
     }
 
     func editGoal(id: String) -> some View {
-        EditGoalView(viewModel: EditGoalViewModel(id: id))
+        EditGoalView(
+            viewModel: EditGoalViewModel(
+                id: id,
+                appState: appState,
+                service: EditGoalDataService(
+                    appState: appState,
+                    goalRepository: FirebaseGoalRepository()
+                )
+            )
+        )
     }
 
     func addGoalStep(id: String) -> some View {

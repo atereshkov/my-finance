@@ -22,6 +22,7 @@ public struct GoalsListView<GoalDetails: View, AddGoal: View>: View {
     public var body: some View {
         content
             .onAppear(perform: viewModel.onAppear)
+            .onDisappear(perform: viewModel.onDisappear)
             .sheet(
                 isPresented: $viewModel.routingState.showModalSheet,
                 content: {

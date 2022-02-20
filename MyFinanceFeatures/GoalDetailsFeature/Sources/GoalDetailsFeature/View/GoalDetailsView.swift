@@ -1,5 +1,6 @@
 import SwiftUI
 
+import MyFinanceComponentsKit
 import MyFinanceAssetsKit
 
 public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
@@ -63,37 +64,10 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
 
     var list: some View {
         List {
-            Section {
-                chart
-            }
-            Section {
-                details
-            }
-            Section {
-                addGoalStepButton
-                HStack {
-                    Image(systemName: "calendar")
-                    Text("02/14/2022")
-                    Spacer()
-                    Text("+ 200")
-                }
-                .swipeActions {
-                    Button("Delete") {
-
-                    }
-                    .tint(.red)
-                    Button("Edit") {
-
-                    }
-                    .tint(.blue)
-                }
-                HStack {
-                    Image(systemName: "calendar")
-                    Text("02/14/2022")
-                    Spacer()
-                    Text("+ 200")
-                }
-            }
+            chartSection
+            detailsSection
+            statsSection
+            stepsSection
         }
     }
 
@@ -109,12 +83,64 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
         )
     }
 
-    var chart: some View {
-        Text("Chart")
+    var chartSection: some View {
+        Section {
+            Text("Chart")
+        }
     }
 
-    var details: some View {
-        Text("Details")
+    var detailsSection: some View {
+        Section {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Goal: \(viewModel.goalValue)")
+                    Spacer()
+                    MeasureBadgeView(title: viewModel.goalMeasure)
+                }
+                Text("Start: \(viewModel.startValue)")
+                    .padding(.bottom, 3)
+                Text("Current: \(viewModel.currentValue)")
+            }
+        }
+    }
+
+    var statsSection: some View {
+        Section {
+            VStack(alignment: .leading) {
+                Text("Avg per day: ...")
+                Text("Avg per month: ...")
+                Text("Ahead of goal: ...")
+                Text("Top-up ... monthly to reach the goal")
+            }
+        }
+    }
+
+    var stepsSection: some View {
+        Section {
+            addGoalStepButton
+            HStack {
+                Image(systemName: "calendar")
+                Text("02/14/2022")
+                Spacer()
+                Text("+ 200")
+            }
+            .swipeActions {
+                Button("Delete") {
+
+                }
+                .tint(.red)
+                Button("Edit") {
+
+                }
+                .tint(.blue)
+            }
+            HStack {
+                Image(systemName: "calendar")
+                Text("02/14/2022")
+                Spacer()
+                Text("+ 200")
+            }
+        }
     }
 
 }

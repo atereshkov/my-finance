@@ -15,8 +15,6 @@ public class GoalsListViewModel: ObservableObject {
     @Published var routingState = GoalsListRouting()
 
     public init(appState: Store<AppState>) {
-//        self.appState = appState
-
         appState.map(\.data.goals)
             .sink { [weak self] data in
                 self?.goals = data.map { GoalsViewItem($0) }
@@ -25,12 +23,11 @@ public class GoalsListViewModel: ObservableObject {
     }
 
     func onAppear() {
-//        appState.map(\.data.goals)
-//            .sink { [weak self] data in
-//                let s = self?.appState[\.data.goals]
-//                self?.goals = data.map { GoalsViewItem(id: $0, name: $0) }
-//            }
-//            .store(in: &cancellables)
+
+    }
+
+    func onDisappear() {
+        Swift.print("onDisappear")
     }
 
     func addGoalAction() {

@@ -7,6 +7,7 @@ public struct GoalDTO {
     
     var goalValue: String
     var startValue: String
+    var currentValue: String
 
     var startDate: Double
     var endDate: Double
@@ -17,6 +18,7 @@ public struct GoalDTO {
         self.measure = data["measure"] as? String ?? ""
         self.goalValue = data["goalValue"] as? String ?? ""
         self.startValue = data["startValue"] as? String ?? ""
+        self.currentValue = data["currentValue"] as? String ?? ""
         self.startDate = data["startDate"] as? Double ?? 0
         self.endDate = data["endDate"] as? Double ?? 0
     }

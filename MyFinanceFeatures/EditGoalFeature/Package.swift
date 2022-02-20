@@ -11,11 +11,19 @@ let package = Package(
             name: "EditGoalFeature",
             targets: ["EditGoalFeature"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(path: "../AppState"),
+        .package(path: "../MyFinanceDomain"),
+        .package(path: "../Repositories"),
+    ],
     targets: [
         .target(
             name: "EditGoalFeature",
-            dependencies: []),
+            dependencies: [
+                "AppState",
+                "MyFinanceDomain",
+                "Repositories"
+            ]),
         .testTarget(
             name: "EditGoalFeatureTests",
             dependencies: ["EditGoalFeature"]),

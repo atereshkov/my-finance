@@ -68,9 +68,9 @@ public struct AddGoalView: View {
                 .keyboardType(.decimalPad)
             }
             HStack {
-                TextField("Done", text: Binding(
-                            get: { viewModel.done ?? "" },
-                            set: { viewModel.done = $0 })
+                TextField("Current", text: Binding(
+                            get: { viewModel.current ?? "" },
+                            set: { viewModel.current = $0 })
                 )
                 .keyboardType(.decimalPad)
             }

@@ -7,6 +7,7 @@ public struct GoalDVO: Equatable {
 
     public var goalValue: String
     public var startValue: String
+    public var currentValue: String
 
     public var startDate: Date
     public var endDate: Date
@@ -17,6 +18,7 @@ public struct GoalDVO: Equatable {
         self.measure = data["measure"] as? String ?? ""
         self.goalValue = data["goalValue"] as? String ?? ""
         self.startValue = data["startValue"] as? String ?? ""
+        self.currentValue = data["currentValue"] as? String ?? ""
         self.startDate = Date(timeIntervalSince1970: data["startDate"] as? Double ?? 0.0)
         self.endDate = Date(timeIntervalSince1970: data["endDate"] as? Double ?? 0.0)
     }

@@ -14,7 +14,7 @@ public class AddGoalViewModel: ObservableObject {
     @Published var name: String?
     @Published var goal: String?
     @Published var start: String?
-    @Published var done: String?
+    @Published var current: String?
 
     // MARK: Output
 
