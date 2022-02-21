@@ -27,28 +27,19 @@ public class AddGoalStepViewModel: ObservableObject {
         self.dataService = dataService
     }
 
-    func addGoalStepAction() {
+    func addGoalStepAction() async {
         let data: [String: Any] = [
-            "value": amount ?? "",
+            "value": Double(amount ?? "") ?? 0.0,
             "isAdd": isAdd,
             "date": date
         ]
 
-        dataService
-            .addGoalStep(goalId: goalId, data: data)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    Swift.print(error)
-                case .finished:
-                    break
-                }
-            }, receiveValue: { [weak self] value in
-                Swift.print("123123123")
-                self?.onDisappear()
-            })
-            .store(in: &cancellables)
+        do {
+            try await dataService.addGoalStep(goalId: goalId, data: data)
+            Swift.print("add goal step finish")
+        } catch let error {
+            Swift.print(error)
+        }
     }
 
     func onAppear() {

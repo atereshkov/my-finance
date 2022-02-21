@@ -7,7 +7,7 @@ struct GoalStepViewItem: Identifiable {
 
     var date: Date
     var isAdd: Bool
-    var value: String
+    var value: Double
 
     // TODO extract to extension
     var friendlyDate: String {

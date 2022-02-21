@@ -167,7 +167,14 @@ public struct AppView: View {
 
     func addGoalStep(goalId: String) -> some View {
         AddGoalStepView(
-            viewModel: AddGoalStepViewModel(id: goalId, dataService: AddGoalStepDataService(appState: appState, goalStepRepository: FirebaseGoalStepRepository()))
+            viewModel: AddGoalStepViewModel(
+                id: goalId,
+                dataService: AddGoalStepDataService(
+                    appState: appState,
+                    goalStepRepository: FirebaseGoalStepRepository(),
+                    goalRepository: FirebaseGoalRepository()
+                )
+            )
         )
     }
 

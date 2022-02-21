@@ -8,6 +8,8 @@ public protocol GoalRepository {
     func addGoal(_ data: AddGoalDTO, userId: String) -> Future<Void, Error>
     func editGoal(id: String, _ data: EditGoalDTO, userId: String) -> Future<Void, Error>
     func deleteGoal(id: String, userId: String) -> Future<Void, Error>
+
+    func updateCurrentValue(id: String, value: Double, isAdd: Bool, userId: String) async throws
 }
 
 public class FirebaseGoalRepository: GoalRepository {
@@ -84,6 +86,17 @@ public class FirebaseGoalRepository: GoalRepository {
                     }
             }
         }
+    }
+
+    public func updateCurrentValue(id: String, value: Double, isAdd: Bool, userId: String) async throws {
+        try await db
+            .collection("user_goals")
+            .document(userId)
+            .collection("goals")
+            .document(id)
+            .updateData([
+                "currentValue": FieldValue.increment(isAdd ? value : -value)
+            ])
     }
 
 }

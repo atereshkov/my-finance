@@ -55,9 +55,9 @@ public class EditGoalViewModel: ObservableObject {
             .compactMap { $0 }
             .sink { [weak self] goal in
                 self?.name = goal.name
-                self?.goalValue = goal.goalValue
-                self?.start = goal.startValue
-                self?.current = goal.currentValue
+                self?.goalValue = String(goal.goalValue)
+                self?.start = String(goal.startValue)
+                self?.current = String(goal.currentValue)
                 self?.startDate = goal.startDate
                 self?.endDate = goal.endDate
                 self?.goalMeasureIndex = self?.goalMeasureOptions.firstIndex(where: { $0.id == goal.measure }) ?? 0

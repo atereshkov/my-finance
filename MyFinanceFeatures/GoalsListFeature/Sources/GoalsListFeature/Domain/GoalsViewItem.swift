@@ -7,9 +7,9 @@ struct GoalsViewItem: Identifiable {
     let name: String
     let measure: String
 
-    let goalValue: String
-    let startValue: String
-    let currentValue: String
+    let goalValue: Double
+    let startValue: Double
+    let currentValue: Double
 
     let startDate: Date
     let endDate: Date
@@ -28,9 +28,7 @@ struct GoalsViewItem: Identifiable {
     }
 
     var percentCompleted: String? {
-        guard let goal = Double(goalValue) else { return nil }
-        guard let current = Double(currentValue) else { return nil }
-        let completed = current / goal * 100
+        let completed = currentValue / goalValue * 100
         return "\(Int(completed.rounded(.down)))%"
     }
 
@@ -38,9 +36,9 @@ struct GoalsViewItem: Identifiable {
         self.id = id
         self.name = name
         self.measure = ""
-        self.startValue = ""
-        self.goalValue = ""
-        self.currentValue = ""
+        self.startValue = 0
+        self.goalValue = 0
+        self.currentValue = 0
         self.startDate = Date()
         self.endDate = Date()
     }

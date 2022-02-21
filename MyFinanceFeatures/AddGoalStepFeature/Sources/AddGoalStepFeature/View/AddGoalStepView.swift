@@ -59,7 +59,9 @@ public struct AddGoalStepView: View {
     var addButton: some View {
         Section {
             Button(action: {
-                viewModel.addGoalStepAction()
+                Task {
+                    await viewModel.addGoalStepAction()
+                }
             }, label: {
                 HStack {
                     Spacer()

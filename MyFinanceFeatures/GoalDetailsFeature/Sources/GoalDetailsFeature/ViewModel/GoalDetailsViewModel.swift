@@ -48,9 +48,9 @@ public class GoalDetailsViewModel: ObservableObject {
             .compactMap { $0 }
             .sink { [weak self] goal in
                 self?.goalMeasure = goal.measure
-                self?.goalValue = goal.goalValue
-                self?.startValue = goal.startValue
-                self?.currentValue = goal.currentValue
+                self?.goalValue = String(goal.goalValue)
+                self?.startValue = String(goal.startValue)
+                self?.currentValue = String(goal.currentValue)
 
                 // TODO extract to extension
                 let formatter = DateFormatter()
@@ -58,8 +58,8 @@ public class GoalDetailsViewModel: ObservableObject {
                 self?.startDate = formatter.string(from: goal.startDate)
                 self?.endDate = formatter.string(from: goal.endDate)
 
-                guard let goalInt = Double(goal.goalValue) else { return }
-                guard let currentInt = Double(goal.currentValue) else { return }
+                let goalInt = Double(goal.goalValue)
+                let currentInt = Double(goal.currentValue)
                 self?.progressValue = currentInt / goalInt
 
                 let completed = currentInt / goalInt * 100
