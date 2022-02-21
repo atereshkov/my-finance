@@ -4,8 +4,6 @@ public struct AddGoalStepView: View {
 
     @ObservedObject var viewModel: AddGoalStepViewModel
 
-    @State var date = Date()
-
     public init(viewModel: AddGoalStepViewModel) {
         self.viewModel = viewModel
     }
@@ -29,16 +27,21 @@ public struct AddGoalStepView: View {
     var moneySection: some View {
         Section {
             HStack {
-                TextField("Amount", text: Binding(
+                TextField("Amount",
+                          text: Binding(
                             get: { viewModel.amount ?? "" },
-                            set: { viewModel.amount = $0 }))
+                            set: { viewModel.amount = $0 }
+                          )
+                )
+                .keyboardType(.decimalPad)
             }
+            Toggle("Top-up", isOn: $viewModel.isAdd)
         }
     }
 
     var dateSection: some View {
         Section {
-            DatePicker("Date", selection: $date, displayedComponents: .date)
+            DatePicker("Date", selection: $viewModel.date, displayedComponents: .date)
                 .datePickerStyle(DefaultDatePickerStyle())
                 .frame(maxHeight: 400)
         }

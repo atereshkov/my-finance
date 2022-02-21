@@ -4,28 +4,46 @@ import AppState
 import MyFinanceDomain
 import Repositories
 
-/*
-public protocol AddGoalDataServiceType {
-    func getGoal(id: String) -> Future<GoalDVO, Error>
+public protocol GoalDataServiceType {
+    func getGoalSteps(goalId: String) -> Future<[GoalStepDVO], Error>
 }
 
-public class AddGoalDataService: AddGoalDataServiceType {
+public class GoalDataService: GoalDataServiceType {
+
+    private var cancellables: Set<AnyCancellable> = []
 
     private let appState: Store<AppState>
-    private let goalRepository: GoalRepository
+    private let goalStepRepository: GoalStepRepository
 
-    public init(appState: Store<AppState>, goalRepository: GoalRepository) {
+    public init(
+        appState: Store<AppState>,
+        goalStepRepository: GoalStepRepository
+    ) {
         self.appState = appState
-        self.goalRepository = goalRepository
+        self.goalStepRepository = goalStepRepository
     }
 
-    public func getGoal(id: String) -> Future<GoalDVO, Error> {
+    public func getGoalSteps(goalId: String) -> Future<[GoalStepDVO], Error> {
         // TODO return error instead
         let userId = appState[\.user.id]!
-        return goalRepository
-            .getGoal(id, userId: userId)
-            .map { GoalDVO() }
+
+        return Future<[GoalStepDVO], Error> { [weak self] resolve in
+            guard let self = self else { return }
+            self.goalStepRepository.getGoalSteps(goalId, userId: userId).sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    resolve(.failure(error))
+                case .finished:
+                    break
+                }
+            }, receiveValue: { dto in
+                let dvo = dto
+                    .compactMap { GoalStepDVO($0) }
+                    .sorted(by: { $0.date > $1.date })
+                resolve(.success((dvo)))
+            })
+            .store(in: &self.cancellables)
+        }
     }
 
 }
-*/

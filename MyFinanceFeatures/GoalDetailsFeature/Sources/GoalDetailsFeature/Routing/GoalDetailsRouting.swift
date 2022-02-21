@@ -1,6 +1,6 @@
 import Foundation
 
-struct GoalDetailsRouting: Equatable {
+struct GoalDetailsRouting {
 
     // MARK: - Sheet
     var showModalSheet: Bool = false

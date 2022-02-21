@@ -4,10 +4,6 @@ public struct AddGoalView: View {
 
     @ObservedObject var viewModel: AddGoalViewModel
 
-    @State var goalMeasureIndex: Int = 0
-    @State var startDate = Date()
-    @State var endDate = Date()
-
     @Environment(\.dismiss) var dismiss
 
     public init(viewModel: AddGoalViewModel) {
@@ -46,7 +42,7 @@ public struct AddGoalView: View {
                 Text("Measure")
                     .foregroundColor(Color.gray)
                 Spacer()
-                Picker(viewModel.goalMeasureOptions[goalMeasureIndex].name, selection: $goalMeasureIndex) {
+                Picker(viewModel.goalMeasureOptions[viewModel.goalMeasureIndex].name, selection: $viewModel.goalMeasureIndex) {
                     ForEach(0..<viewModel.goalMeasureOptions.count) { index in
                         Text(viewModel.goalMeasureOptions[index].name).tag(index)
                     }
@@ -79,10 +75,10 @@ public struct AddGoalView: View {
 
     var dateSection: some View {
         Section {
-            DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+            DatePicker("Start Date", selection: $viewModel.startDate, displayedComponents: .date)
                 .datePickerStyle(DefaultDatePickerStyle())
                 .frame(maxHeight: 400)
-            DatePicker("End Date", selection: $endDate, displayedComponents: .date)
+            DatePicker("End Date", selection: $viewModel.endDate, displayedComponents: .date)
                 .datePickerStyle(DefaultDatePickerStyle())
                 .frame(maxHeight: 400)
         }
@@ -102,11 +98,7 @@ public struct AddGoalView: View {
     var addButton: some View {
         Section {
             Button(action: {
-                viewModel.addGoalAction(
-                    measureIndex: goalMeasureIndex,
-                    startDate: startDate,
-                    endDate: endDate
-                )
+                viewModel.addGoalAction()
             }, label: {
                 HStack {
                     Spacer()

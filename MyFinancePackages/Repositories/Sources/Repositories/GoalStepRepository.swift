@@ -3,14 +3,14 @@ import Combine
 import FirebaseFirestore
 import MyFinanceDomain
 
-public protocol GoalRepository {
-    func getGoal(_ id: String, userId: String) -> Future<GoalDTO, Error>
-    func addGoal(_ data: AddGoalDTO, userId: String) -> Future<Void, Error>
-    func editGoal(id: String, _ data: EditGoalDTO, userId: String) -> Future<Void, Error>
-    func deleteGoal(id: String, userId: String) -> Future<Void, Error>
+public protocol GoalStepRepository {
+    func getGoalSteps(_ goalId: String, userId: String) -> Future<[GoalStepDTO], Error>
+    func addGoalStep(_ data: AddGoalStepDTO, goalId: String, userId: String) -> Future<Void, Error>
+    func editGoalStep(id: String, _ data: EditGoalStepDTO, goalId: String, userId: String) -> Future<Void, Error>
+    func deleteGoalStep(id: String, goalId: String, userId: String) -> Future<Void, Error>
 }
 
-public class FirebaseGoalRepository: GoalRepository {
+public class FirebaseGoalStepRepository: GoalStepRepository {
 
     private let db = Firestore.firestore()
 
@@ -18,30 +18,34 @@ public class FirebaseGoalRepository: GoalRepository {
         
     }
 
-    public func getGoal(_ id: String, userId: String) -> Future<GoalDTO, Error> {
+    public func getGoalSteps(_ goalId: String, userId: String) -> Future<[GoalStepDTO], Error> {
         return Future { [weak self] resolve in
             self?.db
                 .collection("user_goals")
                 .document(userId)
                 .collection("goals")
-                .document(id)
-                .getDocument { document, error in
+                .document(goalId)
+                .collection("steps")
+                .getDocuments { documentsQuery, error in
                     if let error = error {
                         resolve(.failure(error))
-                    } else if let doc = document, let data = doc.data() {
-                        let dto = GoalDTO(id: doc.documentID, data: data)
-                        resolve(.success((dto)))
+                    } else if let documents = documentsQuery?.documents {
+                        let steps = documents
+                            .compactMap { GoalStepDTO(id: $0.description, data: $0.data()) }
+                        resolve(.success((steps)))
                     }
-                }
+            }
         }
     }
 
-    public func addGoal(_ data: AddGoalDTO, userId: String) -> Future<Void, Error> {
+    public func addGoalStep(_ data: AddGoalStepDTO, goalId: String, userId: String) -> Future<Void, Error> {
         return Future { [weak self] resolve in
             self?.db
                 .collection("user_goals")
                 .document(userId)
                 .collection("goals")
+                .document(goalId)
+                .collection("steps")
                 .addDocument(data: data.toDictionary()) { error in
                     if let error = error {
                         resolve(.failure(error))
@@ -52,12 +56,14 @@ public class FirebaseGoalRepository: GoalRepository {
         }
     }
 
-    public func editGoal(id: String, _ data: EditGoalDTO, userId: String) -> Future<Void, Error> {
+    public func editGoalStep(id: String, _ data: EditGoalStepDTO, goalId: String, userId: String) -> Future<Void, Error> {
         return Future { [weak self] resolve in
             self?.db
                 .collection("user_goals")
                 .document(userId)
                 .collection("goals")
+                .document(goalId)
+                .collection("steps")
                 .document(id)
                 .updateData(data.toDictionary()) { error in
                     if let error = error {
@@ -69,12 +75,14 @@ public class FirebaseGoalRepository: GoalRepository {
         }
     }
 
-    public func deleteGoal(id: String, userId: String) -> Future<Void, Error> {
+    public func deleteGoalStep(id: String, goalId: String, userId: String) -> Future<Void, Error> {
         return Future { [weak self] resolve in
             self?.db
                 .collection("user_goals")
                 .document(userId)
                 .collection("goals")
+                .document(goalId)
+                .collection("steps")
                 .document(id)
                 .delete { error in
                     if let error = error {

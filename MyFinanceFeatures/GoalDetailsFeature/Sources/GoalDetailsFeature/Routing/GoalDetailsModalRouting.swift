@@ -1,4 +1,5 @@
 enum GoalDetailsModalRouting {
-    case editGoal
-    case addGoalStep
+    case editGoal(_ id: String)
+    case addGoalStep(_ id: String)
+    case editGoalStep
 }

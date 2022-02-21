@@ -16,6 +16,10 @@ public class AddGoalViewModel: ObservableObject {
     @Published var start: String?
     @Published var current: String?
 
+    @Published var goalMeasureIndex: Int = 0
+    @Published var startDate = Date()
+    @Published var endDate = Date()
+
     // MARK: Output
 
     @Published var routingState = AddGoalRouting()
@@ -44,10 +48,10 @@ public class AddGoalViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func addGoalAction(measureIndex: Int, startDate: Date, endDate: Date) {
+    func addGoalAction() {
         let data: [String: Any] = [
             "name": name ?? "",
-            "measure": goalMeasureOptions[measureIndex].id,
+            "measure": goalMeasureOptions[goalMeasureIndex].id,
             "goalValue": goal ?? "",
             "startValue": start ?? "",
             "startDate": startDate,

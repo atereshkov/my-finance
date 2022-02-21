@@ -14,16 +14,17 @@ struct GoalsViewItem: Identifiable {
     let startDate: Date
     let endDate: Date
 
+    // TODO extract to extension
     var friendlyStartDate: String {
-        let formatter1 = DateFormatter()
-        formatter1.dateStyle = .short
-        return formatter1.string(from: startDate)
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter.string(from: startDate)
     }
 
     var friendlyEndDate: String {
-        let formatter1 = DateFormatter()
-        formatter1.dateStyle = .short
-        return formatter1.string(from: endDate)
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter.string(from: endDate)
     }
 
     var percentCompleted: String? {

@@ -8,7 +8,9 @@ public class GoalDetailsViewModel: ObservableObject {
 
     private var cancellables: Set<AnyCancellable> = []
 
-    @Published var goal: GoalDVO?
+    private let dataService: GoalDataServiceType
+
+    @Published private var goal: GoalDVO?
 
     // MARK: Output
 
@@ -19,12 +21,21 @@ public class GoalDetailsViewModel: ObservableObject {
     @Published var goalValue: String = ""
     @Published var startValue: String = ""
     @Published var currentValue: String = ""
+    @Published var startDate: String = ""
+    @Published var endDate: String = ""
+
+    @Published var progressValue: Double = 0.0
+    @Published var percentCompletedValue: Int = 0
+
+    @Published var steps: [GoalStepViewItem] = []
 
     public init(
         id: String,
-        appState: Store<AppState>
+        appState: Store<AppState>,
+        dataService: GoalDataServiceType
     ) {
         self.id = id
+        self.dataService = dataService
 
         appState.map(\.data.goals)
             .compactMap { $0 }
@@ -40,16 +51,46 @@ public class GoalDetailsViewModel: ObservableObject {
                 self?.goalValue = goal.goalValue
                 self?.startValue = goal.startValue
                 self?.currentValue = goal.currentValue
+
+                // TODO extract to extension
+                let formatter = DateFormatter()
+                formatter.dateStyle = .short
+                self?.startDate = formatter.string(from: goal.startDate)
+                self?.endDate = formatter.string(from: goal.endDate)
+
+                guard let goalInt = Double(goal.goalValue) else { return }
+                guard let currentInt = Double(goal.currentValue) else { return }
+                self?.progressValue = currentInt / goalInt
+
+                let completed = currentInt / goalInt * 100
+                self?.percentCompletedValue = Int(completed.rounded(.down))
             }
+            .store(in: &cancellables)
+
+        dataService
+            .getGoalSteps(goalId: id)
+            .sink(receiveCompletion: { _ in
+
+            }, receiveValue: { [weak self] dvo in
+                self?.steps = dvo.map { GoalStepViewItem($0) }
+            })
             .store(in: &cancellables)
     }
 
     func editGoalAction() {
-        routingState.show(.editGoal)
+        routingState.show(.editGoal(id))
     }
 
     func addStepGoalAction() {
-        routingState.show(.addGoalStep)
+        routingState.show(.addGoalStep(id))
+    }
+
+    func editStepAction(_ item: GoalStepViewItem) {
+
+    }
+
+    func deleteStepAction(_ item: GoalStepViewItem) {
+
     }
 
 }

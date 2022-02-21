@@ -40,10 +40,12 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
 
     var modalSheet: some View {
         switch viewModel.routingState.currentModalSheet {
-        case .editGoal:
-            return AnyView(editGoalViewProvider(viewModel.id))
-        case .addGoalStep:
-            return AnyView(addGoalStepViewProvider(viewModel.id))
+        case .editGoal(let id):
+            return AnyView(editGoalViewProvider(id))
+        case .addGoalStep(let id):
+            return AnyView(addGoalStepViewProvider(id))
+        case .editGoalStep:
+            return AnyView(EmptyView())
         case .none:
             return AnyView(Text(""))
         }
@@ -93,13 +95,27 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
         Section {
             VStack(alignment: .leading) {
                 HStack {
-                    Text("Goal: \(viewModel.goalValue)")
+                    Text("Current: \(viewModel.currentValue) (\(viewModel.percentCompletedValue)%)")
                     Spacer()
                     MeasureBadgeView(title: viewModel.goalMeasure)
                 }
-                Text("Start: \(viewModel.startValue)")
-                    .padding(.bottom, 3)
-                Text("Current: \(viewModel.currentValue)")
+            }
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(viewModel.startValue)
+                        .font(.system(size: 12.0, weight: .regular))
+                    Spacer()
+                    Text(viewModel.goalValue)
+                        .font(.system(size: 12.0, weight: .regular))
+                }
+                GoalProgressView(value: $viewModel.progressValue).frame(height: 20)
+                HStack {
+                    Text(viewModel.startDate)
+                        .font(.system(size: 11.0, weight: .regular))
+                    Spacer()
+                    Text(viewModel.endDate)
+                        .font(.system(size: 11.0, weight: .regular))
+                }
             }
         }
     }
@@ -118,27 +134,23 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
     var stepsSection: some View {
         Section {
             addGoalStepButton
-            HStack {
-                Image(systemName: "calendar")
-                Text("02/14/2022")
-                Spacer()
-                Text("+ 200")
-            }
-            .swipeActions {
-                Button("Delete") {
-
+            ForEach(viewModel.steps) { step in
+                HStack {
+                    Image(systemName: "calendar")
+                    Text(step.friendlyDate)
+                    Spacer()
+                    Text("\(step.isAdd ? "+" : "-") \(step.value)")
                 }
-                .tint(.red)
-                Button("Edit") {
-
+                .swipeActions {
+                    Button("Delete") {
+                        viewModel.deleteStepAction(step)
+                    }
+                    .tint(.red)
+                    Button("Edit") {
+                        viewModel.editStepAction(step)
+                    }
+                    .tint(.blue)
                 }
-                .tint(.blue)
-            }
-            HStack {
-                Image(systemName: "calendar")
-                Text("02/14/2022")
-                Spacer()
-                Text("+ 200")
             }
         }
     }

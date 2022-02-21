@@ -14,7 +14,8 @@ let package = Package(
     dependencies: [
         .package(path: "../MyFinanceAssetsKit"),
         .package(path: "../MyFinanceDomain"),
-        .package(path: "../MyFinanceComponentsKit")
+        .package(path: "../MyFinanceComponentsKit"),
+        .package(path: "../AppState")
     ],
     targets: [
         .target(
@@ -22,7 +23,8 @@ let package = Package(
             dependencies: [
                 "MyFinanceAssetsKit",
                 "MyFinanceDomain",
-                "MyFinanceComponentsKit"
+                "MyFinanceComponentsKit",
+                "AppState"
             ]),
         .testTarget(
             name: "GoalsListFeatureTests",
