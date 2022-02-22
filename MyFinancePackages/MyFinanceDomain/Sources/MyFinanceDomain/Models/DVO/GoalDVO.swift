@@ -1,6 +1,6 @@
 import Foundation
 
-public struct GoalDVO: Equatable {
+public struct GoalDVO: Equatable, Identifiable {
     public var id: String
     public var name: String
     public var measure: String
@@ -11,6 +11,26 @@ public struct GoalDVO: Equatable {
 
     public var startDate: Date
     public var endDate: Date
+
+    public var percentCompleted: String? {
+        let completed = (currentValue - startValue) / (goalValue - startValue) * 100
+        return "\(Int(completed.rounded(.down)))%"
+    }
+
+    public var progressValue: Double {
+        return (currentValue - startValue) / (goalValue - startValue)
+    }
+
+    public init(id: String, name: String) {
+        self.id = id
+        self.name = ""
+        self.measure = ""
+        self.goalValue = 0.0
+        self.startValue = 0.0
+        self.currentValue = 0.0
+        self.startDate = Date()
+        self.endDate = Date()
+    }
 
     public init(id: String, data: [String: Any]) {
         self.id = id

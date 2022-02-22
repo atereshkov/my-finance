@@ -2,6 +2,7 @@ import Foundation
 import Combine
 
 import AppState
+import MyFinanceDomain
 
 public class GoalsListViewModel: ObservableObject {
 
@@ -11,13 +12,13 @@ public class GoalsListViewModel: ObservableObject {
 
     // MARK: Output
 
-    @Published var goals: [GoalsViewItem] = []
+    @Published var goals: [GoalDVO] = []
     @Published var routingState = GoalsListRouting()
 
     public init(appState: Store<AppState>) {
         appState.map(\.data.goals)
             .sink { [weak self] data in
-                self?.goals = data.map { GoalsViewItem($0) }
+                self?.goals = data
             }
             .store(in: &cancellables)
     }

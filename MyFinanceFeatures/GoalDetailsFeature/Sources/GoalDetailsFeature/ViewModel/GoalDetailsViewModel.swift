@@ -7,16 +7,16 @@ import MyFinanceDomain
 public class GoalDetailsViewModel: ObservableObject {
 
     private var cancellables: Set<AnyCancellable> = []
-
     private let dataService: GoalDataServiceType
 
+    @Published private var id: String
     @Published private var goal: GoalDVO?
 
     // MARK: Output
 
-    @Published var id: String
     @Published var routingState = GoalDetailsRouting()
 
+    @Published var goalName: String = ""
     @Published var goalMeasure: String = ""
     @Published var goalValue: String = ""
     @Published var startValue: String = ""
@@ -27,7 +27,11 @@ public class GoalDetailsViewModel: ObservableObject {
     @Published var progressValue: Double = 0.0
     @Published var percentCompletedValue: Int = 0
 
-    @Published var steps: [GoalStepViewItem] = []
+    @Published var averagePerMonth: String = ""
+    @Published var aheadOfGoal: String = ""
+    @Published var topUpMonthly: String = ""
+
+    @Published var steps: [GoalStepDVO] = []
 
     public init(
         id: String,
@@ -47,23 +51,7 @@ public class GoalDetailsViewModel: ObservableObject {
         $goal
             .compactMap { $0 }
             .sink { [weak self] goal in
-                self?.goalMeasure = goal.measure
-                self?.goalValue = String(goal.goalValue)
-                self?.startValue = String(goal.startValue)
-                self?.currentValue = String(goal.currentValue)
-
-                // TODO extract to extension
-                let formatter = DateFormatter()
-                formatter.dateStyle = .short
-                self?.startDate = formatter.string(from: goal.startDate)
-                self?.endDate = formatter.string(from: goal.endDate)
-
-                let goalInt = Double(goal.goalValue)
-                let currentInt = Double(goal.currentValue)
-                self?.progressValue = currentInt / goalInt
-
-                let completed = currentInt / goalInt * 100
-                self?.percentCompletedValue = Int(completed.rounded(.down))
+                self?.bind(goal)
             }
             .store(in: &cancellables)
 
@@ -72,25 +60,74 @@ public class GoalDetailsViewModel: ObservableObject {
             .sink(receiveCompletion: { _ in
 
             }, receiveValue: { [weak self] dvo in
-                self?.steps = dvo.map { GoalStepViewItem($0) }
+                self?.steps = dvo
             })
             .store(in: &cancellables)
     }
 
+}
+
+extension GoalDetailsViewModel {
+
     func editGoalAction() {
-        routingState.show(.editGoal(id))
+        routingState.show(sheet: .editGoal(id))
     }
 
     func addStepGoalAction() {
-        routingState.show(.addGoalStep(id))
+        routingState.show(sheet: .addGoalStep(id))
     }
 
-    func editStepAction(_ item: GoalStepViewItem) {
-
+    func editStepAction(_ item: GoalStepDVO) {
+        routingState.show(sheet: .editGoalStep(item, id))
     }
 
-    func deleteStepAction(_ item: GoalStepViewItem) {
+    func deleteStepAction(_ item: GoalStepDVO) {
+        routingState.show(alert: .confirmDeleteStep(item))
+    }
 
+    func deleteStepActionConfirmed(_ item: GoalStepDVO) async {
+        do {
+            try await dataService.deleteGoalStep(stepId: item.id, value: item.value, goalId: id)
+        } catch let error {
+            Swift.print(error)
+        }
+    }
+
+}
+
+private extension GoalDetailsViewModel {
+
+    private func bind(_ goal: GoalDVO) {
+        bindDetails(goal)
+        bindStats(goal)
+    }
+
+    private func bindDetails(_ goal: GoalDVO) {
+        goalName = goal.name
+        goalMeasure = goal.measure
+        goalValue = goal.goalValue.formatted()
+        startValue = goal.startValue.formatted()
+        currentValue = goal.currentValue.formatted()
+        startDate = goal.startDate
+            .formatted(date: .numeric, time: .omitted)
+        endDate = goal.endDate
+            .formatted(date: .numeric, time: .omitted)
+
+        progressValue = (goal.currentValue - goal.startValue) / (goal.goalValue - goal.startValue)
+
+        let completed = (goal.currentValue - goal.startValue) / (goal.goalValue - goal.startValue) * 100
+        percentCompletedValue = Int(completed.rounded(.down))
+    }
+
+    private func bindStats(_ goal: GoalDVO) {
+        let monthsTotal = Calendar.current.dateComponents([.month], from: goal.startDate, to: goal.endDate).month ?? 0
+        let monthsLeft = Calendar.current.dateComponents([.month], from: Date(), to: goal.endDate).month ?? 0
+
+        averagePerMonth = ((goal.currentValue - goal.startValue) / (Double(monthsTotal) - Double(monthsLeft))).rounded().formatted()
+
+        aheadOfGoal = ""
+
+        topUpMonthly = ((goal.goalValue - goal.currentValue) / Double(monthsLeft)).rounded().formatted()
     }
 
 }

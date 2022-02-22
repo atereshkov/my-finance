@@ -6,6 +6,7 @@ import Repositories
 
 public protocol GoalDataServiceType {
     func getGoalSteps(goalId: String) -> Future<[GoalStepDVO], Error>
+    func deleteGoalStep(stepId: String, value: Double, goalId: String) async throws
 }
 
 public class GoalDataService: GoalDataServiceType {
@@ -14,13 +15,16 @@ public class GoalDataService: GoalDataServiceType {
 
     private let appState: Store<AppState>
     private let goalStepRepository: GoalStepRepository
+    private let goalRepository: GoalRepository
 
     public init(
         appState: Store<AppState>,
-        goalStepRepository: GoalStepRepository
+        goalStepRepository: GoalStepRepository,
+        goalRepository: GoalRepository
     ) {
         self.appState = appState
         self.goalStepRepository = goalStepRepository
+        self.goalRepository = goalRepository
     }
 
     public func getGoalSteps(goalId: String) -> Future<[GoalStepDVO], Error> {
@@ -44,6 +48,13 @@ public class GoalDataService: GoalDataServiceType {
             })
             .store(in: &self.cancellables)
         }
+    }
+
+    public func deleteGoalStep(stepId: String, value: Double, goalId: String) async throws {
+        let userId = appState[\.user.id]!
+
+        try await goalStepRepository.deleteGoalStep(id: stepId, goalId: goalId, userId: userId)
+        try await goalRepository.updateCurrentValue(id: goalId, value: value, isAdd: false, userId: userId)
     }
 
 }

@@ -2,9 +2,10 @@ import SwiftUI
 
 import MyFinanceComponentsKit
 import MyFinanceAssetsKit
+import MyFinanceDomain
 
 struct GoalsRowView: View {
-    var item: GoalsViewItem
+    var item: GoalDVO
 
     var body: some View {
         ZStack(alignment: .leading) {
@@ -14,29 +15,41 @@ struct GoalsRowView: View {
                 endPoint: .bottomTrailing
             )
             HStack {
-                VStack {
-                    MeasureBadgeView(title: item.measure)
-                    CircleView(title: item.percentCompleted ?? "0%")
-                        .frame(width: 60, height: 60, alignment: .center)
-                }
+                CircleView(title: item.percentCompleted ?? "0%")
+                    .frame(width: 60, height: 60, alignment: .center)
 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("\(item.goalValue) by \(item.friendlyEndDate)")
+                        Text(item.currentValue.formatted())
                             .foregroundColor(.labelPrimaryText)
                             .font(.headline)
                             .fontWeight(.bold)
                             .lineLimit(2)
                             .padding(.bottom, 5)
+                        Spacer()
+                        MeasureBadgeView(title: item.measure)
                     }
 
-                    Text("Start \(item.startValue) - \(item.friendlyStartDate)")
-                        .foregroundColor(.labelPrimaryText)
-                        .padding(.bottom, 5)
-
-                    Text("Current \(item.currentValue)")
-                        .foregroundColor(.labelPrimaryText)
-                        .padding(.bottom, 5)
+                    HStack {
+                        Text(item.startValue.formatted())
+                            .font(.system(size: 12.0, weight: .regular))
+                            .foregroundColor(.labelPrimaryText)
+                        Spacer()
+                        Text(item.goalValue.formatted())
+                            .font(.system(size: 12.0, weight: .regular))
+                            .foregroundColor(.labelPrimaryText)
+                    }
+                    GoalListProgressView(value: item.progressValue).frame(height: 20)
+                    HStack {
+                        Text(item.startDate.formatted(date: .numeric, time: .omitted))
+                            .font(.system(size: 11.0, weight: .regular))
+                            .foregroundColor(.labelPrimaryText)
+                        Spacer()
+                        Text(item.endDate.formatted(date: .numeric, time: .omitted))
+                            .font(.system(size: 11.0, weight: .regular))
+                            .foregroundColor(.labelPrimaryText)
+                    }
+                    .padding(.bottom, 2)
 
                     Text(item.name)
                         .foregroundColor(.labelPrimaryText)
@@ -78,7 +91,7 @@ struct CircleView: View {
 struct GoalsRowViewPreviews: PreviewProvider {
     static var previews: some View {
         Group {
-            GoalsRowView(item: GoalsViewItem(id: "1", name: "Name1"))
+            GoalsRowView(item: GoalDVO(id: "1", name: "Name1"))
                 .previewLayout(.fixed(width: 375, height: 100))
         }
     }

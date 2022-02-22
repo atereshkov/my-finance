@@ -2,6 +2,7 @@ import SwiftUI
 
 import AppState
 import Repositories
+import MyFinanceDomain
 
 import RootFeature
 import WelcomeFeature
@@ -17,6 +18,7 @@ import GoalDetailsFeature
 import AddGoalFeature
 import EditGoalFeature
 import AddGoalStepFeature
+import EditGoalStepFeature
 
 public struct AppView: View {
 
@@ -144,11 +146,13 @@ public struct AppView: View {
                 appState: appState,
                 dataService: GoalDataService(
                     appState: appState,
-                    goalStepRepository: FirebaseGoalStepRepository()
+                    goalStepRepository: FirebaseGoalStepRepository(),
+                    goalRepository: FirebaseGoalRepository()
                 )
             ),
             editGoalViewProvider: { id in editGoal(id: id) },
-            addGoalStepViewProvider: { id in addGoalStep(goalId: id) }
+            addGoalStepViewProvider: { id in addGoalStep(goalId: id) },
+            editGoalStepViewProvider: { step, goalId in editGoalStep(step: step, goalId: goalId) }
         )
     }
 
@@ -170,6 +174,20 @@ public struct AppView: View {
             viewModel: AddGoalStepViewModel(
                 id: goalId,
                 dataService: AddGoalStepDataService(
+                    appState: appState,
+                    goalStepRepository: FirebaseGoalStepRepository(),
+                    goalRepository: FirebaseGoalRepository()
+                )
+            )
+        )
+    }
+
+    func editGoalStep(step: GoalStepDVO, goalId: String) -> some View {
+        EditGoalStepView(
+            viewModel: EditGoalStepViewModel(
+                step: step,
+                goalId: goalId,
+                dataService: EditGoalStepDataService(
                     appState: appState,
                     goalStepRepository: FirebaseGoalStepRepository(),
                     goalRepository: FirebaseGoalRepository()

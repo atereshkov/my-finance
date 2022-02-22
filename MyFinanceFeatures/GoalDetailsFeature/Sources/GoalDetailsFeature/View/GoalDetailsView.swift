@@ -2,30 +2,37 @@ import SwiftUI
 
 import MyFinanceComponentsKit
 import MyFinanceAssetsKit
+import MyFinanceDomain
 
-public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
+public struct GoalDetailsView<EditGoal: View, AddGoalStep: View, EditGoalStep: View>: View {
 
     @ObservedObject var viewModel: GoalDetailsViewModel
 
     private var editGoalViewProvider: (_ id: String) -> EditGoal
     private var addGoalStepViewProvider: (_ id: String) -> AddGoalStep
+    private var editGoalStepViewProvider: (_ step: GoalStepDVO, _ goalId: String) -> EditGoalStep
 
     public init(
         viewModel: GoalDetailsViewModel,
         editGoalViewProvider: @escaping (_ id: String) -> EditGoal,
-        addGoalStepViewProvider: @escaping (_ id: String) -> AddGoalStep
+        addGoalStepViewProvider: @escaping (_ id: String) -> AddGoalStep,
+        editGoalStepViewProvider: @escaping (_ step: GoalStepDVO, _ goalId: String) -> EditGoalStep
     ) {
         self.viewModel = viewModel
         self.editGoalViewProvider = editGoalViewProvider
         self.addGoalStepViewProvider = addGoalStepViewProvider
+        self.editGoalStepViewProvider = editGoalStepViewProvider
     }
 
     public var body: some View {
         content
+            .alert(isPresented: $viewModel.routingState.showAlert) {
+                alertView
+            }
             .sheet(
                 isPresented: $viewModel.routingState.showModalSheet,
                 content: {
-                    modalSheet
+                    modalSheetView
                 })
     }
 
@@ -33,22 +40,43 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
         ZStack {
             Color.primaryBackground.ignoresSafeArea()
             list
-                .navigationBarTitle(Text("Goal \(viewModel.id)"))
+                .navigationBarTitle(Text(viewModel.goalName))
                 .navigationBarItems(trailing: navBarButtons)
         }
     }
 
-    var modalSheet: some View {
+    var modalSheetView: some View {
         switch viewModel.routingState.currentModalSheet {
         case .editGoal(let id):
             return AnyView(editGoalViewProvider(id))
         case .addGoalStep(let id):
             return AnyView(addGoalStepViewProvider(id))
-        case .editGoalStep:
-            return AnyView(EmptyView())
+        case .editGoalStep(let step, let goalId):
+            return AnyView(editGoalStepViewProvider(step, goalId))
         case .none:
             return AnyView(Text(""))
         }
+    }
+
+    var alertView: Alert {
+        switch viewModel.routingState.currentAlert {
+        case .confirmDeleteStep(let item):
+            return confirmDeleteStepAlertView(item)
+        case .none:
+            return Alert(title: Text(""))
+        }
+    }
+
+    func confirmDeleteStepAlertView(_ item: GoalStepDVO) -> Alert {
+        Alert(
+            title: Text("Are you sure you want do delete goal step?"),
+            primaryButton: .default(Text("Delete")) {
+                Task {
+                    await viewModel.deleteStepActionConfirmed(item)
+                }
+            },
+            secondaryButton: .cancel(Text("Cancel"))
+        )
     }
 
     var navBarButtons: some View {
@@ -123,10 +151,12 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
     var statsSection: some View {
         Section {
             VStack(alignment: .leading) {
-                Text("Avg per day: ...")
-                Text("Avg per month: ...")
-                Text("Ahead of goal: ...")
-                Text("Top-up ... monthly to reach the goal")
+                Text("Avg per month: \(viewModel.averagePerMonth)")
+                    .font(.system(size: 13.0, weight: .regular))
+                Text("Ahead of goal: \(viewModel.aheadOfGoal)")
+                    .font(.system(size: 13.0, weight: .regular))
+                Text("Top up by \(viewModel.topUpMonthly) monthly to reach the goal")
+                    .font(.system(size: 13.0, weight: .regular))
             }
         }
     }
@@ -137,9 +167,10 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View>: View {
             ForEach(viewModel.steps) { step in
                 HStack {
                     Image(systemName: "calendar")
-                    Text(step.friendlyDate)
+                    Text(step.date.formatted(date: .numeric, time: .omitted))
                     Spacer()
-                    Text("\(step.isAdd ? "+" : "-") \(step.value)")
+                    Text("\(step.isAdd ? "+" : "-") \(step.value.formatted())")
+                        .foregroundColor(step.isAdd ? .green : .orange)
                 }
                 .swipeActions {
                     Button("Delete") {

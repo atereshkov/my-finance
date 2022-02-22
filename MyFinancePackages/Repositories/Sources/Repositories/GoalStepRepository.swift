@@ -5,9 +5,9 @@ import MyFinanceDomain
 
 public protocol GoalStepRepository {
     func getGoalSteps(_ goalId: String, userId: String) -> Future<[GoalStepDTO], Error>
-    func addGoalStep(_ data: AddGoalStepDTO, goalId: String, userId: String) async throws -> Void
-    func editGoalStep(id: String, _ data: EditGoalStepDTO, goalId: String, userId: String) -> Future<Void, Error>
-    func deleteGoalStep(id: String, goalId: String, userId: String) -> Future<Void, Error>
+    func addGoalStep(_ data: AddGoalStepDTO, goalId: String, userId: String) async throws
+    func editGoalStep(id: String, _ data: EditGoalStepDTO, goalId: String, userId: String) async throws
+    func deleteGoalStep(id: String, goalId: String, userId: String) async throws
 }
 
 public class FirebaseGoalStepRepository: GoalStepRepository {
@@ -31,7 +31,7 @@ public class FirebaseGoalStepRepository: GoalStepRepository {
                         resolve(.failure(error))
                     } else if let documents = documentsQuery?.documents {
                         let steps = documents
-                            .compactMap { GoalStepDTO(id: $0.description, data: $0.data()) }
+                            .compactMap { GoalStepDTO(id: $0.documentID, data: $0.data()) }
                         resolve(.success((steps)))
                     }
             }
@@ -48,42 +48,26 @@ public class FirebaseGoalStepRepository: GoalStepRepository {
             .addDocument(data: data.toDictionary())
     }
 
-    public func editGoalStep(id: String, _ data: EditGoalStepDTO, goalId: String, userId: String) -> Future<Void, Error> {
-        return Future { [weak self] resolve in
-            self?.db
-                .collection("user_goals")
-                .document(userId)
-                .collection("goals")
-                .document(goalId)
-                .collection("steps")
-                .document(id)
-                .updateData(data.toDictionary()) { error in
-                    if let error = error {
-                        resolve(.failure(error))
-                    } else {
-                        resolve(.success(()))
-                    }
-            }
-        }
+    public func editGoalStep(id: String, _ data: EditGoalStepDTO, goalId: String, userId: String) async throws {
+        try await db
+            .collection("user_goals")
+            .document(userId)
+            .collection("goals")
+            .document(goalId)
+            .collection("steps")
+            .document(id)
+            .updateData(data.toDictionary())
     }
 
-    public func deleteGoalStep(id: String, goalId: String, userId: String) -> Future<Void, Error> {
-        return Future { [weak self] resolve in
-            self?.db
-                .collection("user_goals")
-                .document(userId)
-                .collection("goals")
-                .document(goalId)
-                .collection("steps")
-                .document(id)
-                .delete { error in
-                    if let error = error {
-                        resolve(.failure(error))
-                    } else {
-                        resolve(.success(()))
-                    }
-            }
-        }
+    public func deleteGoalStep(id: String, goalId: String, userId: String) async throws {
+        try await db
+            .collection("user_goals")
+            .document(userId)
+            .collection("goals")
+            .document(goalId)
+            .collection("steps")
+            .document(id)
+            .delete()
     }
 
 }

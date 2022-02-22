@@ -158,6 +158,13 @@
         "identifier" : "MyFinanceDomainTests",
         "name" : "MyFinanceDomainTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/EditGoalStepFeature",
+        "identifier" : "EditGoalStepFeatureTests",
+        "name" : "EditGoalStepFeatureTests"
+      }
     }
   ],
   "version" : 1

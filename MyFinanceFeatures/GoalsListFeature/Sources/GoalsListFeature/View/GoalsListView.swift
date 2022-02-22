@@ -1,6 +1,7 @@
 import SwiftUI
 
 import MyFinanceAssetsKit
+import MyFinanceDomain
 
 public struct GoalsListView<GoalDetails: View, AddGoal: View>: View {
 
@@ -92,7 +93,7 @@ extension GoalsListView {
         }
     }
 
-    func goalDetailsView(_ item: GoalsViewItem) -> some View {
+    func goalDetailsView(_ item: GoalDVO) -> some View {
         return goalDetailsViewProvider(item.id)
     }
 

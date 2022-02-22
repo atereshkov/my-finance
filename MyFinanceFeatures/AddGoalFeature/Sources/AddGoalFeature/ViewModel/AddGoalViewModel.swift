@@ -52,8 +52,9 @@ public class AddGoalViewModel: ObservableObject {
         let data: [String: Any] = [
             "name": name ?? "",
             "measure": goalMeasureOptions[goalMeasureIndex].id,
-            "goalValue": goal ?? "",
-            "startValue": start ?? "",
+            "goalValue": Double(goal ?? "") ?? 0,
+            "startValue": Double(start ?? "") ?? 0,
+            "currentValue": Double(current ?? "") ?? 0,
             "startDate": startDate,
             "endDate": endDate
         ]

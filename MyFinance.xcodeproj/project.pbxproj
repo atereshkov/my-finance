@@ -65,6 +65,7 @@
 		CB3981C227BEC79000F17C87 /* AddGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalFeature; path = MyFinanceFeatures/AddGoalFeature; sourceTree = "<group>"; };
 		CB3981C327BEDA6100F17C87 /* MyFinanceAssetsKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceAssetsKit; path = MyFinancePackages/MyFinanceAssetsKit; sourceTree = "<group>"; };
 		CB43C43E27C1338300D1F291 /* Listeners */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Listeners; path = MyFinancePackages/Listeners; sourceTree = "<group>"; };
+		CB43C43F27C5768600D1F291 /* EditGoalStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalStepFeature; path = MyFinanceFeatures/EditGoalStepFeature; sourceTree = "<group>"; };
 		CB767ADF27C027F2007A635A /* EditGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalFeature; path = MyFinanceFeatures/EditGoalFeature; sourceTree = "<group>"; };
 		CB767AE127C04505007A635A /* AddGoalStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalStepFeature; path = MyFinanceFeatures/AddGoalStepFeature; sourceTree = "<group>"; };
 		CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 				CB79922C27C0F87100259A77 /* FirebaseFramework */,
 				CB79922D27C111B000259A77 /* MyFinanceDomain */,
 				CB43C43E27C1338300D1F291 /* Listeners */,
+				CB43C43F27C5768600D1F291 /* EditGoalStepFeature */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
