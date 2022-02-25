@@ -6,8 +6,6 @@ import MyFinanceDomain
 
 public class GoalsListViewModel: ObservableObject {
 
-//    private let appState: Store<AppState>
-
     private var cancellables: Set<AnyCancellable> = []
 
     // MARK: Output
@@ -23,16 +21,8 @@ public class GoalsListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func onAppear() {
-
-    }
-
-    func onDisappear() {
-        Swift.print("onDisappear")
-    }
-
     func addGoalAction() {
-        routingState.show(.addGoal)
+        routingState.show(sheet: .addGoal)
     }
 
 }

@@ -13,6 +13,9 @@ import SavingsListFeature
 import SavingsDetailsFeature
 import DepositsListFeature
 import DepositsDetailsFeature
+import AddDepositFeature
+//import EditDepositFeature
+//import AddDepositStepFeature
 import GoalsListFeature
 import GoalDetailsFeature
 import AddGoalFeature
@@ -100,14 +103,54 @@ public struct AppView: View {
             tabName: "Deposits"
         ) {
             return AnyView(DepositsListView(
-                viewModel: DepositsListViewModel(),
-                depositsDetailsViewProvider: { id in depositsDetails(id: id) }
+                viewModel: DepositsListViewModel(appState: appState),
+                depositDetailsViewProvider: { id in depositsDetails(id: id) },
+                addDepositViewProvider: { addDepositView() }
             ))
         }
     }
 
+    func addDepositView() -> some View {
+        AddDepositView(viewModel: AddDepositViewModel(
+            appState: appState,
+            service: AddDepositDataService(appState: appState, depositRepository: FirebaseDepositRepository()))
+        )
+    }
+
     func depositsDetails(id: String) -> some View {
-        DepositsDetailsView(id: id)
+        DepositDetailsView(
+            viewModel: DepositDetailsViewModel(id: id, appState: appState, dataService: DepositDataService(appState: appState, depositStepRepository: FirebaseDepositStepRepository(), depositRepository: FirebaseDepositRepository())),
+            editDepositViewProvider: { id in editDeposit(id: id) },
+            addDepositStepViewProvider: { id in addDepositStep(goalId: id) }
+        )
+    }
+
+    func editDeposit(id: String) -> some View {
+//        EditDepositView(
+//            viewModel: EditDepositViewModel(
+//                id: id,
+//                appState: appState,
+//                service: EditDepositDataService(
+//                    appState: appState,
+//                    depositRepository: FirebaseDepositRepository()
+//                )
+//            )
+//        )
+        return Text("Edit Deposit: \(id)")
+    }
+
+    func addDepositStep(goalId: String) -> some View {
+//        AddDepositStepView(
+//            viewModel: AddDepositStepViewModel(
+//                id: goalId,
+//                dataService: AddDepositStepDataService(
+//                    appState: appState,
+//                    depositStepRepository: FirebaseDepositStepRepository(),
+//                    depositRepository: FirebaseDepositRepository()
+//                )
+//            )
+//        )
+        return Text("Add Deposit Step")
     }
 
     var investmentsTabProvider: TabViewProvider {

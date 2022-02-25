@@ -1,0 +1,3 @@
+enum GoalsListSheetType {
+    case addGoal
+}

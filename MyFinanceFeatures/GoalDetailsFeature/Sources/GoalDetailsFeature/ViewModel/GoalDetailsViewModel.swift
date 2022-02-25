@@ -28,7 +28,6 @@ public class GoalDetailsViewModel: ObservableObject {
     @Published var percentCompletedValue: Int = 0
 
     @Published var averagePerMonth: String = ""
-    @Published var aheadOfGoal: String = ""
     @Published var topUpMonthly: String = ""
 
     @Published var steps: [GoalStepDVO] = []
@@ -113,10 +112,12 @@ private extension GoalDetailsViewModel {
         endDate = goal.endDate
             .formatted(date: .numeric, time: .omitted)
 
-        progressValue = (goal.currentValue - goal.startValue) / (goal.goalValue - goal.startValue)
+        if goal.goalValue - goal.startValue > 0 {
+            progressValue = (goal.currentValue - goal.startValue) / (goal.goalValue - goal.startValue)
 
-        let completed = (goal.currentValue - goal.startValue) / (goal.goalValue - goal.startValue) * 100
-        percentCompletedValue = Int(completed.rounded(.down))
+            let completed = (goal.currentValue - goal.startValue) / (goal.goalValue - goal.startValue) * 100
+            percentCompletedValue = Int(completed.rounded(.down))
+        }
     }
 
     private func bindStats(_ goal: GoalDVO) {
@@ -124,8 +125,6 @@ private extension GoalDetailsViewModel {
         let monthsLeft = Calendar.current.dateComponents([.month], from: Date(), to: goal.endDate).month ?? 0
 
         averagePerMonth = ((goal.currentValue - goal.startValue) / (Double(monthsTotal) - Double(monthsLeft))).rounded().formatted()
-
-        aheadOfGoal = ""
 
         topUpMonthly = ((goal.goalValue - goal.currentValue) / Double(monthsLeft)).rounded().formatted()
     }

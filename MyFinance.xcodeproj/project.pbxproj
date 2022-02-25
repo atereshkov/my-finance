@@ -66,6 +66,7 @@
 		CB3981C327BEDA6100F17C87 /* MyFinanceAssetsKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceAssetsKit; path = MyFinancePackages/MyFinanceAssetsKit; sourceTree = "<group>"; };
 		CB43C43E27C1338300D1F291 /* Listeners */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Listeners; path = MyFinancePackages/Listeners; sourceTree = "<group>"; };
 		CB43C43F27C5768600D1F291 /* EditGoalStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalStepFeature; path = MyFinanceFeatures/EditGoalStepFeature; sourceTree = "<group>"; };
+		CB43C44227C6B5FC00D1F291 /* AddDepositFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddDepositFeature; path = MyFinanceFeatures/AddDepositFeature; sourceTree = "<group>"; };
 		CB767ADF27C027F2007A635A /* EditGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalFeature; path = MyFinanceFeatures/EditGoalFeature; sourceTree = "<group>"; };
 		CB767AE127C04505007A635A /* AddGoalStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalStepFeature; path = MyFinanceFeatures/AddGoalStepFeature; sourceTree = "<group>"; };
 		CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -180,8 +181,12 @@
 			children = (
 				CB3981A727BD822200F17C87 /* AppCore */,
 				CB3981AA27BD824700F17C87 /* AppState */,
+				CB79922D27C111B000259A77 /* MyFinanceDomain */,
 				CB3981A627BD81A600F17C87 /* MyFinanceComponentsKit */,
 				CB3981C327BEDA6100F17C87 /* MyFinanceAssetsKit */,
+				CB767AE427C0F0F7007A635A /* Repositories */,
+				CB43C43E27C1338300D1F291 /* Listeners */,
+				CB79922C27C0F87100259A77 /* FirebaseFramework */,
 				CB3981A127BD818100F17C87 /* RootFeature */,
 				CB39819F27BD814E00F17C87 /* LoginFeature */,
 				CB3981A027BD816300F17C87 /* RegistrationFeature */,
@@ -189,18 +194,15 @@
 				CB3981A327BD819000F17C87 /* WelcomeFeature */,
 				CB3981BB27BD976600F17C87 /* SavingsListFeature */,
 				CB3981BC27BD982600F17C87 /* SavingsDetailsFeature */,
-				CB3981BD27BE89AC00F17C87 /* DepositsListFeature */,
-				CB3981BE27BE8C1800F17C87 /* DepositsDetailsFeature */,
 				CB3981BF27BEA0BF00F17C87 /* GoalsListFeature */,
 				CB3981C127BEA22000F17C87 /* GoalDetailsFeature */,
 				CB3981C227BEC79000F17C87 /* AddGoalFeature */,
 				CB767ADF27C027F2007A635A /* EditGoalFeature */,
 				CB767AE127C04505007A635A /* AddGoalStepFeature */,
-				CB767AE427C0F0F7007A635A /* Repositories */,
-				CB79922C27C0F87100259A77 /* FirebaseFramework */,
-				CB79922D27C111B000259A77 /* MyFinanceDomain */,
-				CB43C43E27C1338300D1F291 /* Listeners */,
 				CB43C43F27C5768600D1F291 /* EditGoalStepFeature */,
+				CB3981BD27BE89AC00F17C87 /* DepositsListFeature */,
+				CB3981BE27BE8C1800F17C87 /* DepositsDetailsFeature */,
+				CB43C44227C6B5FC00D1F291 /* AddDepositFeature */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

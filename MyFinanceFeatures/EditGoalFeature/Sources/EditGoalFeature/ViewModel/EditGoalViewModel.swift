@@ -69,8 +69,8 @@ public class EditGoalViewModel: ObservableObject {
         let data: [String: Any] = [
             "name": name ?? "",
             "measure": goalMeasureOptions[goalMeasureIndex].id,
-            "goalValue": goalValue ?? "",
-            "startValue": start ?? "",
+            "goalValue": Double(goalValue ?? "") ?? 0,
+            "startValue": Double(start ?? "") ?? 0,
             "startDate": startDate,
             "endDate": endDate
         ]

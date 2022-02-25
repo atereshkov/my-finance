@@ -1,7 +1,9 @@
 import SwiftUI
 
+import MyFinanceDomain
+
 struct DepositsRowView: View {
-    var item: DepositsViewItem
+    var item: DepositDVO
 
     var body: some View {
         HStack {
@@ -19,7 +21,7 @@ struct DepositsRowView: View {
 #if DEBUG
 struct DepositsRowViewPreviews: PreviewProvider {
     static var previews: some View {
-        DepositsRowView(item: DepositsViewItem(id: "1", name: "Name1"))
+        DepositsRowView(item: DepositDVO(id: "1", name: "Name1"))
             .previewLayout(.fixed(width: 375, height: 40))
     }
 }

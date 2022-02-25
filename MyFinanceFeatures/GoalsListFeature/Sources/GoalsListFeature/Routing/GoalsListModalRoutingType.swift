@@ -1,3 +1,0 @@
-enum GoalsListModalRoutingType {
-    case addGoal
-}

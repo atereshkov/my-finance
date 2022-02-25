@@ -2,13 +2,14 @@ import Foundation
 
 struct DepositsListRouting: Equatable {
 
-    // MARK: - Sheet
-//    var showModalSheet: Bool = false
-//    var currentModalSheet: HomeModalRoutingType?
+    var showModalSheet: Bool = false
+    var currentModalSheet: DepositsListSheetType?
 
-    // MARK: - Book Details
+    var depositDetails: String?
 
-    /// Savings ID to navigate
-    var depositsDetails: String?
+    mutating func show(sheet: DepositsListSheetType) {
+        self.currentModalSheet = sheet
+        self.showModalSheet = true
+    }
 
 }

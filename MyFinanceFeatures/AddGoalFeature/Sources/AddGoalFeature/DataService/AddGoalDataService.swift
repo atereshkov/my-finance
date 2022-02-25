@@ -25,9 +25,6 @@ public class AddGoalDataService: AddGoalDataServiceType {
 
         let goal = AddGoalDTO(data)
         return goalRepository.addGoal(goal, userId: userId)
-//        return Future { promise in
-//            promise(.success(()))
-//        }
     }
 
 }

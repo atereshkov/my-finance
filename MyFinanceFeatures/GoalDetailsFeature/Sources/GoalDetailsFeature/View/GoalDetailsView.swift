@@ -153,8 +153,6 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View, EditGoalStep: V
             VStack(alignment: .leading) {
                 Text("Avg per month: \(viewModel.averagePerMonth)")
                     .font(.system(size: 13.0, weight: .regular))
-                Text("Ahead of goal: \(viewModel.aheadOfGoal)")
-                    .font(.system(size: 13.0, weight: .regular))
                 Text("Top up by \(viewModel.topUpMonthly) monthly to reach the goal")
                     .font(.system(size: 13.0, weight: .regular))
             }

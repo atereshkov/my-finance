@@ -29,7 +29,8 @@ private extension AppBootstrap {
     func bootListeners() {
         listeners = [
             AuthListener(appState: appState),
-            GoalsListener(appState: appState)
+            GoalsListener(appState: appState),
+            DepositsListener(appState: appState)
         ]
         for listener in listeners {
             listener.start()

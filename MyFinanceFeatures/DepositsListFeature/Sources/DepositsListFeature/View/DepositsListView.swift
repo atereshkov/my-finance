@@ -1,23 +1,32 @@
 import SwiftUI
 
 import MyFinanceAssetsKit
+import MyFinanceDomain
 
-public struct DepositsListView<DepositsDetail: View>: View {
+public struct DepositsListView<DepositsDetail: View, AddDeposit: View>: View {
 
     @ObservedObject var viewModel: DepositsListViewModel
 
-    private var depositsDetailsViewProvider: (_ id: String) -> DepositsDetail
+    private var depositDetailsViewProvider: (_ id: String) -> DepositsDetail
+    private var addDepositViewProvider: () -> AddDeposit
 
     public init(
         viewModel: DepositsListViewModel,
-        depositsDetailsViewProvider: @escaping (_ id: String) -> DepositsDetail
+        depositDetailsViewProvider: @escaping (_ id: String) -> DepositsDetail,
+        addDepositViewProvider: @escaping () -> AddDeposit
     ) {
         self.viewModel = viewModel
-        self.depositsDetailsViewProvider = depositsDetailsViewProvider
+        self.depositDetailsViewProvider = depositDetailsViewProvider
+        self.addDepositViewProvider = addDepositViewProvider
     }
 
     public var body: some View {
         content
+            .sheet(
+                isPresented: $viewModel.routingState.showModalSheet,
+                content: {
+                    modalSheet
+                })
     }
 
 }
@@ -28,15 +37,24 @@ extension DepositsListView {
         NavigationView {
             ZStack {
                 Color.primaryBackground.ignoresSafeArea()
-                deposits
-                        .padding([.leading, .trailing], 18)
-                        .navigationBarTitle(Text("My Deposits"), displayMode: .inline)
-                        .navigationBarItems(trailing: buttons)
+                goals
+                    .padding([.leading, .trailing], 18)
+                    .navigationBarTitle(Text("My Deposits"), displayMode: .inline)
+                    .navigationBarItems(trailing: navBarButtons)
             }
         }
     }
 
-    var buttons: some View {
+    var modalSheet: some View {
+        switch viewModel.routingState.currentModalSheet {
+        case .addDeposit:
+            return AnyView(addDepositViewProvider())
+        case .none:
+            return AnyView(Text(""))
+        }
+    }
+
+    var navBarButtons: some View {
         HStack {
             dashboardButton
             addButton
@@ -45,28 +63,26 @@ extension DepositsListView {
 
     var addButton: some View {
         Button(
-//            action: viewModel.accountAction,
-            action: { },
+            action: viewModel.addGoalAction,
             label: { Image(systemName: "plus").imageScale(.large) }
         )
     }
 
     var dashboardButton: some View {
         Button(
-//            action: viewModel.accountAction,
             action: { },
             label: { Image(systemName: "arrow.up.right").imageScale(.large) }
         )
     }
 
-    var deposits: some View {
+    var goals: some View {
         ScrollView {
             LazyVStack {
                 ForEach(viewModel.deposits) { item in
                     NavigationLink(
-                        destination: depositsDetailsView(item),
+                        destination: depositDetailsView(item),
                         tag: item.id,
-                        selection: $viewModel.routingState.depositsDetails
+                        selection: $viewModel.routingState.depositDetails
                     ) {
                         DepositsRowView(item: item)
                     }
@@ -75,8 +91,8 @@ extension DepositsListView {
         }
     }
 
-    func depositsDetailsView(_ item: DepositsViewItem) -> some View {
-        return depositsDetailsViewProvider(item.id)
+    func depositDetailsView(_ item: DepositDVO) -> some View {
+        return depositDetailsViewProvider(item.id)
     }
 
 }
