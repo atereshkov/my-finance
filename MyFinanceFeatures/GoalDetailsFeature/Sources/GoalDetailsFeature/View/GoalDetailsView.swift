@@ -26,6 +26,7 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View, EditGoalStep: V
 
     public var body: some View {
         content
+            .onAppear(perform: viewModel.onAppear)
             .alert(isPresented: $viewModel.routingState.showAlert) {
                 alertView
             }

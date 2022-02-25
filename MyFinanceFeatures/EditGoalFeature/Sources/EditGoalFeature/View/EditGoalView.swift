@@ -91,7 +91,9 @@ public struct EditGoalView: View {
     var addButton: some View {
         Section {
             Button(action: {
-                viewModel.editGoalAction()
+                Task {
+                    await viewModel.editGoalAction()
+                }
             }, label: {
                 HStack {
                     Spacer()

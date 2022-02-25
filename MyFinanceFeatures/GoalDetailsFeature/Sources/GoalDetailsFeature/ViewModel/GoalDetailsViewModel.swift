@@ -53,15 +53,12 @@ public class GoalDetailsViewModel: ObservableObject {
                 self?.bind(goal)
             }
             .store(in: &cancellables)
+    }
 
-        dataService
-            .getGoalSteps(goalId: id)
-            .sink(receiveCompletion: { _ in
-
-            }, receiveValue: { [weak self] dvo in
-                self?.steps = dvo
-            })
-            .store(in: &cancellables)
+    func onAppear() {
+        Task {
+            await loadSteps()
+        }
     }
 
 }
@@ -95,6 +92,17 @@ extension GoalDetailsViewModel {
 }
 
 private extension GoalDetailsViewModel {
+
+    private func loadSteps() async {
+        do {
+            let steps = try await dataService.getGoalSteps(goalId: id)
+            DispatchQueue.main.async {
+                self.steps = steps
+            }
+        } catch let error {
+            Swift.print(error)
+        }
+    }
 
     private func bind(_ goal: GoalDVO) {
         bindDetails(goal)

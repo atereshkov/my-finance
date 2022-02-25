@@ -48,7 +48,7 @@ public class AddGoalViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func addGoalAction() {
+    func addGoalAction() async {
         let data: [String: Any] = [
             "name": name ?? "",
             "measure": goalMeasureOptions[goalMeasureIndex].id,
@@ -59,21 +59,12 @@ public class AddGoalViewModel: ObservableObject {
             "endDate": endDate
         ]
 
-        dataService
-            .addGoal(data: data)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    Swift.print(error)
-                case .finished:
-                    break
-                }
-            }, receiveValue: { [weak self] value in
-                Swift.print("123123123")
-                self?.onDisappear()
-            })
-            .store(in: &cancellables)
+        do {
+            try await dataService.addGoal(data: data)
+            onDisappear()
+        } catch let error {
+            Swift.print(error)
+        }
     }
 
     func onAppear() {
@@ -87,7 +78,7 @@ public class AddGoalViewModel: ObservableObject {
     }
 
     deinit {
-        Swift.print("123123 deinit")
+        Swift.print("AddGoalViewModel deinit")
     }
 
 }

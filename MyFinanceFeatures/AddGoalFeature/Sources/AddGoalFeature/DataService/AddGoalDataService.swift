@@ -6,7 +6,7 @@ import Repositories
 import MyFinanceDomain
 
 public protocol AddGoalDataServiceType {
-    func addGoal(data: [String: Any]) -> Future<Void, Error>
+    func addGoal(data: [String: Any]) async throws
 }
 
 public class AddGoalDataService: AddGoalDataServiceType {
@@ -19,12 +19,12 @@ public class AddGoalDataService: AddGoalDataServiceType {
         self.goalRepository = goalRepository
     }
 
-    public func addGoal(data: [String: Any]) -> Future<Void, Error> {
+    public func addGoal(data: [String: Any]) async throws {
         // TODO return error instead
         let userId = appState[\.user.id]!
 
         let goal = AddGoalDTO(data)
-        return goalRepository.addGoal(goal, userId: userId)
+        try await goalRepository.addGoal(goal, userId: userId)
     }
 
 }

@@ -5,13 +5,11 @@ import MyFinanceDomain
 import Repositories
 
 public protocol GoalDataServiceType {
-    func getGoalSteps(goalId: String) -> Future<[GoalStepDVO], Error>
+    func getGoalSteps(goalId: String) async throws -> [GoalStepDVO]
     func deleteGoalStep(stepId: String, value: Double, goalId: String) async throws
 }
 
 public class GoalDataService: GoalDataServiceType {
-
-    private var cancellables: Set<AnyCancellable> = []
 
     private let appState: Store<AppState>
     private let goalStepRepository: GoalStepRepository
@@ -27,27 +25,15 @@ public class GoalDataService: GoalDataServiceType {
         self.goalRepository = goalRepository
     }
 
-    public func getGoalSteps(goalId: String) -> Future<[GoalStepDVO], Error> {
+    public func getGoalSteps(goalId: String) async throws -> [GoalStepDVO] {
         // TODO return error instead
         let userId = appState[\.user.id]!
 
-        return Future<[GoalStepDVO], Error> { [weak self] resolve in
-            guard let self = self else { return }
-            self.goalStepRepository.getGoalSteps(goalId, userId: userId).sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    resolve(.failure(error))
-                case .finished:
-                    break
-                }
-            }, receiveValue: { dto in
-                let dvo = dto
-                    .compactMap { GoalStepDVO($0) }
-                    .sorted(by: { $0.date > $1.date })
-                resolve(.success((dvo)))
-            })
-            .store(in: &self.cancellables)
-        }
+        let dto = try await goalStepRepository.getGoalSteps(goalId, userId: userId)
+
+        return dto
+            .compactMap { GoalStepDVO($0) }
+            .sorted(by: { $0.date > $1.date })
     }
 
     public func deleteGoalStep(stepId: String, value: Double, goalId: String) async throws {

@@ -4,10 +4,10 @@ import FirebaseFirestore
 import MyFinanceDomain
 
 public protocol GoalRepository {
-    func getGoal(_ id: String, userId: String) -> Future<GoalDTO, Error>
-    func addGoal(_ data: AddGoalDTO, userId: String) -> Future<Void, Error>
-    func editGoal(id: String, _ data: EditGoalDTO, userId: String) -> Future<Void, Error>
-    func deleteGoal(id: String, userId: String) -> Future<Void, Error>
+    func getGoal(_ id: String, userId: String) async throws -> GoalDTO
+    func addGoal(_ data: AddGoalDTO, userId: String) async throws
+    func editGoal(id: String, _ data: EditGoalDTO, userId: String) async throws
+    func deleteGoal(id: String, userId: String) async throws
 
     func updateCurrentValue(id: String, value: Double, isAdd: Bool, userId: String) async throws
 }
@@ -20,72 +20,41 @@ public class FirebaseGoalRepository: GoalRepository {
         
     }
 
-    public func getGoal(_ id: String, userId: String) -> Future<GoalDTO, Error> {
-        return Future { [weak self] resolve in
-            self?.db
-                .collection("user_goals")
-                .document(userId)
-                .collection("goals")
-                .document(id)
-                .getDocument { document, error in
-                    if let error = error {
-                        resolve(.failure(error))
-                    } else if let doc = document, let data = doc.data() {
-                        let dto = GoalDTO(id: doc.documentID, data: data)
-                        resolve(.success((dto)))
-                    }
-                }
-        }
+    public func getGoal(_ id: String, userId: String) async throws -> GoalDTO {
+        let doc = try await db
+            .collection("user_goals")
+            .document(userId)
+            .collection("goals")
+            .document(id)
+            .getDocument()
+        let dto = GoalDTO(id: doc.documentID, data: doc.data() ?? [:])
+        return dto
     }
 
-    public func addGoal(_ data: AddGoalDTO, userId: String) -> Future<Void, Error> {
-        return Future { [weak self] resolve in
-            self?.db
-                .collection("user_goals")
-                .document(userId)
-                .collection("goals")
-                .addDocument(data: data.toDictionary()) { error in
-                    if let error = error {
-                        resolve(.failure(error))
-                    } else {
-                        resolve(.success(()))
-                    }
-            }
-        }
+    public func addGoal(_ data: AddGoalDTO, userId: String) async throws {
+        try await db
+            .collection("user_goals")
+            .document(userId)
+            .collection("goals")
+            .addDocument(data: data.toDictionary())
     }
 
-    public func editGoal(id: String, _ data: EditGoalDTO, userId: String) -> Future<Void, Error> {
-        return Future { [weak self] resolve in
-            self?.db
-                .collection("user_goals")
-                .document(userId)
-                .collection("goals")
-                .document(id)
-                .updateData(data.toDictionary()) { error in
-                    if let error = error {
-                        resolve(.failure(error))
-                    } else {
-                        resolve(.success(()))
-                    }
-            }
-        }
+    public func editGoal(id: String, _ data: EditGoalDTO, userId: String) async throws {
+        try await db
+            .collection("user_goals")
+            .document(userId)
+            .collection("goals")
+            .document(id)
+            .updateData(data.toDictionary())
     }
 
-    public func deleteGoal(id: String, userId: String) -> Future<Void, Error> {
-        return Future { [weak self] resolve in
-            self?.db
-                .collection("user_goals")
-                .document(userId)
-                .collection("goals")
-                .document(id)
-                .delete { error in
-                    if let error = error {
-                        resolve(.failure(error))
-                    } else {
-                        resolve(.success(()))
-                    }
-            }
-        }
+    public func deleteGoal(id: String, userId: String) async throws {
+        try await db
+            .collection("user_goals")
+            .document(userId)
+            .collection("goals")
+            .document(id)
+            .delete()
     }
 
     public func updateCurrentValue(id: String, value: Double, isAdd: Bool, userId: String) async throws {

@@ -65,7 +65,7 @@ public class EditGoalViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func editGoalAction() {
+    func editGoalAction() async {
         let data: [String: Any] = [
             "name": name ?? "",
             "measure": goalMeasureOptions[goalMeasureIndex].id,
@@ -75,21 +75,12 @@ public class EditGoalViewModel: ObservableObject {
             "endDate": endDate
         ]
 
-        dataService
-            .editGoal(id: id, data: data)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    Swift.print(error)
-                case .finished:
-                    break
-                }
-            }, receiveValue: { [weak self] value in
-                Swift.print("123123123")
-                self?.onDisappear()
-            })
-            .store(in: &cancellables)
+        do {
+            try await dataService.editGoal(id: id, data: data)
+            onDisappear()
+        } catch let error {
+            Swift.print(error)
+        }
     }
 
     func onAppear() {
