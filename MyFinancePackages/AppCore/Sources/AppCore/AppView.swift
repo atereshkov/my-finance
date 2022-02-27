@@ -15,7 +15,7 @@ import DepositsListFeature
 import DepositsDetailsFeature
 import AddDepositFeature
 //import EditDepositFeature
-//import AddDepositStepFeature
+import AddDepositStepFeature
 import GoalsListFeature
 import GoalDetailsFeature
 import AddGoalFeature
@@ -121,7 +121,7 @@ public struct AppView: View {
         DepositDetailsView(
             viewModel: DepositDetailsViewModel(id: id, appState: appState, dataService: DepositDataService(appState: appState, depositStepRepository: FirebaseDepositStepRepository(), depositRepository: FirebaseDepositRepository())),
             editDepositViewProvider: { id in editDeposit(id: id) },
-            addDepositStepViewProvider: { id in addDepositStep(goalId: id) }
+            addDepositStepViewProvider: { id in addDepositStep(depositId: id) }
         )
     }
 
@@ -139,18 +139,17 @@ public struct AppView: View {
         return Text("Edit Deposit: \(id)")
     }
 
-    func addDepositStep(goalId: String) -> some View {
-//        AddDepositStepView(
-//            viewModel: AddDepositStepViewModel(
-//                id: goalId,
-//                dataService: AddDepositStepDataService(
-//                    appState: appState,
-//                    depositStepRepository: FirebaseDepositStepRepository(),
-//                    depositRepository: FirebaseDepositRepository()
-//                )
-//            )
-//        )
-        return Text("Add Deposit Step")
+    func addDepositStep(depositId: String) -> some View {
+        AddDepositStepView(
+            viewModel: AddDepositStepViewModel(
+                id: depositId,
+                dataService: AddDepositStepDataService(
+                    appState: appState,
+                    depositStepRepository: FirebaseDepositStepRepository(),
+                    depositRepository: FirebaseDepositRepository()
+                )
+            )
+        )
     }
 
     var investmentsTabProvider: TabViewProvider {

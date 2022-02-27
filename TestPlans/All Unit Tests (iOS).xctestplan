@@ -165,6 +165,20 @@
         "identifier" : "EditGoalStepFeatureTests",
         "name" : "EditGoalStepFeatureTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/AddDepositFeature",
+        "identifier" : "AddDepositFeatureTests",
+        "name" : "AddDepositFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyFinanceFeatures\/AddDepositStepFeature",
+        "identifier" : "AddDepositStepFeatureTests",
+        "name" : "AddDepositStepFeatureTests"
+      }
     }
   ],
   "version" : 1

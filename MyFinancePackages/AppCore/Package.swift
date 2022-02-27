@@ -32,8 +32,8 @@ let package = Package(
         .package(path: "../Listeners"),
         .package(path: "../MyFinanceDomain"),
         .package(path: "../AddDepositFeature"),
+        .package(path: "../AddDepositStepFeature")
 //        .package(path: "../EditDepositFeature"),
-//        .package(path: "../AddDepositStepFeature")
     ],
     targets: [
         .target(
@@ -59,8 +59,8 @@ let package = Package(
                 "Listeners",
                 "MyFinanceDomain",
                 "AddDepositFeature",
-//                "EditDepositFeature",
-//                "AddDepositStepFeature"
+                "AddDepositStepFeature"
+//                "EditDepositFeature"
             ]),
         .testTarget(
             name: "AppCoreTests",

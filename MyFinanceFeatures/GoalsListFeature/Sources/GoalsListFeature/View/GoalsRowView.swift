@@ -20,7 +20,7 @@ struct GoalsRowView: View {
 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(item.currentValue.formatted())
+                        Text(item.currentValue.formattedAsCurrency() ?? "")
                             .foregroundColor(.labelPrimaryText)
                             .font(.headline)
                             .fontWeight(.bold)
@@ -31,11 +31,11 @@ struct GoalsRowView: View {
                     }
 
                     HStack {
-                        Text(item.startValue.formatted())
+                        Text(item.startValue.formattedAsCurrency() ?? "")
                             .font(.system(size: 12.0, weight: .regular))
                             .foregroundColor(.labelPrimaryText)
                         Spacer()
-                        Text(item.goalValue.formatted())
+                        Text(item.goalValue.formattedAsCurrency() ?? "")
                             .font(.system(size: 12.0, weight: .regular))
                             .foregroundColor(.labelPrimaryText)
                     }
@@ -61,30 +61,6 @@ struct GoalsRowView: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
-}
-
-struct CircleView: View {
-
-    var title: String
-
-    var body: some View {
-        ZStack {
-            Circle()
-                .fill(
-                    LinearGradient(
-                        gradient: Gradient(colors: [.secondaryColor, .secondaryColor]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-            VStack {
-                Text(title)
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.labelPrimaryText)
-            }
-        }
-    }
-
 }
 
 #if DEBUG

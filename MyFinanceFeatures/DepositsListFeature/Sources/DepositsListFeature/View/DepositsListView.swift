@@ -1,5 +1,6 @@
 import SwiftUI
 
+import MyFinanceComponentsKit
 import MyFinanceAssetsKit
 import MyFinanceDomain
 
@@ -80,7 +81,7 @@ extension DepositsListView {
             LazyVStack {
                 ForEach(viewModel.deposits) { item in
                     NavigationLink(
-                        destination: depositDetailsView(item),
+                        destination: NavigationLazyView(depositDetailsView(item)),
                         tag: item.id,
                         selection: $viewModel.routingState.depositDetails
                     ) {

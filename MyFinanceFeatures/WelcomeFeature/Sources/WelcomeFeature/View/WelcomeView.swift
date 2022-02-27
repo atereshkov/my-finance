@@ -51,7 +51,7 @@ public struct WelcomeView<Login: View>: View {
 
     var startButton: some View {
         NavigationLink(destination:
-                        self.loginViewProvider()
+                        NavigationLazyView(self.loginViewProvider())
                         .navigationBarTitle("")
                         .navigationBarHidden(true)
         ) {

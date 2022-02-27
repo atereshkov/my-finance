@@ -91,9 +91,9 @@ public struct DepositDetailsView<EditDeposit: View, AddDepositStep: View>: View 
 
     var list: some View {
         List {
-            chartSection
             detailsSection
             statsSection
+            monthlyPayoutSection
             stepsSection
         }
     }
@@ -104,25 +104,19 @@ public struct DepositDetailsView<EditDeposit: View, AddDepositStep: View>: View 
             label: {
                 HStack {
                     Image(systemName: "plus").imageScale(.large)
-                    Text("Add deposit step")
+                    Text("Add deposit topup")
                 }
             }
         )
-    }
-
-    var chartSection: some View {
-        Section {
-            Text("Chart")
-        }
     }
 
     var detailsSection: some View {
         Section {
             VStack(alignment: .leading) {
                 HStack {
-                    Text("Current: \(viewModel.currentValue) (\(viewModel.percentCompletedValue)%)")
+                    Text("Balance: \(viewModel.balance)")
                     Spacer()
-                    MeasureBadgeView(title: viewModel.goalMeasure)
+                    MeasureBadgeView(title: viewModel.currency)
                 }
             }
             VStack(alignment: .leading) {
@@ -130,7 +124,7 @@ public struct DepositDetailsView<EditDeposit: View, AddDepositStep: View>: View 
                     Text(viewModel.startValue)
                         .font(.system(size: 12.0, weight: .regular))
                     Spacer()
-                    Text(viewModel.goalValue)
+                    Text(viewModel.estimatedIncome)
                         .font(.system(size: 12.0, weight: .regular))
                 }
                 GoalProgressView(value: $viewModel.progressValue).frame(height: 20)
@@ -148,23 +142,57 @@ public struct DepositDetailsView<EditDeposit: View, AddDepositStep: View>: View 
     var statsSection: some View {
         Section {
             VStack(alignment: .leading) {
-                Text("Avg per month: \(viewModel.averagePerMonth)")
-                    .font(.system(size: 13.0, weight: .regular))
                 Text("Top up by \(viewModel.topUpMonthly) monthly to reach the goal")
                     .font(.system(size: 13.0, weight: .regular))
             }
         }
     }
 
+    var monthlyPayoutSection: some View {
+        Section {
+            HStack {
+                Image(systemName: "calendar")
+                Text("Date")
+                Spacer()
+                Text("Paid")
+                Spacer()
+                Text("Tax")
+                Spacer()
+                Text("Sum")
+            }
+            ForEach(viewModel.payouts) { item in
+                HStack {
+                    Text(item.date.formatted(date: .numeric, time: .omitted))
+                        .font(.system(size: 12.0, weight: .regular))
+                    Spacer()
+                    Text(item.paid.formattedAsCurrency() ?? "")
+                        .font(.system(size: 12.0, weight: .regular))
+                    Spacer()
+                    Text(item.tax.formattedAsCurrency() ?? "")
+                        .font(.system(size: 12.0, weight: .regular))
+                    Spacer()
+                    Text(item.sum.formattedAsCurrency() ?? "")
+                        .font(.system(size: 12.0, weight: .regular))
+                }
+            }
+        }
+    }
+
     var stepsSection: some View {
         Section {
+            HStack {
+                Image(systemName: "calendar")
+                Text("Top up before \(viewModel.topUpEndDate)")
+                    .foregroundColor(.gray)
+                    .font(.system(size: 13.0, weight: .regular))
+            }
             addDepositStepButton
             ForEach(viewModel.steps) { step in
                 HStack {
                     Image(systemName: "calendar")
                     Text(step.date.formatted(date: .numeric, time: .omitted))
                     Spacer()
-                    Text("\(step.isAdd ? "+" : "-") \(step.value.formatted())")
+                    Text("\(step.isAdd ? "+" : "-") \(step.value.formattedAsCurrency() ?? "")")
                         .foregroundColor(step.isAdd ? .green : .orange)
                 }
                 .swipeActions {

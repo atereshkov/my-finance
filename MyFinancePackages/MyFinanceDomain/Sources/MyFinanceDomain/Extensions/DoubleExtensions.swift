@@ -1,12 +1,12 @@
 import Foundation
 
-extension Double {
+public extension Double {
 
-    func formatted() -> String? {
+    func formattedAsCurrency() -> String? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 2
-        formatter.minimumFractionDigits = 2
+        formatter.minimumFractionDigits = 0
         return formatter.string(for: self)
     }
 

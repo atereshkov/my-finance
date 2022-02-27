@@ -24,6 +24,7 @@ public struct AddDepositView: View {
     var content: some View {
         NavigationView {
             Form {
+                infoSection
                 moneySection
                 dateSection
                 addButtonSection
@@ -31,13 +32,31 @@ public struct AddDepositView: View {
         }
     }
 
-    var moneySection: some View {
+    var infoSection: some View {
         Section {
             HStack {
-                TextField("Name", text: Binding(
+                TextField("Bank Name", text: Binding(
+                            get: { viewModel.bankName ?? "" },
+                            set: { viewModel.bankName = $0 }))
+            }
+            HStack {
+                TextField("Deposit Name", text: Binding(
                             get: { viewModel.name ?? "" },
                             set: { viewModel.name = $0 }))
             }
+            HStack {
+                Toggle("Revocable", isOn: $viewModel.isRevocable)
+                    .foregroundColor(Color.gray)
+            }
+            HStack {
+                Toggle("Capitalizable", isOn: $viewModel.isCapitalizable)
+                    .foregroundColor(Color.gray)
+            }
+        }
+    }
+
+    var moneySection: some View {
+        Section {
             HStack {
                 Text("Currency")
                     .foregroundColor(Color.gray)
@@ -50,25 +69,50 @@ public struct AddDepositView: View {
                 .pickerStyle(MenuPickerStyle())
             }
             HStack {
-                TextField("Goal", text: Binding(
-                            get: { viewModel.goal ?? "" },
-                            set: { viewModel.goal = $0 })
+                TextField("Start Value", text: Binding(
+                            get: { viewModel.startValue ?? "" },
+                            set: { viewModel.startValue = $0 })
                 )
                 .keyboardType(.decimalPad)
             }
             HStack {
-                TextField("Start", text: Binding(
-                            get: { viewModel.start ?? "" },
-                            set: { viewModel.start = $0 })
+                TextField("Rate (%)", text: Binding(
+                            get: { viewModel.rate ?? "" },
+                            set: { viewModel.rate = $0 })
                 )
                 .keyboardType(.decimalPad)
             }
             HStack {
-                TextField("Current", text: Binding(
-                            get: { viewModel.current ?? "" },
-                            set: { viewModel.current = $0 })
+                TextField("Tax (%)", text: Binding(
+                            get: { viewModel.tax ?? "" },
+                            set: { viewModel.tax = $0 })
                 )
                 .keyboardType(.decimalPad)
+            }
+            HStack {
+                Text(viewModel.isCapitalizable ? "Capitalization" : "Payout")
+                    .foregroundColor(Color.gray)
+                Spacer()
+                Picker(
+                    viewModel.payoutOptions[viewModel.payoutIndex]?.localized() ?? "",
+                    selection: $viewModel.payoutIndex
+                ) {
+                    ForEach(0..<viewModel.payoutOptions.count) { index in
+                        Text(
+                            viewModel.payoutOptions[index]?.localized() ?? ""
+                        ).tag(index)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+            }
+            if viewModel.isCustomCapitalizationPeriod {
+                HStack {
+                    TextField("Period (days)", text: Binding(
+                                get: { viewModel.customPeriodDays ?? "" },
+                                set: { viewModel.customPeriodDays = $0 })
+                    )
+                    .keyboardType(.decimalPad)
+                }
             }
         }
     }
@@ -79,6 +123,9 @@ public struct AddDepositView: View {
                 .datePickerStyle(DefaultDatePickerStyle())
                 .frame(maxHeight: 400)
             DatePicker("End Date", selection: $viewModel.endDate, displayedComponents: .date)
+                .datePickerStyle(DefaultDatePickerStyle())
+                .frame(maxHeight: 400)
+            DatePicker("Top Up End Date", selection: $viewModel.topUpEndDate, displayedComponents: .date)
                 .datePickerStyle(DefaultDatePickerStyle())
                 .frame(maxHeight: 400)
         }
@@ -99,7 +146,7 @@ public struct AddDepositView: View {
         Section {
             Button(action: {
                 Task {
-                    await viewModel.addGoalAction()
+                    await viewModel.addDepositAction()
                 }
             }, label: {
                 HStack {

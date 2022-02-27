@@ -67,6 +67,7 @@
 		CB43C43E27C1338300D1F291 /* Listeners */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Listeners; path = MyFinancePackages/Listeners; sourceTree = "<group>"; };
 		CB43C43F27C5768600D1F291 /* EditGoalStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalStepFeature; path = MyFinanceFeatures/EditGoalStepFeature; sourceTree = "<group>"; };
 		CB43C44227C6B5FC00D1F291 /* AddDepositFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddDepositFeature; path = MyFinanceFeatures/AddDepositFeature; sourceTree = "<group>"; };
+		CB43C44327CAB41E00D1F291 /* AddDepositStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddDepositStepFeature; path = MyFinanceFeatures/AddDepositStepFeature; sourceTree = "<group>"; };
 		CB767ADF27C027F2007A635A /* EditGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalFeature; path = MyFinanceFeatures/EditGoalFeature; sourceTree = "<group>"; };
 		CB767AE127C04505007A635A /* AddGoalStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalStepFeature; path = MyFinanceFeatures/AddGoalStepFeature; sourceTree = "<group>"; };
 		CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -203,6 +204,7 @@
 				CB3981BD27BE89AC00F17C87 /* DepositsListFeature */,
 				CB3981BE27BE8C1800F17C87 /* DepositsDetailsFeature */,
 				CB43C44227C6B5FC00D1F291 /* AddDepositFeature */,
+				CB43C44327CAB41E00D1F291 /* AddDepositStepFeature */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

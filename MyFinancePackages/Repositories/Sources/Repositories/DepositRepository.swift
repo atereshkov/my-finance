@@ -9,7 +9,7 @@ public protocol DepositRepository {
     func editDeposit(id: String, _ data: EditDepositDTO, userId: String) async throws
     func deleteDeposit(id: String, userId: String) async throws
 
-    func updateCurrentValue(id: String, value: Double, isAdd: Bool, userId: String) async throws
+    func updateBalance(id: String, value: Double, isAdd: Bool, userId: String) async throws
 }
 
 public class FirebaseDepositRepository: DepositRepository {
@@ -57,14 +57,14 @@ public class FirebaseDepositRepository: DepositRepository {
             .delete()
     }
 
-    public func updateCurrentValue(id: String, value: Double, isAdd: Bool, userId: String) async throws {
+    public func updateBalance(id: String, value: Double, isAdd: Bool, userId: String) async throws {
         try await db
             .collection("user_deposits")
             .document(userId)
             .collection("deposits")
             .document(id)
             .updateData([
-                "currentValue": FieldValue.increment(isAdd ? value : -value)
+                "balance": FieldValue.increment(isAdd ? value : -value)
             ])
     }
 

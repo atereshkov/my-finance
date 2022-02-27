@@ -12,12 +12,14 @@ let package = Package(
             targets: ["SavingsListFeature"]),
     ],
     dependencies: [
+        .package(path: "../MyFinanceComponentsKit"),
         .package(path: "../MyFinanceAssetsKit")
     ],
     targets: [
         .target(
             name: "SavingsListFeature",
             dependencies: [
+                "MyFinanceComponentsKit",
                 "MyFinanceAssetsKit"
             ]),
         .testTarget(

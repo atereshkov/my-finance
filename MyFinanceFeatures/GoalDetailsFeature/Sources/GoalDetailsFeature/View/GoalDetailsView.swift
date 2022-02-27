@@ -168,7 +168,7 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View, EditGoalStep: V
                     Image(systemName: "calendar")
                     Text(step.date.formatted(date: .numeric, time: .omitted))
                     Spacer()
-                    Text("\(step.isAdd ? "+" : "-") \(step.value.formatted())")
+                    Text("\(step.isAdd ? "+" : "-") \(step.value.formattedAsCurrency() ?? "")")
                         .foregroundColor(step.isAdd ? .green : .orange)
                 }
                 .swipeActions {

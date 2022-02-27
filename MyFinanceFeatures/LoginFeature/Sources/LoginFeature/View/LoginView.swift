@@ -109,7 +109,7 @@ public struct LoginView<Registration: View>: View {
 
     var dontHaveAccountLabel: some View {
         NavigationLink(destination:
-                        self.registrationViewProvider()
+                        NavigationLazyView(self.registrationViewProvider())
                         .navigationBarTitle("")
                         .navigationBarHidden(true)
         ) {

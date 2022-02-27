@@ -1,5 +1,6 @@
 import SwiftUI
 
+import MyFinanceComponentsKit
 import MyFinanceAssetsKit
 
 public struct SavingsListView<SavingsDetail: View>: View {
@@ -64,7 +65,7 @@ extension SavingsListView {
             LazyVStack {
                 ForEach(viewModel.savings) { item in
                     NavigationLink(
-                        destination: savingsDetailView(item),
+                        destination: NavigationLazyView(savingsDetailView(item)),
                         tag: item.id,
                         selection: $viewModel.routingState.savingsDetails
                     ) {

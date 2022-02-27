@@ -112,13 +112,11 @@ private extension GoalDetailsViewModel {
     private func bindDetails(_ goal: GoalDVO) {
         goalName = goal.name
         goalMeasure = goal.measure
-        goalValue = goal.goalValue.formatted()
-        startValue = goal.startValue.formatted()
-        currentValue = goal.currentValue.formatted()
-        startDate = goal.startDate
-            .formatted(date: .numeric, time: .omitted)
-        endDate = goal.endDate
-            .formatted(date: .numeric, time: .omitted)
+        goalValue = goal.goalValue.formattedAsCurrency() ?? ""
+        startValue = goal.startValue.formattedAsCurrency() ?? ""
+        currentValue = goal.currentValue.formattedAsCurrency() ?? ""
+        startDate = goal.startDate.formatted(date: .numeric, time: .omitted)
+        endDate = goal.endDate.formatted(date: .numeric, time: .omitted)
 
         if goal.goalValue - goal.startValue > 0 {
             progressValue = (goal.currentValue - goal.startValue) / (goal.goalValue - goal.startValue)
@@ -132,9 +130,9 @@ private extension GoalDetailsViewModel {
         let monthsTotal = Calendar.current.dateComponents([.month], from: goal.startDate, to: goal.endDate).month ?? 0
         let monthsLeft = Calendar.current.dateComponents([.month], from: Date(), to: goal.endDate).month ?? 0
 
-        averagePerMonth = ((goal.currentValue - goal.startValue) / (Double(monthsTotal) - Double(monthsLeft))).rounded().formatted()
+        averagePerMonth = ((goal.currentValue - goal.startValue) / (Double(monthsTotal) - Double(monthsLeft))).rounded().formattedAsCurrency() ?? ""
 
-        topUpMonthly = ((goal.goalValue - goal.currentValue) / Double(monthsLeft)).rounded().formatted()
+        topUpMonthly = ((goal.goalValue - goal.currentValue) / Double(monthsLeft)).rounded().formattedAsCurrency() ?? ""
     }
 
 }

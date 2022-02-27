@@ -41,7 +41,7 @@ public class DepositDataService: DepositDataServiceType {
         let userId = appState[\.user.id]!
 
         try await depositStepRepository.deleteDepositStep(id: stepId, depositId: depositId, userId: userId)
-        try await depositRepository.updateCurrentValue(id: depositId, value: value, isAdd: false, userId: userId)
+        try await depositRepository.updateBalance(id: depositId, value: value, isAdd: false, userId: userId)
     }
 
 }

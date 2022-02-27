@@ -4,28 +4,28 @@
 import PackageDescription
 
 let package = Package(
-    name: "DepositsListFeature",
+    name: "AddDepositStepFeature",
     platforms: [.iOS(.v15), .macOS(.v11)],
     products: [
         .library(
-            name: "DepositsListFeature",
-            targets: ["DepositsListFeature"]),
+            name: "AddDepositStepFeature",
+            targets: ["AddDepositStepFeature"]),
     ],
     dependencies: [
-        .package(path: "../MyFinanceComponentsKit"),
-        .package(path: "../MyFinanceAssetsKit"),
+        .package(path: "../AppState"),
+        .package(path: "../Repositories"),
         .package(path: "../MyFinanceDomain")
     ],
     targets: [
         .target(
-            name: "DepositsListFeature",
+            name: "AddDepositStepFeature",
             dependencies: [
-                "MyFinanceComponentsKit",
-                "MyFinanceAssetsKit",
+                "AppState",
+                "Repositories",
                 "MyFinanceDomain"
             ]),
         .testTarget(
-            name: "DepositsListFeatureTests",
-            dependencies: ["DepositsListFeature"]),
+            name: "AddDepositStepFeatureTests",
+            dependencies: ["AddDepositStepFeature"]),
     ]
 )

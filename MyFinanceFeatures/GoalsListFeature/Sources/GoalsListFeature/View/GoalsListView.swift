@@ -1,6 +1,7 @@
 import SwiftUI
 
 import MyFinanceAssetsKit
+import MyFinanceComponentsKit
 import MyFinanceDomain
 
 public struct GoalsListView<GoalDetails: View, AddGoal: View>: View {
@@ -80,7 +81,7 @@ extension GoalsListView {
             LazyVStack {
                 ForEach(viewModel.goals) { item in
                     NavigationLink(
-                        destination: goalDetailsView(item),
+                        destination: NavigationLazyView(goalDetailsView(item)),
                         tag: item.id,
                         selection: $viewModel.routingState.goalsDetails
                     ) {
