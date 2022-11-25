@@ -9,8 +9,8 @@ All your finance in one place. Savings, Investments, Deposits, Assets, Liabiliti
 * Centralized AppState inspired by Redux.
 * No 3rd party dependencies except Firebase.
 
-### Running
-
 ### Architecture
+
+### Build & test
 
 ### TBD
