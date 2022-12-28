@@ -14,7 +14,8 @@ let package = Package(
     dependencies: [
         .package(path: "../MyFinanceComponentsKit"),
         .package(path: "../MyFinanceAssetsKit"),
-        .package(path: "../MyFinanceDomain")
+        .package(path: "../MyFinanceDomain"),
+        .package(path: "../AppState")
     ],
     targets: [
         .target(
@@ -22,10 +23,12 @@ let package = Package(
             dependencies: [
                 "MyFinanceComponentsKit",
                 "MyFinanceAssetsKit",
-                "MyFinanceDomain"
+                "MyFinanceDomain",
+                "AppState"
             ]),
         .testTarget(
             name: "DepositsListFeatureTests",
-            dependencies: ["DepositsListFeature"]),
+            dependencies: ["DepositsListFeature"]
+        ),
     ]
 )
