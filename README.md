@@ -11,6 +11,10 @@ All your finance in one place. Savings, Investments, Deposits, Assets, Liabiliti
 
 ### Architecture
 
+TBC
+
 ### Build & test
+
+TBC
 
 ### TBD
