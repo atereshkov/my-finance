@@ -12,6 +12,8 @@ public class SavingsListViewModel: ObservableObject {
 
     @Published var routingState = SavingsListRouting()
 
+    // MARK: - Lifecycle
+
     public init() {
 //        cancelBag.collect {
 //            $routingState

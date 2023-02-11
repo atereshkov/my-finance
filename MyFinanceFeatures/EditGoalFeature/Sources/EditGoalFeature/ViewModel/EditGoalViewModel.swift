@@ -37,6 +37,8 @@ public class EditGoalViewModel: ObservableObject {
 
     @Published var goal: GoalDVO?
 
+    // MARK: - Lifecycle
+
     public init(
         id: String,
         appState: Store<AppState>,
@@ -65,6 +67,16 @@ public class EditGoalViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+
+    deinit {
+        Swift.print("[Deinit] EditGoalViewModel")
+    }
+
+}
+
+// MARK: - Internal
+
+extension EditGoalViewModel {
 
     func editGoalAction() async {
         let data: [String: Any] = [

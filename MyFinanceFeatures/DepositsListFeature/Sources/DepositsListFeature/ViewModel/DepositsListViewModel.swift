@@ -13,6 +13,8 @@ public class DepositsListViewModel: ObservableObject {
     @Published var deposits: [DepositDVO] = []
     @Published var routingState = DepositsListRouting()
 
+    // MARK: - Lifecycle
+
     public init(appState: Store<AppState>) {
         appState.map(\.data.deposits)
             .sink { [weak self] data in
@@ -20,6 +22,16 @@ public class DepositsListViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+
+    deinit {
+        Swift.print("[Deinit] DepositsListViewModel")
+    }
+
+}
+
+// MARK: - Internal
+
+extension DepositsListViewModel {
 
     func addGoalAction() {
         routingState.show(sheet: .addDeposit)

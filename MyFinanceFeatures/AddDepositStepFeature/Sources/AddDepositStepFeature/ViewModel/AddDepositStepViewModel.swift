@@ -18,6 +18,8 @@ public class AddDepositStepViewModel: ObservableObject {
     @Published var routingState = AddDepositStepRouting()
     @Published var state: AddDepositStepViewState = .start
 
+    // MARK: - Lifecycle
+
     public init(
         id: String,
         dataService: AddDepositStepDataServiceType
@@ -25,6 +27,14 @@ public class AddDepositStepViewModel: ObservableObject {
         self.depositId = id
         self.dataService = dataService
     }
+
+    deinit {
+        Swift.print("[Deinit] AddDepositStepViewModel")
+    }
+
+}
+
+extension AddDepositStepViewModel {
 
     func addDepositStepAction() async {
         let data: [String: Any] = [

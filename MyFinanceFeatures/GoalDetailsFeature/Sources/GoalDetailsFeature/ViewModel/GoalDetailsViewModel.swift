@@ -32,6 +32,8 @@ public class GoalDetailsViewModel: ObservableObject {
 
     @Published var steps: [GoalStepDVO] = []
 
+    // MARK: - Lifecycle
+
     public init(
         id: String,
         appState: Store<AppState>,

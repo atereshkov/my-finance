@@ -22,6 +22,8 @@ public class EditGoalStepViewModel: ObservableObject {
     @Published var routingState = EditGoalStepRouting()
     @Published var state: EditGoalStepViewState = .start
 
+    // MARK: - Lifecycle
+
     public init(
         step: GoalStepDVO,
         goalId: String,
@@ -35,6 +37,16 @@ public class EditGoalStepViewModel: ObservableObject {
         self.isAdd = step.isAdd
         self.date = step.date
     }
+
+    deinit {
+        Swift.print("[Deinit] EditGoalStepViewModel")
+    }
+
+}
+
+// MARK: - Internal
+
+extension EditGoalStepViewModel {
 
     func editGoalStepAction() async {
         let data: [String: Any] = [

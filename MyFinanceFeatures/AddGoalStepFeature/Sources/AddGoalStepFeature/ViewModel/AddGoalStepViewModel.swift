@@ -19,6 +19,8 @@ public class AddGoalStepViewModel: ObservableObject {
     @Published var routingState = AddGoalStepRouting()
     @Published var state: AddGoalStepViewState = .start
 
+    // MARK: - Lifecycle
+
     public init(
         id: String,
         dataService: AddGoalStepDataServiceType
@@ -26,6 +28,16 @@ public class AddGoalStepViewModel: ObservableObject {
         self.goalId = id
         self.dataService = dataService
     }
+
+    deinit {
+        Swift.print("[Deinit] AddGoalStepViewModel")
+    }
+
+}
+
+// MARK: - Internal
+
+extension AddGoalStepViewModel {
 
     func addGoalStepAction() async {
         let data: [String: Any] = [

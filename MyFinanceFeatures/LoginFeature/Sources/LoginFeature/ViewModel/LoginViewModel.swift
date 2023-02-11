@@ -6,6 +6,8 @@ public class LoginViewModel: ObservableObject {
     private let dataService: LoginDataServiceType
     private let onAuth: () -> Void
 
+    // MARK: - Lifecycle
+
     public init(
         dataService: LoginDataServiceType,
         onAuth: @escaping () -> Void
@@ -25,6 +27,8 @@ public class LoginViewModel: ObservableObject {
     @Published var routingState = LoginRouting()
 
 }
+
+// MARK: - Internal
 
 extension LoginViewModel {
 

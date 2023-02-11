@@ -38,6 +38,8 @@ public class AddGoalViewModel: ObservableObject {
 
     @Published var dismissAction: Bool = false
 
+    // MARK: - Lifecycle
+
     public init(
         appState: Store<AppState>,
         service: AddGoalDataService
@@ -48,6 +50,16 @@ public class AddGoalViewModel: ObservableObject {
             .sink { [weak self] in self?.title = $0 ?? "New Goal" }
             .store(in: &cancellables)
     }
+
+    deinit {
+        Swift.print("[Deinit] AddGoalViewModel")
+    }
+
+}
+
+// MARK: - Internal
+
+extension AddGoalViewModel {
 
     func addGoalAction() async {
         let data: [String: Any] = [
@@ -76,10 +88,6 @@ public class AddGoalViewModel: ObservableObject {
         routingState.isPresented = false
         cancellables.removeAll()
         state = .dismiss
-    }
-
-    deinit {
-        Swift.print("[Deinit] AddGoalViewModel")
     }
 
 }

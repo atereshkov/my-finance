@@ -17,6 +17,8 @@ public class WelcomeViewModel: ObservableObject {
 
 }
 
+// MARK: - Internal
+
 extension WelcomeViewModel {
 
     func signInAction() {

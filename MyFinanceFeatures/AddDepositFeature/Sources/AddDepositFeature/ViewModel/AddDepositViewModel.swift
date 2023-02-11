@@ -58,6 +58,8 @@ public class AddDepositViewModel: ObservableObject {
         return payoutOptions[payoutIndex] == .custom
     }
 
+    // MARK: - Lifecycle
+
     public init(
         appState: Store<AppState>,
         service: AddDepositDataService
@@ -68,6 +70,14 @@ public class AddDepositViewModel: ObservableObject {
             .sink { [weak self] in self?.title = $0 ?? "New Deposit" }
             .store(in: &cancellables)
     }
+
+    deinit {
+        Swift.print("[Deinit] AddDepositViewModel")
+    }
+
+}
+
+extension AddDepositViewModel {
 
     func addDepositAction() async {
         var data: [String: Any] = [
@@ -103,10 +113,6 @@ public class AddDepositViewModel: ObservableObject {
     func onDisappear() {
         cancellables.removeAll()
         state = .dismiss
-    }
-
-    deinit {
-        Swift.print("[Deinit] AddDepositViewModel")
     }
 
 }

@@ -13,6 +13,8 @@ public class GoalsListViewModel: ObservableObject {
     @Published var goals: [GoalDVO] = []
     @Published var routingState = GoalsListRouting()
 
+    // MARK: - Lifecycle
+
     public init(appState: Store<AppState>) {
         appState.map(\.data.goals)
             .sink { [weak self] data in
@@ -20,6 +22,12 @@ public class GoalsListViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+
+}
+
+// MARK: - Internal
+
+extension GoalsListViewModel {
 
     func addGoalAction() {
         routingState.show(sheet: .addGoal)
