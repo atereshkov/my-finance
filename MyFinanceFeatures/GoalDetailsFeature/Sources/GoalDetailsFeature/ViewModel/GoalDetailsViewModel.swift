@@ -63,6 +63,8 @@ public class GoalDetailsViewModel: ObservableObject {
 
 }
 
+// MARK: - Internal
+
 extension GoalDetailsViewModel {
 
     func editGoalAction() {
@@ -103,6 +105,8 @@ extension GoalDetailsViewModel {
     }
 
 }
+
+// MARK: - Private
 
 private extension GoalDetailsViewModel {
 

@@ -7,6 +7,7 @@ import Repositories
 public protocol DepositDataServiceType {
     func getDepositSteps(depositId: String) async throws -> [DepositStepDVO]
     func deleteDepositStep(stepId: String, value: Double, depositId: String) async throws
+    func deleteDeposit(depositId: String) async throws
 }
 
 public class DepositDataService: DepositDataServiceType {
@@ -42,6 +43,11 @@ public class DepositDataService: DepositDataServiceType {
 
         try await depositStepRepository.deleteDepositStep(id: stepId, depositId: depositId, userId: userId)
         try await depositRepository.updateBalance(id: depositId, value: value, isAdd: false, userId: userId)
+    }
+
+    public func deleteDeposit(depositId: String) async throws {
+        let userId = appState[\.user.id]!
+        try await depositRepository.deleteDeposit(id: depositId, userId: userId)
     }
 
 }

@@ -59,6 +59,8 @@ public struct DepositDetailsView<EditDeposit: View, AddDepositStep: View>: View 
         switch viewModel.routingState.currentAlert {
         case .confirmDeleteStep(let item):
             return confirmDeleteStepAlertView(item)
+        case .confirmDeleteDeposit(let item):
+            return confirmDeleteDepositAlertView(item)
         case .none:
             return Alert(title: Text(""))
         }
@@ -76,9 +78,22 @@ public struct DepositDetailsView<EditDeposit: View, AddDepositStep: View>: View 
         )
     }
 
+    func confirmDeleteDepositAlertView(_ item: DepositDVO) -> Alert {
+        Alert(
+            title: Text("Are you sure you want do delete the deposit?"),
+            primaryButton: .default(Text("Delete")) {
+                Task {
+                    await viewModel.deleteDepositActionConfirmed(item)
+                }
+            },
+            secondaryButton: .cancel(Text("Cancel"))
+        )
+    }
+
     var navBarButtons: some View {
         HStack {
             editButton
+            deleteButton
         }
     }
 
@@ -86,6 +101,13 @@ public struct DepositDetailsView<EditDeposit: View, AddDepositStep: View>: View 
         Button(
             action: viewModel.editDepositAction,
             label: { Image(systemName: "pencil.circle").imageScale(.large) }
+        )
+    }
+
+    var deleteButton: some View {
+        Button(
+            action: viewModel.deleteDepositAction,
+            label: { Image(systemName: "trash").imageScale(.large) }
         )
     }
 

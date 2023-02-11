@@ -4,6 +4,7 @@ public enum PayoutOption {
     case monthly
     case eachTwoMonths
     case quarterly
+    case endOfDeposit
     case custom
 
     public func localized() -> String {
@@ -18,6 +19,8 @@ public enum PayoutOption {
             return "Each two months"
         case .quarterly:
             return "Quarterly"
+        case .endOfDeposit:
+            return "End of deposit"
         case .custom:
             return "Custom"
         }
@@ -35,6 +38,8 @@ public enum PayoutOption {
             return "each_2_months"
         case .quarterly:
             return "quarterly"
+        case .endOfDeposit:
+            return "end_of_deposit"
         case .custom:
             return "custom"
         }

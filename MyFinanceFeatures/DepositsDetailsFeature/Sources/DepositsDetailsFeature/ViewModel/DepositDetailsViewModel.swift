@@ -65,10 +65,17 @@ public class DepositDetailsViewModel: ObservableObject {
 
 }
 
+// MARK: - Internal
+
 extension DepositDetailsViewModel {
 
     func editDepositAction() {
         routingState.show(sheet: .editDeposit(id))
+    }
+
+    func deleteDepositAction() {
+        guard let deposit = deposit else { return }
+        routingState.show(alert: .confirmDeleteDeposit(deposit))
     }
 
     func addDepositStepAction() {
@@ -91,7 +98,17 @@ extension DepositDetailsViewModel {
         }
     }
 
+    func deleteDepositActionConfirmed(_ item: DepositDVO) async {
+        do {
+            try await dataService.deleteDeposit(depositId: id)
+        } catch let error {
+            Swift.print(error)
+        }
+    }
+
 }
+
+// MARK: - Private
 
 private extension DepositDetailsViewModel {
 

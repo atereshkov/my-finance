@@ -48,7 +48,8 @@ public class AddDepositViewModel: ObservableObject {
         2: .monthly,
         3: .eachTwoMonths,
         4: .quarterly,
-        5: .custom
+        5: .endOfDeposit,
+        6: .custom
     ]
 
     @Published var dismissAction: Bool = false
@@ -75,9 +76,9 @@ public class AddDepositViewModel: ObservableObject {
             "currency": currencyOptions[currencyIndex].id,
             "payout": payoutOptions[payoutIndex]?.dtoValue() ?? "",
             "startValue": Double(startValue ?? "") ?? 0,
+            "balance": Double(startValue ?? "") ?? 0, // Balance will be just a start value by default
             "rate": Double(rate ?? "") ?? 0,
             "tax": Double(tax ?? "") ?? 0,
-            "startValue": Double(startValue ?? "") ?? 0,
             "isRevocable": isRevocable,
             "isCapitalizable": isCapitalizable,
             "startDate": startDate,
