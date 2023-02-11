@@ -31,6 +31,7 @@ public class EditGoalViewModel: ObservableObject {
         GoalMeasureViewItem(id: "EUR", name: "EUR"),
         GoalMeasureViewItem(id: "RUB", name: "RUB"),
         GoalMeasureViewItem(id: "BYN", name: "BYN"),
+        GoalMeasureViewItem(id: "PLN", name: "PLN"),
         GoalMeasureViewItem(id: "percent", name: "%")
     ]
 

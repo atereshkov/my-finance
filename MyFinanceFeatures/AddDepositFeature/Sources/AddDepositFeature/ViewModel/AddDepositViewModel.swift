@@ -38,7 +38,8 @@ public class AddDepositViewModel: ObservableObject {
         CurrencyViewItem(id: "USD", name: "USD"),
         CurrencyViewItem(id: "EUR", name: "EUR"),
         CurrencyViewItem(id: "RUB", name: "RUB"),
-        CurrencyViewItem(id: "BYN", name: "BYN")
+        CurrencyViewItem(id: "BYN", name: "BYN"),
+        CurrencyViewItem(id: "PLN", name: "PLN")
     ]
 
     @Published var payoutOptions: [Int: PayoutOption] = [
