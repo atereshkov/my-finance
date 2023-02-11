@@ -105,7 +105,7 @@ public class AddDepositViewModel: ObservableObject {
     }
 
     deinit {
-        Swift.print("123123 deinit")
+        Swift.print("[Deinit] AddDepositViewModel")
     }
 
 }

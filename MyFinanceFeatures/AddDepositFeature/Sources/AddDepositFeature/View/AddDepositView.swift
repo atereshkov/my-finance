@@ -62,7 +62,7 @@ public struct AddDepositView: View {
                     .foregroundColor(Color.gray)
                 Spacer()
                 Picker(viewModel.currencyOptions[viewModel.currencyIndex].name, selection: $viewModel.currencyIndex) {
-                    ForEach(0..<viewModel.currencyOptions.count) { index in
+                    ForEach(0..<viewModel.currencyOptions.count, id: \.self) { index in
                         Text(viewModel.currencyOptions[index].name).tag(index)
                     }
                 }
@@ -97,7 +97,7 @@ public struct AddDepositView: View {
                     viewModel.payoutOptions[viewModel.payoutIndex]?.localized() ?? "",
                     selection: $viewModel.payoutIndex
                 ) {
-                    ForEach(0..<viewModel.payoutOptions.count) { index in
+                    ForEach(0..<viewModel.payoutOptions.count, id: \.self) { index in
                         Text(
                             viewModel.payoutOptions[index]?.localized() ?? ""
                         ).tag(index)

@@ -36,7 +36,7 @@ public struct EditGoalView: View {
                     .foregroundColor(Color.gray)
                 Spacer()
                 Picker(viewModel.goalMeasureOptions[viewModel.goalMeasureIndex].name, selection: $viewModel.goalMeasureIndex) {
-                    ForEach(0..<viewModel.goalMeasureOptions.count) { index in
+                    ForEach(0..<viewModel.goalMeasureOptions.count, id: \.self) { index in
                         Text(viewModel.goalMeasureOptions[index].name).tag(index)
                     }
                 }

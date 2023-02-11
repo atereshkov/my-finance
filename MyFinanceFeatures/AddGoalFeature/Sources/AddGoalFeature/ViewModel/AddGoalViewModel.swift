@@ -79,7 +79,7 @@ public class AddGoalViewModel: ObservableObject {
     }
 
     deinit {
-        Swift.print("AddGoalViewModel deinit")
+        Swift.print("[Deinit] AddGoalViewModel")
     }
 
 }

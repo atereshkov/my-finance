@@ -60,7 +60,7 @@ public class DepositDetailsViewModel: ObservableObject {
     }
 
     deinit {
-        Swift.print("Deinit")
+        Swift.print("[Deinit] DepositDetailsViewModel")
     }
 
 }
