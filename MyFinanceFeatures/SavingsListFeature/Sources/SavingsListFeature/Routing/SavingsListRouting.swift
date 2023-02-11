@@ -3,12 +3,17 @@ import Foundation
 struct SavingsListRouting: Equatable {
 
     // MARK: - Sheet
-//    var showModalSheet: Bool = false
-//    var currentModalSheet: HomeModalRoutingType?
+    var showModalSheet: Bool = false
+    var currentModalSheet: SavingsListSheetType?
 
-    // MARK: - Book Details
+    // MARK: - Savings Details
 
     /// Savings ID to navigate
     var savingsDetails: String?
+
+    mutating func show(sheet: SavingsListSheetType) {
+        self.currentModalSheet = sheet
+        self.showModalSheet = true
+    }
 
 }

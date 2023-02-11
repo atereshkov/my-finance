@@ -5,11 +5,11 @@ import AppState
 import FirebaseFirestore
 import MyFinanceDomain
 
-public protocol GoalsListenerType: Listener {
+public protocol SavingsListenerType: Listener {
 
 }
 
-public class GoalsListener: GoalsListenerType {
+public class SavingsListener: SavingsListenerType {
 
     private var cancellables: Set<AnyCancellable> = []
 
@@ -27,7 +27,7 @@ public class GoalsListener: GoalsListenerType {
             .removeDuplicates()
             .sink { [weak self] id in
                 guard let id = id else { return }
-                self?.listenGoals(userId: id)
+                self?.listenSavings(userId: id)
             }
             .store(in: &cancellables)
     }
@@ -39,19 +39,19 @@ public class GoalsListener: GoalsListenerType {
 
 }
 
-private extension GoalsListener {
+private extension SavingsListener {
 
-    private func listenGoals(userId: String) {
-        listener = db.collection("user_goals")
+    private func listenSavings(userId: String) {
+        listener = db.collection("user_savings")
             .document(userId)
-            .collection("goals")
+            .collection("savings")
             .addSnapshotListener { [weak self] querySnapshot, error in
                 if let error = error {
                     Swift.print(error)
                 } else if let documents = querySnapshot?.documents {
-                    let goals = documents
-                        .map { GoalDVO(id: $0.documentID, data: $0.data()) }
-                    self?.appState[\.data.goals] = goals
+                    let savings = documents
+                        .map { SavingsDVO(id: $0.documentID, data: $0.data()) }
+                    self?.appState[\.data.savings] = savings
                 }
             }
     }

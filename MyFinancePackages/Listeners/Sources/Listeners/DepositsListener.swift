@@ -9,7 +9,7 @@ public protocol DepositsListenerType: Listener {
 
 }
 
-public class DepositsListener: AuthListenerType {
+public class DepositsListener: DepositsListenerType {
 
     private var cancellables: Set<AnyCancellable> = []
 

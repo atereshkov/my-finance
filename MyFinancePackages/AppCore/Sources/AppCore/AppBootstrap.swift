@@ -30,7 +30,8 @@ private extension AppBootstrap {
         listeners = [
             AuthListener(appState: appState),
             GoalsListener(appState: appState),
-            DepositsListener(appState: appState)
+            DepositsListener(appState: appState),
+            SavingsListener(appState: appState)
         ]
         for listener in listeners {
             listener.start()

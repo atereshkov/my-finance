@@ -27,6 +27,7 @@ public extension AppState {
     struct DataState: Equatable {
         public var goals: [GoalDVO] = []
         public var deposits: [DepositDVO] = []
+        public var savings: [SavingsDVO] = []
     }
 }
 

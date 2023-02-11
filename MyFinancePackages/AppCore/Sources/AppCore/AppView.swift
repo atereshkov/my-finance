@@ -87,10 +87,19 @@ public struct AppView: View {
             tabName: "Savings"
         ) {
             return AnyView(SavingsListView(
-                viewModel: SavingsListViewModel(),
-                savingsDetailViewProvider: { id in savingsDetail(id: id) }
+                viewModel: SavingsListViewModel(appState: appState),
+                savingsDetailViewProvider: { id in savingsDetail(id: id) },
+                addSavingsViewProvider: { addSavingsView() }
             ))
         }
+    }
+
+    func addSavingsView() -> some View {
+//        AddSavingsView(viewModel: AddSavingsViewModel(
+//            appState: appState,
+//            service: AddSavingsDataService(appState: appState, savingsRepository: FirebaseSavingsRepository()))
+//        )
+        return EmptyView()
     }
 
     func savingsDetail(id: String) -> some View {

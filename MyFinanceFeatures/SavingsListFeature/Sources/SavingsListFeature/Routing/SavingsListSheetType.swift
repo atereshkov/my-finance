@@ -1,0 +1,3 @@
+enum SavingsListSheetType {
+    case addSavings
+}

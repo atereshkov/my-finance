@@ -1,10 +1,16 @@
 import SwiftUI
 
-struct CircleView: View {
+public struct CircleView: View {
 
-    var title: String
+    private var title: String
+    private var fontSize: CGFloat = 20.0
 
-    var body: some View {
+    public init(title: String, fontSize: CGFloat = 20.0) {
+        self.title = title
+        self.fontSize = fontSize
+    }
+
+    public var body: some View {
         ZStack {
             Circle()
                 .fill(
@@ -16,7 +22,7 @@ struct CircleView: View {
                 )
             VStack {
                 Text(title)
-                    .font(.system(size: 20, weight: .bold))
+                    .font(.system(size: fontSize, weight: .bold))
                     .foregroundColor(.labelPrimaryText)
             }
         }
