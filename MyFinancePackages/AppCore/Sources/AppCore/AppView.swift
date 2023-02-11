@@ -11,6 +11,7 @@ import RegistrationFeature
 import TabBarFeature
 import SavingsListFeature
 import SavingsDetailsFeature
+import AddSavingsFeature
 import DepositsListFeature
 import DepositsDetailsFeature
 import AddDepositFeature
@@ -95,11 +96,10 @@ public struct AppView: View {
     }
 
     func addSavingsView() -> some View {
-//        AddSavingsView(viewModel: AddSavingsViewModel(
-//            appState: appState,
-//            service: AddSavingsDataService(appState: appState, savingsRepository: FirebaseSavingsRepository()))
-//        )
-        return EmptyView()
+        AddSavingsView(viewModel: AddSavingsViewModel(
+            appState: appState,
+            service: AddSavingsDataService(appState: appState, savingsRepository: FirebaseSavingsRepository()))
+        )
     }
 
     func savingsDetail(id: String) -> some View {

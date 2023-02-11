@@ -74,6 +74,7 @@
 		CB767AE427C0F0F7007A635A /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Repositories; path = MyFinancePackages/Repositories; sourceTree = "<group>"; };
 		CB79922C27C0F87100259A77 /* FirebaseFramework */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FirebaseFramework; path = MyFinancePackages/FirebaseFramework; sourceTree = "<group>"; };
 		CB79922D27C111B000259A77 /* MyFinanceDomain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceDomain; path = MyFinancePackages/MyFinanceDomain; sourceTree = "<group>"; };
+		FAB7A46E299802E900EFDACB /* AddSavingsFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AddSavingsFeature; path = MyFinanceFeatures/AddSavingsFeature; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +206,7 @@
 				CB3981BE27BE8C1800F17C87 /* DepositsDetailsFeature */,
 				CB43C44227C6B5FC00D1F291 /* AddDepositFeature */,
 				CB43C44327CAB41E00D1F291 /* AddDepositStepFeature */,
+				FAB7A46E299802E900EFDACB /* AddSavingsFeature */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
