@@ -16,7 +16,7 @@ public class DepositsListViewModel: ObservableObject {
     public init(appState: Store<AppState>) {
         appState.map(\.data.deposits)
             .sink { [weak self] data in
-                self?.deposits = data
+                self?.deposits = data.sorted(by: { $0.endDate > $1.endDate })
             }
             .store(in: &cancellables)
     }
