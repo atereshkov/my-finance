@@ -8,6 +8,7 @@ public protocol GoalStepRepository {
     func addGoalStep(_ data: AddGoalStepDTO, goalId: String, userId: String) async throws
     func editGoalStep(id: String, _ data: EditGoalStepDTO, goalId: String, userId: String) async throws
     func deleteGoalStep(id: String, goalId: String, userId: String) async throws
+    func deleteGoal(goalId: String, userId: String) async throws
 }
 
 public class FirebaseGoalStepRepository: GoalStepRepository {
@@ -60,6 +61,15 @@ public class FirebaseGoalStepRepository: GoalStepRepository {
             .document(goalId)
             .collection("steps")
             .document(id)
+            .delete()
+    }
+
+    public func deleteGoal(goalId: String, userId: String) async throws {
+        try await db
+            .collection("user_goals")
+            .document(userId)
+            .collection("goals")
+            .document(goalId)
             .delete()
     }
 

@@ -7,6 +7,7 @@ import Repositories
 public protocol GoalDataServiceType {
     func getGoalSteps(goalId: String) async throws -> [GoalStepDVO]
     func deleteGoalStep(stepId: String, value: Double, goalId: String) async throws
+    func deleteGoal(goalId: String) async throws
 }
 
 public class GoalDataService: GoalDataServiceType {
@@ -41,6 +42,11 @@ public class GoalDataService: GoalDataServiceType {
 
         try await goalStepRepository.deleteGoalStep(id: stepId, goalId: goalId, userId: userId)
         try await goalRepository.updateCurrentValue(id: goalId, value: value, isAdd: false, userId: userId)
+    }
+
+    public func deleteGoal(goalId: String) async throws {
+        let userId = appState[\.user.id]!
+        try await goalStepRepository.deleteGoal(goalId: goalId, userId: userId)
     }
 
 }

@@ -69,6 +69,11 @@ extension GoalDetailsViewModel {
         routingState.show(sheet: .editGoal(id))
     }
 
+    func deleteGoalAction() {
+        guard let goal = goal else { return }
+        routingState.show(alert: .confirmDeleteGoal(goal))
+    }
+
     func addStepGoalAction() {
         routingState.show(sheet: .addGoalStep(id))
     }
@@ -84,6 +89,14 @@ extension GoalDetailsViewModel {
     func deleteStepActionConfirmed(_ item: GoalStepDVO) async {
         do {
             try await dataService.deleteGoalStep(stepId: item.id, value: item.value, goalId: id)
+        } catch let error {
+            Swift.print(error)
+        }
+    }
+
+    func deleteGoalActionConfirmed(_ item: GoalDVO) async {
+        do {
+            try await dataService.deleteGoal(goalId: id)
         } catch let error {
             Swift.print(error)
         }

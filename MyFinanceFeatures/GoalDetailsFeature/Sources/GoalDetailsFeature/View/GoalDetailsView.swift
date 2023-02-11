@@ -63,6 +63,8 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View, EditGoalStep: V
         switch viewModel.routingState.currentAlert {
         case .confirmDeleteStep(let item):
             return confirmDeleteStepAlertView(item)
+        case .confirmDeleteGoal(let item):
+            return confirmDeleteGoalAlertView(item)
         case .none:
             return Alert(title: Text(""))
         }
@@ -80,9 +82,22 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View, EditGoalStep: V
         )
     }
 
+    func confirmDeleteGoalAlertView(_ item: GoalDVO) -> Alert {
+        Alert(
+            title: Text("Are you sure you want do delete your goal?"),
+            primaryButton: .default(Text("Delete")) {
+                Task {
+                    await viewModel.deleteGoalActionConfirmed(item)
+                }
+            },
+            secondaryButton: .cancel(Text("Cancel"))
+        )
+    }
+
     var navBarButtons: some View {
         HStack {
             editButton
+            deleteButton
         }
     }
 
@@ -90,6 +105,13 @@ public struct GoalDetailsView<EditGoal: View, AddGoalStep: View, EditGoalStep: V
         Button(
             action: viewModel.editGoalAction,
             label: { Image(systemName: "pencil.circle").imageScale(.large) }
+        )
+    }
+
+    var deleteButton: some View {
+        Button(
+            action: viewModel.deleteGoalAction,
+            label: { Image(systemName: "trash").imageScale(.large) }
         )
     }
 
