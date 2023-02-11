@@ -50,10 +50,9 @@ public struct WelcomeView<Login: View>: View {
     }
 
     var startButton: some View {
-        NavigationLink(destination:
-                        NavigationLazyView(self.loginViewProvider())
-                        .navigationBarTitle("")
-                        .navigationBarHidden(true)
+        NavigationLink(destination: NavigationLazyView(self.loginViewProvider())
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         ) {
             Text("Start")
         }.buttonStyle(PrimaryButton())

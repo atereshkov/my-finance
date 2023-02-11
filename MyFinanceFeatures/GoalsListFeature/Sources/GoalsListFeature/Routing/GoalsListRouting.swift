@@ -1,4 +1,5 @@
 import Foundation
+import MyFinanceDomain
 
 struct GoalsListRouting: Equatable {
 
@@ -8,8 +9,7 @@ struct GoalsListRouting: Equatable {
 
     // MARK: - Goal Details
 
-    /// Goals ID to navigate
-    var goalsDetails: String?
+    var path: [GoalDVO] = []
 
     mutating func show(sheet: GoalsListSheetType) {
         self.currentModalSheet = sheet

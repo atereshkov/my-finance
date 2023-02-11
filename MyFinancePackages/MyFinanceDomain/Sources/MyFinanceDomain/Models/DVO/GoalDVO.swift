@@ -1,6 +1,6 @@
 import Foundation
 
-public struct GoalDVO: Equatable, Identifiable {
+public struct GoalDVO: Equatable, Identifiable, Hashable {
     public var id: String
     public var name: String
     public var measure: String

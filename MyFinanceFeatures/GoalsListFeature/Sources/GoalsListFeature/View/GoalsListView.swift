@@ -35,7 +35,7 @@ public struct GoalsListView<GoalDetails: View, AddGoal: View>: View {
 extension GoalsListView {
 
     var content: some View {
-        NavigationView {
+        NavigationStack(path: $viewModel.routingState.path) {
             ZStack {
                 Color.primaryBackground.ignoresSafeArea()
                 goals
@@ -80,14 +80,13 @@ extension GoalsListView {
         ScrollView {
             LazyVStack {
                 ForEach(viewModel.goals) { item in
-                    NavigationLink(
-                        destination: NavigationLazyView(goalDetailsView(item)),
-                        tag: item.id,
-                        selection: $viewModel.routingState.goalsDetails
-                    ) {
+                    NavigationLink(value: item) {
                         GoalsRowView(item: item)
                     }
                 }
+            }
+            .navigationDestination(for: GoalDVO.self) { item in
+                NavigationLazyView(goalDetailsView(item))
             }
         }
     }

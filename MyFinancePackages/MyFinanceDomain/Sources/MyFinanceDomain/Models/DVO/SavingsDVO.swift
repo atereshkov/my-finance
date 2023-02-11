@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SavingsDVO: Equatable, Identifiable {
+public struct SavingsDVO: Equatable, Identifiable, Hashable {
     public var id: String
     public var name: String
 

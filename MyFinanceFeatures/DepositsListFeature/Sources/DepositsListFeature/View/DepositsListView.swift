@@ -35,7 +35,7 @@ public struct DepositsListView<DepositsDetail: View, AddDeposit: View>: View {
 extension DepositsListView {
 
     var content: some View {
-        NavigationView {
+        NavigationStack(path: $viewModel.routingState.path) {
             ZStack {
                 Color.primaryBackground.ignoresSafeArea()
                 goals
@@ -80,14 +80,13 @@ extension DepositsListView {
         ScrollView {
             LazyVStack {
                 ForEach(viewModel.deposits) { item in
-                    NavigationLink(
-                        destination: NavigationLazyView(depositDetailsView(item)),
-                        tag: item.id,
-                        selection: $viewModel.routingState.depositDetails
-                    ) {
+                    NavigationLink(value: item) {
                         DepositsRowView(item: item)
                     }
                 }
+            }
+            .navigationDestination(for: DepositDVO.self) { item in
+                NavigationLazyView(depositDetailsView(item))
             }
         }
     }

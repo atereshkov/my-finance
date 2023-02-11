@@ -1,4 +1,5 @@
 import Foundation
+import MyFinanceDomain
 
 struct SavingsListRouting: Equatable {
 
@@ -8,8 +9,7 @@ struct SavingsListRouting: Equatable {
 
     // MARK: - Savings Details
 
-    /// Savings ID to navigate
-    var savingsDetails: String?
+    var path: [DepositDVO] = []
 
     mutating func show(sheet: SavingsListSheetType) {
         self.currentModalSheet = sheet

@@ -35,7 +35,7 @@ public struct SavingsListView<SavingsDetail: View, AddSavings: View>: View {
 extension SavingsListView {
 
     var content: some View {
-        NavigationView {
+        NavigationStack(path: $viewModel.routingState.path) {
             ZStack {
                 Color.primaryBackground.ignoresSafeArea()
                 goals
@@ -80,14 +80,13 @@ extension SavingsListView {
         ScrollView {
             LazyVStack {
                 ForEach(viewModel.savings) { item in
-                    NavigationLink(
-                        destination: NavigationLazyView(savingsDetailsView(item)),
-                        tag: item.id,
-                        selection: $viewModel.routingState.savingsDetails
-                    ) {
+                    NavigationLink(value: item) {
                         SavingsRowView(item: item)
                     }
                 }
+            }
+            .navigationDestination(for: SavingsDVO.self) { item in
+                NavigationLazyView(savingsDetailsView(item))
             }
         }
     }
