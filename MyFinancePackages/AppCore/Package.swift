@@ -14,8 +14,7 @@ let package = Package(
     dependencies: [
         .package(path: "../AppState"),
         .package(path: "../RootFeature"),
-        .package(path: "../LoginFeature"),
-        .package(path: "../RegistrationFeature"),
+        .package(path: "../../MyFinanceFlows/AuthFlow"),
         .package(path: "../TabBarFeature"),
         .package(path: "../WelcomeFeature"),
         .package(path: "../SavingsListFeature"),
@@ -34,7 +33,6 @@ let package = Package(
         .package(path: "../MyFinanceDomain"),
         .package(path: "../AddDepositFeature"),
         .package(path: "../AddDepositStepFeature")
-//        .package(path: "../EditDepositFeature"),
     ],
     targets: [
         .target(
@@ -42,8 +40,7 @@ let package = Package(
             dependencies: [
                 "AppState",
                 "RootFeature",
-                "LoginFeature",
-                "RegistrationFeature",
+                "AuthFlow",
                 "TabBarFeature",
                 "WelcomeFeature",
                 "SavingsListFeature",
@@ -62,7 +59,6 @@ let package = Package(
                 "MyFinanceDomain",
                 "AddDepositFeature",
                 "AddDepositStepFeature"
-//                "EditDepositFeature"
             ]),
         .testTarget(
             name: "AppCoreTests",

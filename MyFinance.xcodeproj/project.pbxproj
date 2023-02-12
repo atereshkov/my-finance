@@ -47,8 +47,6 @@
 		CB39815427BD6AC300F17C87 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB39815827BD6AC300F17C87 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		CB39815A27BD6AC300F17C87 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
-		CB39819F27BD814E00F17C87 /* LoginFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LoginFeature; path = MyFinanceFeatures/LoginFeature; sourceTree = "<group>"; };
-		CB3981A027BD816300F17C87 /* RegistrationFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RegistrationFeature; path = MyFinanceFeatures/RegistrationFeature; sourceTree = "<group>"; };
 		CB3981A127BD818100F17C87 /* RootFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RootFeature; path = MyFinanceFeatures/RootFeature; sourceTree = "<group>"; };
 		CB3981A327BD819000F17C87 /* WelcomeFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WelcomeFeature; path = MyFinanceFeatures/WelcomeFeature; sourceTree = "<group>"; };
 		CB3981A627BD81A600F17C87 /* MyFinanceComponentsKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceComponentsKit; path = MyFinancePackages/MyFinanceComponentsKit; sourceTree = "<group>"; };
@@ -74,6 +72,7 @@
 		CB767AE427C0F0F7007A635A /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Repositories; path = MyFinancePackages/Repositories; sourceTree = "<group>"; };
 		CB79922C27C0F87100259A77 /* FirebaseFramework */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FirebaseFramework; path = MyFinancePackages/FirebaseFramework; sourceTree = "<group>"; };
 		CB79922D27C111B000259A77 /* MyFinanceDomain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceDomain; path = MyFinancePackages/MyFinanceDomain; sourceTree = "<group>"; };
+		FAAAC21C29994B11000FADB2 /* AuthFlow */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AuthFlow; path = MyFinanceFlows/AuthFlow; sourceTree = "<group>"; };
 		FAB7A46E299802E900EFDACB /* AddSavingsFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AddSavingsFeature; path = MyFinanceFeatures/AddSavingsFeature; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,8 +189,6 @@
 				CB43C43E27C1338300D1F291 /* Listeners */,
 				CB79922C27C0F87100259A77 /* FirebaseFramework */,
 				CB3981A127BD818100F17C87 /* RootFeature */,
-				CB39819F27BD814E00F17C87 /* LoginFeature */,
-				CB3981A027BD816300F17C87 /* RegistrationFeature */,
 				CB3981AB27BD827000F17C87 /* TabBarFeature */,
 				CB3981A327BD819000F17C87 /* WelcomeFeature */,
 				CB3981BB27BD976600F17C87 /* SavingsListFeature */,
@@ -207,6 +204,7 @@
 				CB43C44227C6B5FC00D1F291 /* AddDepositFeature */,
 				CB43C44327CAB41E00D1F291 /* AddDepositStepFeature */,
 				FAB7A46E299802E900EFDACB /* AddSavingsFeature */,
+				FAAAC21C29994B11000FADB2 /* AuthFlow */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

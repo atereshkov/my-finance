@@ -6,8 +6,7 @@ import MyFinanceDomain
 
 import RootFeature
 import WelcomeFeature
-import LoginFeature
-import RegistrationFeature
+import AuthFlow
 import TabBarFeature
 import SavingsListFeature
 import SavingsDetailsFeature
@@ -15,7 +14,6 @@ import AddSavingsFeature
 import DepositsListFeature
 import DepositsDetailsFeature
 import AddDepositFeature
-//import EditDepositFeature
 import AddDepositStepFeature
 import GoalsListFeature
 import GoalDetailsFeature
