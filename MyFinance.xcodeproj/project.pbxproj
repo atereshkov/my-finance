@@ -54,16 +54,14 @@
 		CB3981AA27BD824700F17C87 /* AppState */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppState; path = MyFinancePackages/AppState; sourceTree = "<group>"; };
 		CB3981AB27BD827000F17C87 /* TabBarFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TabBarFeature; path = MyFinanceFeatures/TabBarFeature; sourceTree = "<group>"; };
 		CB3981B727BD86E600F17C87 /* All Unit Tests (iOS).xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "All Unit Tests (iOS).xctestplan"; sourceTree = "<group>"; };
-		CB3981BB27BD976600F17C87 /* SavingsListFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SavingsListFeature; path = MyFinanceFeatures/SavingsListFeature; sourceTree = "<group>"; };
-		CB3981BC27BD982600F17C87 /* SavingsDetailsFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SavingsDetailsFeature; path = MyFinanceFeatures/SavingsDetailsFeature; sourceTree = "<group>"; };
 		CB3981C327BEDA6100F17C87 /* MyFinanceAssetsKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceAssetsKit; path = MyFinancePackages/MyFinanceAssetsKit; sourceTree = "<group>"; };
 		CB43C43E27C1338300D1F291 /* Listeners */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Listeners; path = MyFinancePackages/Listeners; sourceTree = "<group>"; };
 		CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB767AE427C0F0F7007A635A /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Repositories; path = MyFinancePackages/Repositories; sourceTree = "<group>"; };
 		CB79922C27C0F87100259A77 /* FirebaseFramework */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FirebaseFramework; path = MyFinancePackages/FirebaseFramework; sourceTree = "<group>"; };
 		CB79922D27C111B000259A77 /* MyFinanceDomain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceDomain; path = MyFinancePackages/MyFinanceDomain; sourceTree = "<group>"; };
+		FA6CB9372999614C00641717 /* SavingsFlow */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SavingsFlow; path = MyFinanceFlows/SavingsFlow; sourceTree = "<group>"; };
 		FAAAC21C29994B11000FADB2 /* AuthFlow */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AuthFlow; path = MyFinanceFlows/AuthFlow; sourceTree = "<group>"; };
-		FAB7A46E299802E900EFDACB /* AddSavingsFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AddSavingsFeature; path = MyFinanceFeatures/AddSavingsFeature; sourceTree = "<group>"; };
 		FABEEAE42999594B002BAFB8 /* DepositsFlow */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DepositsFlow; path = MyFinanceFlows/DepositsFlow; sourceTree = "<group>"; };
 		FAE95FDC29995E0400A59D73 /* GoalsFlow */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GoalsFlow; path = MyFinanceFlows/GoalsFlow; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,12 +181,10 @@
 				CB3981A127BD818100F17C87 /* RootFeature */,
 				CB3981AB27BD827000F17C87 /* TabBarFeature */,
 				CB3981A327BD819000F17C87 /* WelcomeFeature */,
-				CB3981BB27BD976600F17C87 /* SavingsListFeature */,
-				CB3981BC27BD982600F17C87 /* SavingsDetailsFeature */,
-				FAB7A46E299802E900EFDACB /* AddSavingsFeature */,
 				FAAAC21C29994B11000FADB2 /* AuthFlow */,
 				FABEEAE42999594B002BAFB8 /* DepositsFlow */,
 				FAE95FDC29995E0400A59D73 /* GoalsFlow */,
+				FA6CB9372999614C00641717 /* SavingsFlow */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

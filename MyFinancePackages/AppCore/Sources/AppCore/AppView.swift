@@ -10,9 +10,7 @@ import TabBarFeature
 import AuthFlow
 import DepositsFlow
 import GoalsFlow
-import SavingsListFeature
-import SavingsDetailsFeature
-import AddSavingsFeature
+import SavingsFlow
 
 public struct AppView: View {
 
