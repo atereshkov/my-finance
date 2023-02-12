@@ -6,18 +6,13 @@ import MyFinanceDomain
 
 import RootFeature
 import WelcomeFeature
+import TabBarFeature
 import AuthFlow
 import DepositsFlow
-import TabBarFeature
+import GoalsFlow
 import SavingsListFeature
 import SavingsDetailsFeature
 import AddSavingsFeature
-import GoalsListFeature
-import GoalDetailsFeature
-import AddGoalFeature
-import EditGoalFeature
-import AddGoalStepFeature
-import EditGoalStepFeature
 
 public struct AppView: View {
 
