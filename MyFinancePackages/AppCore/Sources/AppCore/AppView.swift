@@ -7,14 +7,11 @@ import MyFinanceDomain
 import RootFeature
 import WelcomeFeature
 import AuthFlow
+import DepositsFlow
 import TabBarFeature
 import SavingsListFeature
 import SavingsDetailsFeature
 import AddSavingsFeature
-import DepositsListFeature
-import DepositsDetailsFeature
-import AddDepositFeature
-import AddDepositStepFeature
 import GoalsListFeature
 import GoalDetailsFeature
 import AddGoalFeature

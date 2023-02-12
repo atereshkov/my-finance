@@ -56,16 +56,12 @@
 		CB3981B727BD86E600F17C87 /* All Unit Tests (iOS).xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "All Unit Tests (iOS).xctestplan"; sourceTree = "<group>"; };
 		CB3981BB27BD976600F17C87 /* SavingsListFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SavingsListFeature; path = MyFinanceFeatures/SavingsListFeature; sourceTree = "<group>"; };
 		CB3981BC27BD982600F17C87 /* SavingsDetailsFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SavingsDetailsFeature; path = MyFinanceFeatures/SavingsDetailsFeature; sourceTree = "<group>"; };
-		CB3981BD27BE89AC00F17C87 /* DepositsListFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DepositsListFeature; path = MyFinanceFeatures/DepositsListFeature; sourceTree = "<group>"; };
-		CB3981BE27BE8C1800F17C87 /* DepositsDetailsFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DepositsDetailsFeature; path = MyFinanceFeatures/DepositsDetailsFeature; sourceTree = "<group>"; };
 		CB3981BF27BEA0BF00F17C87 /* GoalsListFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GoalsListFeature; path = MyFinanceFeatures/GoalsListFeature; sourceTree = "<group>"; };
 		CB3981C127BEA22000F17C87 /* GoalDetailsFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GoalDetailsFeature; path = MyFinanceFeatures/GoalDetailsFeature; sourceTree = "<group>"; };
 		CB3981C227BEC79000F17C87 /* AddGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalFeature; path = MyFinanceFeatures/AddGoalFeature; sourceTree = "<group>"; };
 		CB3981C327BEDA6100F17C87 /* MyFinanceAssetsKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceAssetsKit; path = MyFinancePackages/MyFinanceAssetsKit; sourceTree = "<group>"; };
 		CB43C43E27C1338300D1F291 /* Listeners */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Listeners; path = MyFinancePackages/Listeners; sourceTree = "<group>"; };
 		CB43C43F27C5768600D1F291 /* EditGoalStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalStepFeature; path = MyFinanceFeatures/EditGoalStepFeature; sourceTree = "<group>"; };
-		CB43C44227C6B5FC00D1F291 /* AddDepositFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddDepositFeature; path = MyFinanceFeatures/AddDepositFeature; sourceTree = "<group>"; };
-		CB43C44327CAB41E00D1F291 /* AddDepositStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddDepositStepFeature; path = MyFinanceFeatures/AddDepositStepFeature; sourceTree = "<group>"; };
 		CB767ADF27C027F2007A635A /* EditGoalFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EditGoalFeature; path = MyFinanceFeatures/EditGoalFeature; sourceTree = "<group>"; };
 		CB767AE127C04505007A635A /* AddGoalStepFeature */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AddGoalStepFeature; path = MyFinanceFeatures/AddGoalStepFeature; sourceTree = "<group>"; };
 		CB767AE227C0EF2D007A635A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -74,6 +70,7 @@
 		CB79922D27C111B000259A77 /* MyFinanceDomain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyFinanceDomain; path = MyFinancePackages/MyFinanceDomain; sourceTree = "<group>"; };
 		FAAAC21C29994B11000FADB2 /* AuthFlow */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AuthFlow; path = MyFinanceFlows/AuthFlow; sourceTree = "<group>"; };
 		FAB7A46E299802E900EFDACB /* AddSavingsFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AddSavingsFeature; path = MyFinanceFeatures/AddSavingsFeature; sourceTree = "<group>"; };
+		FABEEAE42999594B002BAFB8 /* DepositsFlow */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DepositsFlow; path = MyFinanceFlows/DepositsFlow; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,12 +196,9 @@
 				CB767ADF27C027F2007A635A /* EditGoalFeature */,
 				CB767AE127C04505007A635A /* AddGoalStepFeature */,
 				CB43C43F27C5768600D1F291 /* EditGoalStepFeature */,
-				CB3981BD27BE89AC00F17C87 /* DepositsListFeature */,
-				CB3981BE27BE8C1800F17C87 /* DepositsDetailsFeature */,
-				CB43C44227C6B5FC00D1F291 /* AddDepositFeature */,
-				CB43C44327CAB41E00D1F291 /* AddDepositStepFeature */,
 				FAB7A46E299802E900EFDACB /* AddSavingsFeature */,
 				FAAAC21C29994B11000FADB2 /* AuthFlow */,
+				FABEEAE42999594B002BAFB8 /* DepositsFlow */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

@@ -15,13 +15,12 @@ let package = Package(
         .package(path: "../AppState"),
         .package(path: "../RootFeature"),
         .package(path: "../../MyFinanceFlows/AuthFlow"),
+        .package(path: "../../MyFinanceFlows/DepositsFlow"),
         .package(path: "../TabBarFeature"),
         .package(path: "../WelcomeFeature"),
         .package(path: "../SavingsListFeature"),
         .package(path: "../SavingsDetailsFeature"),
         .package(path: "../AddSavingsFeature"),
-        .package(path: "../DepositsListFeature"),
-        .package(path: "../DepositsDetailsFeature"),
         .package(path: "../GoalsListFeature"),
         .package(path: "../GoalDetailsFeature"),
         .package(path: "../AddGoalFeature"),
@@ -30,9 +29,7 @@ let package = Package(
         .package(path: "../EditGoalStepFeature"),
         .package(path: "../FirebaseFramework"),
         .package(path: "../Listeners"),
-        .package(path: "../MyFinanceDomain"),
-        .package(path: "../AddDepositFeature"),
-        .package(path: "../AddDepositStepFeature")
+        .package(path: "../MyFinanceDomain")
     ],
     targets: [
         .target(
@@ -41,13 +38,12 @@ let package = Package(
                 "AppState",
                 "RootFeature",
                 "AuthFlow",
+                "DepositsFlow",
                 "TabBarFeature",
                 "WelcomeFeature",
                 "SavingsListFeature",
                 "SavingsDetailsFeature",
                 "AddSavingsFeature",
-                "DepositsListFeature",
-                "DepositsDetailsFeature",
                 "GoalsListFeature",
                 "GoalDetailsFeature",
                 "AddGoalFeature",
@@ -56,9 +52,7 @@ let package = Package(
                 "EditGoalStepFeature",
                 "FirebaseFramework",
                 "Listeners",
-                "MyFinanceDomain",
-                "AddDepositFeature",
-                "AddDepositStepFeature"
+                "MyFinanceDomain"
             ]),
         .testTarget(
             name: "AppCoreTests",
