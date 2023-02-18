@@ -14,6 +14,7 @@ public struct DepositDTO {
 
     var isRevocable: Bool
     var isCapitalizable: Bool
+    var isReplenishable: Bool
 
     var startDate: Double
     var endDate: Double
@@ -31,6 +32,7 @@ public struct DepositDTO {
         self.balance = data["balance"] as? Double ?? 0.0
         self.isRevocable = data["isRevocable"] as? Bool ?? false
         self.isCapitalizable = data["isCapitalizable"] as? Bool ?? false
+        self.isReplenishable = data["isReplenishable"] as? Bool ?? false
         self.startDate = data["startDate"] as? Double ?? 0
         self.endDate = data["endDate"] as? Double ?? 0
         self.topUpEndDate = data["topUpEndDate"] as? Double ?? 0

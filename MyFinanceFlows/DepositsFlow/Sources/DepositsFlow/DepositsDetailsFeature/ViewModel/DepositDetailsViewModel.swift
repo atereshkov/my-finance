@@ -24,10 +24,11 @@ public class DepositDetailsViewModel: ObservableObject {
     @Published var endDate: String = ""
     @Published var topUpEndDate: String = ""
     @Published var isCapitalizable: Bool = false
+    @Published var isReplenishable: Bool = false
 
     @Published var progressValue: Double = 0.0
 
-    @Published var estimatedIncome: String = ""
+    @Published var estimatedSum: String = ""
     @Published var topUpMonthly: String = ""
 
     @Published var steps: [DepositStepDVO] = []
@@ -136,6 +137,7 @@ private extension DepositDetailsViewModel {
         balance = deposit.balance.formattedAsCurrency() ?? ""
         startValue = deposit.startValue.formattedAsCurrency() ?? ""
         isCapitalizable = deposit.isCapitalizable
+        isReplenishable = deposit.isReplenishable
 
         startDate = deposit.startDate.formatted(date: .numeric, time: .omitted)
         endDate = deposit.endDate.formatted(date: .numeric, time: .omitted)
@@ -143,15 +145,23 @@ private extension DepositDetailsViewModel {
     }
 
     private func bindStats(_ deposit: DepositDVO) {
-
+        estimatedSum = "\(deposit.balance + deposit.incomeWithoutTaxes)"
     }
 
     private func bindPayout(_ deposit: DepositDVO) {
-        // Support `twice a month` payout so far
-        guard deposit.payout == PayoutOption.twiceMonth.dtoValue() else { return }
+        switch deposit.payout {
+        case PayoutOption.twiceMonth.dtoValue():
+            bindTwiceMonthPayout(deposit)
+        case PayoutOption.endOfDeposit.dtoValue():
+            bindEndOfDepositPayout(deposit)
+        default:
+            break
+        }
+    }
 
+    private func bindTwiceMonthPayout(_ deposit: DepositDVO) {
         var current = Calendar.current.date(byAdding: .day, value: 15, to: deposit.startDate)!
-        
+
         let months = Calendar.current.dateComponents([.month], from: deposit.startDate, to: deposit.endDate).month ?? 0
         var payPeriods = Double(min(months, 12))
         if months < 12 {
@@ -181,6 +191,13 @@ private extension DepositDetailsViewModel {
             }
             i += 1
         }
+    }
+
+    private func bindEndOfDepositPayout(_ deposit: DepositDVO) {
+        payouts.append(.init(date: deposit.endDate,
+                             paid: deposit.income,
+                             tax: deposit.taxValue,
+                             sum: deposit.incomeWithoutTaxes))
     }
 
 }

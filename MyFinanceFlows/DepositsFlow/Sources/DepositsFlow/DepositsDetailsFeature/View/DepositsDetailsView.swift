@@ -114,13 +114,13 @@ public struct DepositDetailsView<EditDeposit: View, AddDepositStep: View>: View 
     var list: some View {
         List {
             detailsSection
-            if viewModel.isCapitalizable { // TODO change to 'isEligibleToTopUp'
+            if viewModel.isReplenishable {
                 statsSection
             }
             if !viewModel.payouts.isEmpty {
                 payoutSection
             }
-            if viewModel.isCapitalizable { // TODO change to 'isEligibleToTopUp'
+            if viewModel.isReplenishable {
                 stepsSection
             }
         }
@@ -152,7 +152,7 @@ public struct DepositDetailsView<EditDeposit: View, AddDepositStep: View>: View 
                     Text(viewModel.startValue)
                         .font(.system(size: 12.0, weight: .regular))
                     Spacer()
-                    Text(viewModel.estimatedIncome)
+                    Text(viewModel.estimatedSum)
                         .font(.system(size: 12.0, weight: .regular))
                 }
                 GoalProgressView(value: $viewModel.progressValue).frame(height: 20)

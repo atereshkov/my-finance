@@ -43,6 +43,7 @@ public struct AddDepositDTO {
             "rate": rate,
             "tax": tax,
             "startValue": startValue,
+            "balance": balance,
             "isRevocable": isRevocable,
             "isCapitalizable": isCapitalizable,
             "startDate": startDate.timeIntervalSince1970,

@@ -14,6 +14,7 @@ public struct DepositDVO: Equatable, Identifiable, Hashable {
 
     public var isRevocable: Bool
     public var isCapitalizable: Bool
+    public var isReplenishable: Bool
 
     public var startDate: Date
     public var endDate: Date
@@ -31,6 +32,7 @@ public struct DepositDVO: Equatable, Identifiable, Hashable {
         self.balance = 0.0
         self.isRevocable = false
         self.isCapitalizable = false
+        self.isReplenishable = false
         self.startDate = Date()
         self.endDate = Date()
         self.topUpEndDate = Date()
@@ -48,8 +50,27 @@ public struct DepositDVO: Equatable, Identifiable, Hashable {
         self.balance = data["balance"] as? Double ?? 0.0
         self.isRevocable = data["isRevocable"] as? Bool ?? false
         self.isCapitalizable = data["isCapitalizable"] as? Bool ?? false
+        self.isReplenishable = data["isReplenishable"] as? Bool ?? false
         self.startDate = Date(timeIntervalSince1970: data["startDate"] as? Double ?? 0.0)
         self.endDate = Date(timeIntervalSince1970: data["endDate"] as? Double ?? 0.0)
         self.topUpEndDate = Date(timeIntervalSince1970: data["topUpEndDate"] as? Double ?? 0.0)
     }
+}
+
+public extension DepositDVO {
+
+    var income: Double {
+        let monthlyPaid = balance * rate / 100 / 12
+        let months = Calendar.current.dateComponents([.month], from: startDate, to: endDate).month ?? 0
+        return monthlyPaid * Double(months)
+    }
+
+    var taxValue: Double {
+        return income * tax / 100
+    }
+
+    var incomeWithoutTaxes: Double {
+        return income - tax
+    }
+
 }
