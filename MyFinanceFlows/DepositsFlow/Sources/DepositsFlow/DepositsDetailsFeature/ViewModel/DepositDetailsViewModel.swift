@@ -23,6 +23,7 @@ public class DepositDetailsViewModel: ObservableObject {
     @Published var startDate: String = ""
     @Published var endDate: String = ""
     @Published var topUpEndDate: String = ""
+    @Published var isCapitalizable: Bool = false
 
     @Published var progressValue: Double = 0.0
 
@@ -126,7 +127,7 @@ private extension DepositDetailsViewModel {
     private func bind(_ deposit: DepositDVO) {
         bindDetails(deposit)
         bindStats(deposit)
-        bindMonthlyPayout(deposit)
+        bindPayout(deposit)
     }
 
     private func bindDetails(_ deposit: DepositDVO) {
@@ -134,6 +135,7 @@ private extension DepositDetailsViewModel {
         currency = deposit.currency
         balance = deposit.balance.formattedAsCurrency() ?? ""
         startValue = deposit.startValue.formattedAsCurrency() ?? ""
+        isCapitalizable = deposit.isCapitalizable
 
         startDate = deposit.startDate.formatted(date: .numeric, time: .omitted)
         endDate = deposit.endDate.formatted(date: .numeric, time: .omitted)
@@ -144,7 +146,10 @@ private extension DepositDetailsViewModel {
 
     }
 
-    private func bindMonthlyPayout(_ deposit: DepositDVO) {
+    private func bindPayout(_ deposit: DepositDVO) {
+        // Support `twice a month` payout so far
+        guard deposit.payout == PayoutOption.twiceMonth.dtoValue() else { return }
+
         var current = Calendar.current.date(byAdding: .day, value: 15, to: deposit.startDate)!
         
         let months = Calendar.current.dateComponents([.month], from: deposit.startDate, to: deposit.endDate).month ?? 0

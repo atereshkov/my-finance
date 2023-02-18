@@ -6,7 +6,7 @@ struct DepositsListRouting: Equatable {
     var showModalSheet: Bool = false
     var currentModalSheet: DepositsListSheetType?
 
-    var path: [SavingsDVO] = []
+    var path: [DepositDVO] = []
 
     mutating func show(sheet: DepositsListSheetType) {
         self.currentModalSheet = sheet

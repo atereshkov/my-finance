@@ -114,9 +114,15 @@ public struct DepositDetailsView<EditDeposit: View, AddDepositStep: View>: View 
     var list: some View {
         List {
             detailsSection
-            statsSection
-            monthlyPayoutSection
-            stepsSection
+            if viewModel.isCapitalizable { // TODO change to 'isEligibleToTopUp'
+                statsSection
+            }
+            if !viewModel.payouts.isEmpty {
+                payoutSection
+            }
+            if viewModel.isCapitalizable { // TODO change to 'isEligibleToTopUp'
+                stepsSection
+            }
         }
     }
 
@@ -170,7 +176,7 @@ public struct DepositDetailsView<EditDeposit: View, AddDepositStep: View>: View 
         }
     }
 
-    var monthlyPayoutSection: some View {
+    var payoutSection: some View {
         Section {
             HStack {
                 Image(systemName: "calendar")
