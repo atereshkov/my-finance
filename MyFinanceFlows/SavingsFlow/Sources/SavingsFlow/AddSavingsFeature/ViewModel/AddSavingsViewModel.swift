@@ -12,13 +12,11 @@ public class AddSavingsViewModel: ObservableObject {
     // MARK: Input
 
     @Published var name: String?
-    @Published var goal: String?
     @Published var start: String?
     @Published var current: String?
 
     @Published var savingsMeasureIndex: Int = 0
     @Published var startDate = Date()
-    @Published var endDate = Date()
 
     // MARK: Output
 
@@ -32,8 +30,7 @@ public class AddSavingsViewModel: ObservableObject {
         SavingsMeasureViewItem(id: "EUR", name: "EUR"),
         SavingsMeasureViewItem(id: "RUB", name: "RUB"),
         SavingsMeasureViewItem(id: "BYN", name: "BYN"),
-        SavingsMeasureViewItem(id: "PLN", name: "PLN"),
-        SavingsMeasureViewItem(id: "percent", name: "%")
+        SavingsMeasureViewItem(id: "PLN", name: "PLN")
     ]
 
     @Published var dismissAction: Bool = false
@@ -64,12 +61,10 @@ extension AddSavingsViewModel {
     func addSavingsAction() async {
         let data: [String: Any] = [
             "name": name ?? "",
-            "measure": savingsMeasureOptions[savingsMeasureIndex].id,
-            "goalValue": Double(goal ?? "") ?? 0,
+            "currency": savingsMeasureOptions[savingsMeasureIndex].id,
             "startValue": Double(start ?? "") ?? 0,
             "currentValue": Double(current ?? "") ?? 0,
-            "startDate": startDate,
-            "endDate": endDate
+            "startDate": startDate
         ]
 
         do {

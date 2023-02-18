@@ -39,7 +39,7 @@ public struct AddSavingsView: View {
                             set: { viewModel.name = $0 }))
             }
             HStack {
-                Text("Measure")
+                Text("Currency")
                     .foregroundColor(Color.gray)
                 Spacer()
                 Picker(viewModel.savingsMeasureOptions[viewModel.savingsMeasureIndex].name, selection: $viewModel.savingsMeasureIndex) {
@@ -48,13 +48,6 @@ public struct AddSavingsView: View {
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
-            }
-            HStack {
-                TextField("Goal", text: Binding(
-                            get: { viewModel.goal ?? "" },
-                            set: { viewModel.goal = $0 })
-                )
-                .keyboardType(.decimalPad)
             }
             HStack {
                 TextField("Start", text: Binding(
@@ -76,9 +69,6 @@ public struct AddSavingsView: View {
     var dateSection: some View {
         Section {
             DatePicker("Start Date", selection: $viewModel.startDate, displayedComponents: .date)
-                .datePickerStyle(DefaultDatePickerStyle())
-                .frame(maxHeight: 400)
-            DatePicker("End Date", selection: $viewModel.endDate, displayedComponents: .date)
                 .datePickerStyle(DefaultDatePickerStyle())
                 .frame(maxHeight: 400)
         }

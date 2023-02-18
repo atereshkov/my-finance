@@ -91,7 +91,39 @@ public struct AppView: View {
     }
 
     func savingsDetail(id: String) -> some View {
-        SavingsDetailsView(id: id)
+        SavingsDetailsView(
+            viewModel: SavingsDetailsViewModel(id: id, appState: appState, dataService: SavingsDataService(appState: appState, savingsStepRepository: FirebaseSavingsStepRepository(), savingsRepository: FirebaseSavingsRepository())),
+            editSavingsViewProvider: { id in editSavings(id: id) },
+            addSavingsStepViewProvider: { id in addSavingsStep(savingsId: id) }
+        )
+    }
+
+    func editSavings(id: String) -> some View {
+//        EditSavingsView(
+//            viewModel: EditSavingsViewModel(
+//                id: id,
+//                appState: appState,
+//                service: EditSavingsDataService(
+//                    appState: appState,
+//                    depositRepository: FirebaseSavingsRepository()
+//                )
+//            )
+//        )
+        return Text("Edit Savings: \(id)")
+    }
+
+    func addSavingsStep(savingsId: String) -> some View {
+//        AddSavingsStepView(
+//            viewModel: AddSavingsStepViewModel(
+//                id: savingsId,
+//                dataService: AddSavingsStepDataService(
+//                    appState: appState,
+//                    savingsStepRepository: FirebaseSavingsStepRepository(),
+//                    savingsRepository: FirebaseSavingsRepository()
+//                )
+//            )
+//        )
+        return Text("Add Savings Step: \(savingsId)")
     }
 
     var depositsTabProvider: TabViewProvider {

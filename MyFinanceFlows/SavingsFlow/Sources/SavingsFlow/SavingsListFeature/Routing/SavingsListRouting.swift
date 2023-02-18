@@ -9,7 +9,7 @@ struct SavingsListRouting: Equatable {
 
     // MARK: - Savings Details
 
-    var path: [DepositDVO] = []
+    var path: [SavingsDVO] = []
 
     mutating func show(sheet: SavingsListSheetType) {
         self.currentModalSheet = sheet
