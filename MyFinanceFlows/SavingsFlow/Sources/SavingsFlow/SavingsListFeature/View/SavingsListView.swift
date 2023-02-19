@@ -80,19 +80,19 @@ extension SavingsListView {
         ScrollView {
             LazyVStack {
                 ForEach(viewModel.savings) { item in
-                    NavigationLink(value: item) {
+                    NavigationLink(value: item.id) {
                         SavingsRowView(item: item)
                     }
                 }
             }
-            .navigationDestination(for: SavingsDVO.self) { item in
-                NavigationLazyView(savingsDetailsView(item))
+            .navigationDestination(for: String.self) { id in
+                NavigationLazyView(savingsDetailsView(id))
             }
         }
     }
 
-    func savingsDetailsView(_ item: SavingsDVO) -> some View {
-        return savingsDetailViewProvider(item.id)
+    func savingsDetailsView(_ id: String) -> some View {
+        return savingsDetailViewProvider(id)
     }
 
 }

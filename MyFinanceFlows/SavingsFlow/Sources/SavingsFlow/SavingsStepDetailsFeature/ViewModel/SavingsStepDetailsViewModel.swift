@@ -4,27 +4,29 @@ import Combine
 import AppState
 import MyFinanceDomain
 
-public class SavingsDetailsViewModel: ObservableObject {
+public class SavingsStepDetailsViewModel: ObservableObject {
 
     private var cancellables: Set<AnyCancellable> = []
     private let dataService: SavingsDataServiceType
 
     @Published private var id: String
-    @Published private var savings: SavingsDVO?
+    @Published private var savings: SavingsStepDVO?
 
     // MARK: Output
 
-    @Published var routingState = SavingsDetailsRouting()
+    @Published var routingState = SavingsStepDetailsRouting()
 
     @Published var savingsName: String = ""
-    @Published var description: String = ""
+    @Published var currency: String = ""
+    @Published var startValue: String = ""
+    @Published var currentValue: String = ""
     @Published var startDate: String = ""
 
     @Published var progressValue: Double = 0.0
 
     @Published var estimatedSum: String = ""
 
-    @Published var currencies: [SavingsCurrencyValueItem] = []
+    @Published var steps: [SavingsStepDVO] = []
 
     public init(
         id: String,
@@ -34,19 +36,19 @@ public class SavingsDetailsViewModel: ObservableObject {
         self.id = id
         self.dataService = dataService
 
-        appState.map(\.data.savings)
-            .compactMap { $0 }
-            .sink { [weak self] savings in
-                self?.savings = savings.first(where: { $0.id == id })
-            }
-            .store(in: &cancellables)
-
-        $savings
-            .compactMap { $0 }
-            .sink { [weak self] savings in
-                self?.bind(savings)
-            }
-            .store(in: &cancellables)
+//        appState.map(\.data.savings)
+//            .compactMap { $0 }
+//            .sink { [weak self] savings in
+//                self?.savings = savings.first(where: { $0.id == id })
+//            }
+//            .store(in: &cancellables)
+//
+//        $savings
+//            .compactMap { $0 }
+//            .sink { [weak self] savings in
+//                self?.bind(savings)
+//            }
+//            .store(in: &cancellables)
 
         Task {
             await loadSteps()
@@ -61,15 +63,15 @@ public class SavingsDetailsViewModel: ObservableObject {
 
 // MARK: - Internal
 
-extension SavingsDetailsViewModel {
+extension SavingsStepDetailsViewModel {
 
     func editSavingsAction() {
         routingState.show(sheet: .editSavings(id))
     }
 
     func deleteSavingsAction() {
-        guard let savings = savings else { return }
-        routingState.show(alert: .confirmDeleteSavings(savings))
+//        guard let savings = savings else { return }
+//        routingState.show(alert: .confirmDeleteSavings(savings))
     }
 
     func addSavingsStepAction() {
@@ -104,17 +106,17 @@ extension SavingsDetailsViewModel {
 
 // MARK: - Private
 
-private extension SavingsDetailsViewModel {
+private extension SavingsStepDetailsViewModel {
 
     private func loadSteps() async {
-//        do {
-//            let steps = try await dataService.getSavingsSteps(savingsId: id)
-//            DispatchQueue.main.async {
-//                self.steps = steps
-//            }
-//        } catch let error {
-//            Swift.print(error)
-//        }
+        do {
+            let steps = try await dataService.getSavingsSteps(savingsId: id)
+            DispatchQueue.main.async {
+                self.steps = steps
+            }
+        } catch let error {
+            Swift.print(error)
+        }
     }
 
     private func bind(_ savings: SavingsDVO) {
@@ -124,11 +126,9 @@ private extension SavingsDetailsViewModel {
 
     private func bindDetails(_ savings: SavingsDVO) {
         savingsName = savings.name
-        description = savings.description
-
-        currencies = savings.currentValues
-            .map { .init(currency: $0.0, value: $0.1) }
-            .sorted(by: { $0.value > $1.value })
+//        currency = savings.currency
+//        currentValue = savings.currentValue.formattedAsCurrency() ?? ""
+//        startValue = savings.startValue.formattedAsCurrency() ?? ""
 
         startDate = savings.startDate.formatted(date: .numeric, time: .omitted)
     }

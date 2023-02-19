@@ -4,26 +4,21 @@ import MyFinanceComponentsKit
 import MyFinanceAssetsKit
 import MyFinanceDomain
 
-public struct SavingsDetailsView<EditSavings: View,
-                                 AddSavingsStep: View,
-                                 SavingsStep: View>: View {
+public struct SavingsStepDetailsView<EditSavings: View, AddSavingsStep: View>: View {
 
-    @ObservedObject var viewModel: SavingsDetailsViewModel
+    @ObservedObject var viewModel: SavingsStepDetailsViewModel
 
     private var editSavingsViewProvider: (_ id: String) -> EditSavings
     private var addSavingsStepViewProvider: (_ id: String) -> AddSavingsStep
-    private var savingsStepDetailViewProvider: (_ id: String) -> SavingsStep
 
     public init(
-        viewModel: SavingsDetailsViewModel,
+        viewModel: SavingsStepDetailsViewModel,
         editSavingsViewProvider: @escaping (_ id: String) -> EditSavings,
-        addSavingsStepViewProvider: @escaping (_ id: String) -> AddSavingsStep,
-        savingsStepDetailViewProvider: @escaping (_ id: String) -> SavingsStep
+        addSavingsStepViewProvider: @escaping (_ id: String) -> AddSavingsStep
     ) {
         self.viewModel = viewModel
         self.editSavingsViewProvider = editSavingsViewProvider
         self.addSavingsStepViewProvider = addSavingsStepViewProvider
-        self.savingsStepDetailViewProvider = savingsStepDetailViewProvider
     }
 
     public var body: some View {
@@ -140,14 +135,14 @@ public struct SavingsDetailsView<EditSavings: View,
         Section {
             VStack(alignment: .leading) {
                 HStack {
-//                    Text("Balance: \(viewModel.currentValue)")
-//                    Spacer()
-//                    MeasureBadgeView(title: viewModel.currency)
+                    Text("Balance: \(viewModel.currentValue)")
+                    Spacer()
+                    MeasureBadgeView(title: viewModel.currency)
                 }
             }
             VStack(alignment: .leading) {
                 HStack {
-                    Text("viewModel.startValue")
+                    Text(viewModel.startValue)
                         .font(.system(size: 12.0, weight: .regular))
                     Spacer()
                     Text(viewModel.estimatedSum)
@@ -183,17 +178,13 @@ public struct SavingsDetailsView<EditSavings: View,
                     .font(.system(size: 13.0, weight: .regular))
             }
             addSavingsStepButton
-            ForEach(viewModel.currencies) { currency in
-                NavigationLink(value: currency.currency) {
-                    HStack {
-                        Image(systemName: "calendar")
-                        Text(currency.currency)
-                        Spacer()
-                        Text(currency.value.formattedAsCurrency() ?? "")
-                    }
-                }
-                .navigationDestination(for: String.self) { id in
-                    NavigationLazyView(savingsStepDetailsView(id))
+            ForEach(viewModel.steps) { step in
+                HStack {
+                    Image(systemName: "calendar")
+                    Text(step.date.formatted(date: .numeric, time: .omitted))
+                    Spacer()
+                    Text("\(step.isAdd ? "+" : "-") \(step.value.formattedAsCurrency() ?? "")")
+                        .foregroundColor(step.isAdd ? .green : .orange)
                 }
 //                .swipeActions {
 //                    Button("Delete") {
@@ -207,10 +198,6 @@ public struct SavingsDetailsView<EditSavings: View,
 //                }
             }
         }
-    }
-
-    func savingsStepDetailsView(_ id: String) -> some View {
-        return savingsStepDetailViewProvider(id)
     }
 
 }
