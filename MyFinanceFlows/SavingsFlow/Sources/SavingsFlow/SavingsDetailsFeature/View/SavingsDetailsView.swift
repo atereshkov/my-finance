@@ -5,21 +5,21 @@ import MyFinanceAssetsKit
 import MyFinanceDomain
 
 public struct SavingsDetailsView<EditSavings: View,
-                                 AddSavingsStep: View>: View {
+                                 AddTransaction: View>: View {
 
     @ObservedObject var viewModel: SavingsDetailsViewModel
 
     private var editSavingsViewProvider: (_ id: String) -> EditSavings
-    private var addSavingsStepViewProvider: (_ id: String) -> AddSavingsStep
+    private var addTransactionViewProvider: (_ id: String) -> AddTransaction
 
     public init(
         viewModel: SavingsDetailsViewModel,
         editSavingsViewProvider: @escaping (_ id: String) -> EditSavings,
-        addSavingsStepViewProvider: @escaping (_ id: String) -> AddSavingsStep
+        addTransactionViewProvider: @escaping (_ id: String) -> AddTransaction
     ) {
         self.viewModel = viewModel
         self.editSavingsViewProvider = editSavingsViewProvider
-        self.addSavingsStepViewProvider = addSavingsStepViewProvider
+        self.addTransactionViewProvider = addTransactionViewProvider
     }
 
     public var body: some View {
@@ -47,10 +47,8 @@ public struct SavingsDetailsView<EditSavings: View,
         switch viewModel.routingState.currentModalSheet {
         case .editSavings(let id):
             return AnyView(editSavingsViewProvider(id))
-        case .addSavingsStep(let id):
-            return AnyView(addSavingsStepViewProvider(id))
-        case .editSavingsStep(_, _):
-            return AnyView(Text(""))
+        case .addTransaction(let id):
+            return AnyView(addTransactionViewProvider(id))
         case .none:
             return AnyView(Text(""))
         }
@@ -161,11 +159,21 @@ public struct SavingsDetailsView<EditSavings: View,
                         Text(currency.value.formattedAsCurrency() ?? "")
                     }
                 }
-//                .navigationDestination(for: NavigationDestination.self) { destination in
-//                    NavigationLazyView(savingsTransactionsViewProvider(destination.id))
-//                }
             }
+            addTransactionButton
         }
+    }
+
+    var addTransactionButton: some View {
+        Button(
+            action: viewModel.addTransactionAction,
+            label: {
+                HStack {
+                    Image(systemName: "plus").imageScale(.large)
+                    Text("Add transaction")
+                }
+            }
+        )
     }
 
 }

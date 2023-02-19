@@ -70,20 +70,8 @@ extension SavingsDetailsViewModel {
         routingState.show(alert: .confirmDeleteSavings(savings))
     }
 
-    func addSavingsStepAction() {
-        routingState.show(sheet: .addSavingsStep(id))
-    }
-
-    func editStepAction(_ item: SavingsStepDVO) {
-        routingState.show(sheet: .editSavingsStep(item, id))
-    }
-
-    func deleteStepActionConfirmed(_ item: SavingsStepDVO) async {
-        do {
-            try await dataService.deleteSavingsStep(stepId: item.id, value: item.value, savingsId: id)
-        } catch let error {
-            Swift.print(error)
-        }
+    func addTransactionAction() {
+        routingState.show(sheet: .addTransaction(id))
     }
 
     func deleteSavingsActionConfirmed(_ item: SavingsDVO) async {

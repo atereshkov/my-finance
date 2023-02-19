@@ -11,7 +11,7 @@ public class SavingsTransactionsViewModel: ObservableObject {
 
     @Published private var id: String
     @Published private var parentId: String
-    @Published private var savings: SavingsStepDVO?
+    @Published private var savings: SavingsTransactionDVO?
 
     // MARK: Output
 
@@ -27,7 +27,7 @@ public class SavingsTransactionsViewModel: ObservableObject {
 
     @Published var estimatedSum: String = ""
 
-    @Published var steps: [SavingsStepDVO] = []
+    @Published var steps: [SavingsTransactionDVO] = []
 
     public init(
         id: String,
@@ -77,15 +77,15 @@ extension SavingsTransactionsViewModel {
         routingState.show(sheet: .addTransaction(id))
     }
 
-    func editTransactionAction(_ item: SavingsStepDVO) {
+    func editTransactionAction(_ item: SavingsTransactionDVO) {
         routingState.show(sheet: .editTransaction(item, id))
     }
 
-    func deleteTransactionAction(_ item: SavingsStepDVO) {
+    func deleteTransactionAction(_ item: SavingsTransactionDVO) {
         routingState.show(alert: .confirmDeleteTransaction(item))
     }
 
-    func deleteTransactionActionConfirmed(_ item: SavingsStepDVO) async {
+    func deleteTransactionActionConfirmed(_ item: SavingsTransactionDVO) async {
         do {
             try await dataService.deleteTransaction(id: item.id, value: item.value, savingsId: id)
         } catch let error {

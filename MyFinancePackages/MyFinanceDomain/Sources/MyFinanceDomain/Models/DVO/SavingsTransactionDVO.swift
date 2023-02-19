@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SavingsStepDVO: Equatable, Identifiable {
+public struct SavingsTransactionDVO: Equatable, Identifiable {
     public var id: String
 
     public var date: Date
@@ -14,7 +14,7 @@ public struct SavingsStepDVO: Equatable, Identifiable {
         self.value = data["value"] as? Double ?? 0.0
     }
 
-    public init(_ dto: SavingsStepDTO) {
+    public init(_ dto: SavingsTransactionDTO) {
         self.id = dto.id
         self.date = Date(timeIntervalSince1970: dto.date)
         self.isAdd = dto.isAdd

@@ -93,9 +93,9 @@ public struct AppView: View {
 
     func savingsDetail(id: String) -> some View {
         SavingsDetailsView(
-            viewModel: SavingsDetailsViewModel(id: id, appState: appState, dataService: SavingsDataService(appState: appState, savingsStepRepository: FirebaseSavingsStepRepository(), savingsRepository: FirebaseSavingsRepository())),
+            viewModel: SavingsDetailsViewModel(id: id, appState: appState, dataService: SavingsDataService(appState: appState, savingsRepository: FirebaseSavingsRepository())),
             editSavingsViewProvider: { id in editSavings(id: id) },
-            addSavingsStepViewProvider: { id in addSavingsStep(savingsId: id) }
+            addTransactionViewProvider: { id in addTransaction(savingsId: id) }
         )
     }
 
@@ -113,8 +113,8 @@ public struct AppView: View {
         return Text("Edit Savings: \(id)")
     }
 
-    func addSavingsStep(savingsId: String) -> some View {
-//        AddSavingsStepView(
+    func addTransaction(savingsId: String) -> some View {
+//        AddSavingsTransactionView(
 //            viewModel: AddSavingsStepViewModel(
 //                id: savingsId,
 //                dataService: AddSavingsStepDataService(
@@ -124,12 +124,12 @@ public struct AppView: View {
 //                )
 //            )
 //        )
-        return Text("Add Savings Step: \(savingsId)")
+        return Text("Add Transaction: \(savingsId)")
     }
 
     func savingsTransactions(id: String, parentId: String) -> some View {
         SavingsTransactionsView(
-            viewModel: SavingsTransactionsViewModel(id: id, parentId: parentId, appState: appState, dataService: SavingsTransactionsDataService(appState: appState, savingsStepRepository: FirebaseSavingsStepRepository(), savingsRepository: FirebaseSavingsRepository())),
+            viewModel: SavingsTransactionsViewModel(id: id, parentId: parentId, appState: appState, dataService: SavingsTransactionsDataService(appState: appState, transactionsRepository: FirebaseSavingsStepRepository(), savingsRepository: FirebaseSavingsRepository())),
             addTransactionViewProvider: { id in editDeposit(id: id) } // TODO AddSavingsTransactionView
         )
     }

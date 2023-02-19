@@ -1,11 +1,11 @@
 import Foundation
 
-public struct SavingsStepDTO {
-    var id: String
+public struct SavingsTransactionDTO {
+    public var id: String
 
-    var date: Double
-    var isAdd: Bool
-    var value: Double
+    public var date: Double
+    public var isAdd: Bool
+    public var value: Double
 
     public init(id: String, data: [String: Any]) {
         self.id = id

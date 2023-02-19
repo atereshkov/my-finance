@@ -61,7 +61,7 @@ public struct SavingsTransactionsView<AddTransaction: View>: View {
         }
     }
 
-    func confirmDeleteStepAlertView(_ item: SavingsStepDVO) -> Alert {
+    func confirmDeleteStepAlertView(_ item: SavingsTransactionDVO) -> Alert {
         Alert(
             title: Text("Are you sure you want to delete transaction?"),
             primaryButton: .default(Text("Delete")) {
