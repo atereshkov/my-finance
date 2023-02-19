@@ -9,10 +9,12 @@ public class SavingsDetailsViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     private let dataService: SavingsDataServiceType
 
-    @Published private var id: String
+    // MARK: - Input
+
+    @Published private(set) var id: String
     @Published private var savings: SavingsDVO?
 
-    // MARK: Output
+    // MARK: - Output
 
     @Published var routingState = SavingsDetailsRouting()
 
@@ -47,10 +49,6 @@ public class SavingsDetailsViewModel: ObservableObject {
                 self?.bind(savings)
             }
             .store(in: &cancellables)
-
-        Task {
-            await loadSteps()
-        }
     }
 
     deinit {
@@ -80,10 +78,6 @@ extension SavingsDetailsViewModel {
         routingState.show(sheet: .editSavingsStep(item, id))
     }
 
-    func deleteStepAction(_ item: SavingsStepDVO) {
-        routingState.show(alert: .confirmDeleteStep(item))
-    }
-
     func deleteStepActionConfirmed(_ item: SavingsStepDVO) async {
         do {
             try await dataService.deleteSavingsStep(stepId: item.id, value: item.value, savingsId: id)
@@ -105,17 +99,6 @@ extension SavingsDetailsViewModel {
 // MARK: - Private
 
 private extension SavingsDetailsViewModel {
-
-    private func loadSteps() async {
-//        do {
-//            let steps = try await dataService.getSavingsSteps(savingsId: id)
-//            DispatchQueue.main.async {
-//                self.steps = steps
-//            }
-//        } catch let error {
-//            Swift.print(error)
-//        }
-    }
 
     private func bind(_ savings: SavingsDVO) {
         bindDetails(savings)

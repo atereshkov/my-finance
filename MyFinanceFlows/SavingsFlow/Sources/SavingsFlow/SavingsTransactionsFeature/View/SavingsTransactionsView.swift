@@ -4,21 +4,18 @@ import MyFinanceComponentsKit
 import MyFinanceAssetsKit
 import MyFinanceDomain
 
-public struct SavingsStepDetailsView<EditSavings: View, AddSavingsStep: View>: View {
+public struct SavingsTransactionsView<AddTransaction: View>: View {
 
-    @ObservedObject var viewModel: SavingsStepDetailsViewModel
+    @ObservedObject var viewModel: SavingsTransactionsViewModel
 
-    private var editSavingsViewProvider: (_ id: String) -> EditSavings
-    private var addSavingsStepViewProvider: (_ id: String) -> AddSavingsStep
+    private var addTransactionViewProvider: (_ id: String) -> AddTransaction
 
     public init(
-        viewModel: SavingsStepDetailsViewModel,
-        editSavingsViewProvider: @escaping (_ id: String) -> EditSavings,
-        addSavingsStepViewProvider: @escaping (_ id: String) -> AddSavingsStep
+        viewModel: SavingsTransactionsViewModel,
+        addTransactionViewProvider: @escaping (_ id: String) -> AddTransaction
     ) {
         self.viewModel = viewModel
-        self.editSavingsViewProvider = editSavingsViewProvider
-        self.addSavingsStepViewProvider = addSavingsStepViewProvider
+        self.addTransactionViewProvider = addTransactionViewProvider
     }
 
     public var body: some View {
@@ -44,12 +41,10 @@ public struct SavingsStepDetailsView<EditSavings: View, AddSavingsStep: View>: V
 
     var modalSheetView: some View {
         switch viewModel.routingState.currentModalSheet {
-        case .editSavings(let id):
-            return AnyView(editSavingsViewProvider(id))
-        case .addSavingsStep(let id):
-            return AnyView(addSavingsStepViewProvider(id))
-        case .editSavingsStep(_, _):
-            return AnyView(Text(""))
+        case .addTransaction(let id):
+            return AnyView(addTransactionViewProvider(id))
+        case .editTransaction(_, _):
+            return AnyView(Text("Edit Transaction"))
         case .none:
             return AnyView(Text(""))
         }
@@ -57,10 +52,10 @@ public struct SavingsStepDetailsView<EditSavings: View, AddSavingsStep: View>: V
 
     var alertView: Alert {
         switch viewModel.routingState.currentAlert {
-        case .confirmDeleteStep(let item):
+        case .confirmDeleteTransaction(let item):
             return confirmDeleteStepAlertView(item)
-        case .confirmDeleteSavings(let item):
-            return confirmDeleteSavingsAlertView(item)
+        case .confirmDeleteAllTransactions(let item):
+            return confirmDeleteAllTransactionsAlertView(item)
         case .none:
             return Alert(title: Text(""))
         }
@@ -68,22 +63,22 @@ public struct SavingsStepDetailsView<EditSavings: View, AddSavingsStep: View>: V
 
     func confirmDeleteStepAlertView(_ item: SavingsStepDVO) -> Alert {
         Alert(
-            title: Text("Are you sure you want do delete savings step?"),
+            title: Text("Are you sure you want to delete transaction?"),
             primaryButton: .default(Text("Delete")) {
                 Task {
-                    await viewModel.deleteStepActionConfirmed(item)
+                    await viewModel.deleteTransactionActionConfirmed(item)
                 }
             },
             secondaryButton: .cancel(Text("Cancel"))
         )
     }
 
-    func confirmDeleteSavingsAlertView(_ item: SavingsDVO) -> Alert {
+    func confirmDeleteAllTransactionsAlertView(_ item: SavingsDVO) -> Alert {
         Alert(
-            title: Text("Are you sure you want do delete the savings?"),
+            title: Text("Are you sure you want to delete all transactions?"),
             primaryButton: .default(Text("Delete")) {
                 Task {
-                    await viewModel.deleteSavingsActionConfirmed(item)
+                    await viewModel.deleteAllTransactionsActionConfirmed(item)
                 }
             },
             secondaryButton: .cancel(Text("Cancel"))
@@ -92,21 +87,13 @@ public struct SavingsStepDetailsView<EditSavings: View, AddSavingsStep: View>: V
 
     var navBarButtons: some View {
         HStack {
-            editButton
             deleteButton
         }
     }
 
-    var editButton: some View {
-        Button(
-            action: viewModel.editSavingsAction,
-            label: { Image(systemName: "pencil.circle").imageScale(.large) }
-        )
-    }
-
     var deleteButton: some View {
         Button(
-            action: viewModel.deleteSavingsAction,
+            action: viewModel.deleteAllTransactionsAction,
             label: { Image(systemName: "trash").imageScale(.large) }
         )
     }
@@ -119,9 +106,9 @@ public struct SavingsStepDetailsView<EditSavings: View, AddSavingsStep: View>: V
         }
     }
 
-    var addSavingsStepButton: some View {
+    var addTransactionButton: some View {
         Button(
-            action: viewModel.addSavingsStepAction,
+            action: viewModel.addTransactionAction,
             label: {
                 HStack {
                     Image(systemName: "plus").imageScale(.large)
@@ -163,7 +150,7 @@ public struct SavingsStepDetailsView<EditSavings: View, AddSavingsStep: View>: V
     var statsSection: some View {
         Section {
             VStack(alignment: .leading) {
-                Text("Top up by monthly to reach the goal")
+                Text("Text 123")
                     .font(.system(size: 13.0, weight: .regular))
             }
         }
@@ -177,7 +164,7 @@ public struct SavingsStepDetailsView<EditSavings: View, AddSavingsStep: View>: V
                     .foregroundColor(.gray)
                     .font(.system(size: 13.0, weight: .regular))
             }
-            addSavingsStepButton
+            addTransactionButton
             ForEach(viewModel.steps) { step in
                 HStack {
                     Image(systemName: "calendar")
@@ -186,16 +173,16 @@ public struct SavingsStepDetailsView<EditSavings: View, AddSavingsStep: View>: V
                     Text("\(step.isAdd ? "+" : "-") \(step.value.formattedAsCurrency() ?? "")")
                         .foregroundColor(step.isAdd ? .green : .orange)
                 }
-//                .swipeActions {
-//                    Button("Delete") {
-//                        viewModel.deleteStepAction(step)
-//                    }
-//                    .tint(.red)
-//                    Button("Edit") {
-//                        viewModel.editStepAction(step)
-//                    }
-//                    .tint(.blue)
-//                }
+                .swipeActions {
+                    Button("Delete") {
+                        viewModel.deleteTransactionAction(step)
+                    }
+                    .tint(.red)
+                    Button("Edit") {
+                        viewModel.editTransactionAction(step)
+                    }
+                    .tint(.blue)
+                }
             }
         }
     }

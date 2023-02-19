@@ -4,20 +4,25 @@ import MyFinanceAssetsKit
 import MyFinanceComponentsKit
 import MyFinanceDomain
 
-public struct SavingsListView<SavingsDetail: View, AddSavings: View>: View {
+public struct SavingsListView<SavingsDetail: View,
+                              AddSavings: View,
+                              SavingsTransactions: View>: View {
 
     @ObservedObject var viewModel: SavingsListViewModel
 
     private var savingsDetailViewProvider: (_ id: String) -> SavingsDetail
+    private var savingsTransactionsViewProvider: (_ id: String, _ parentId: String) -> SavingsTransactions
     private var addSavingsViewProvider: () -> AddSavings
 
     public init(
         viewModel: SavingsListViewModel,
         savingsDetailViewProvider: @escaping (_ id: String) -> SavingsDetail,
+        savingsTransactionsViewProvider: @escaping (_ id: String, _ parentId: String) -> SavingsTransactions,
         addSavingsViewProvider: @escaping () -> AddSavings
     ) {
         self.viewModel = viewModel
         self.savingsDetailViewProvider = savingsDetailViewProvider
+        self.savingsTransactionsViewProvider = savingsTransactionsViewProvider
         self.addSavingsViewProvider = addSavingsViewProvider
     }
 
@@ -80,19 +85,24 @@ extension SavingsListView {
         ScrollView {
             LazyVStack {
                 ForEach(viewModel.savings) { item in
-                    NavigationLink(value: item.id) {
+                    NavigationLink(value: NavigationDestination(id: item.id, parentId: nil, type: .savingsDetails)) {
                         SavingsRowView(item: item)
                     }
                 }
             }
-            .navigationDestination(for: String.self) { id in
-                NavigationLazyView(savingsDetailsView(id))
+            .navigationDestination(for: NavigationDestination.self) { destination in
+                switch destination.type {
+                case .savingsDetails:
+                    NavigationLazyView(savingsDetailViewProvider(destination.id))
+                case .savingsTransactions:
+                    if let parentId = destination.parentId {
+                        NavigationLazyView(savingsTransactionsViewProvider(destination.id, parentId))
+                    } else {
+                        NavigationLazyView(EmptyView())
+                    }
+                }
             }
         }
-    }
-
-    func savingsDetailsView(_ id: String) -> some View {
-        return savingsDetailViewProvider(id)
     }
 
 }

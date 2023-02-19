@@ -1,21 +1,21 @@
 import Foundation
 
-struct SavingsStepDetailsRouting {
+struct SavingsTransactionsRouting {
 
     // MARK: Sheet
     var showModalSheet: Bool = false
-    var currentModalSheet: SavingsStepDetailsSheetType?
+    var currentModalSheet: SavingsTransactionsSheetType?
 
     // MARK: Alert
     var showAlert: Bool = false
-    var currentAlert: SavingsStepDetailsAlertType?
+    var currentAlert: SavingsTransactionsAlertType?
 
-    mutating func show(sheet: SavingsStepDetailsSheetType) {
+    mutating func show(sheet: SavingsTransactionsSheetType) {
         self.currentModalSheet = sheet
         self.showModalSheet = true
     }
 
-    mutating func show(alert: SavingsStepDetailsAlertType) {
+    mutating func show(alert: SavingsTransactionsAlertType) {
         self.currentAlert = alert
         self.showAlert = true
     }

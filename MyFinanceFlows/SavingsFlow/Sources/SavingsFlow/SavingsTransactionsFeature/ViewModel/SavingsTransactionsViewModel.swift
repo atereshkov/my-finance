@@ -4,17 +4,18 @@ import Combine
 import AppState
 import MyFinanceDomain
 
-public class SavingsStepDetailsViewModel: ObservableObject {
+public class SavingsTransactionsViewModel: ObservableObject {
 
     private var cancellables: Set<AnyCancellable> = []
-    private let dataService: SavingsDataServiceType
+    private let dataService: SavingsTransactionsDataServiceType
 
     @Published private var id: String
+    @Published private var parentId: String
     @Published private var savings: SavingsStepDVO?
 
     // MARK: Output
 
-    @Published var routingState = SavingsStepDetailsRouting()
+    @Published var routingState = SavingsTransactionsRouting()
 
     @Published var savingsName: String = ""
     @Published var currency: String = ""
@@ -30,10 +31,12 @@ public class SavingsStepDetailsViewModel: ObservableObject {
 
     public init(
         id: String,
+        parentId: String,
         appState: Store<AppState>,
-        dataService: SavingsDataServiceType
+        dataService: SavingsTransactionsDataServiceType
     ) {
         self.id = id
+        self.parentId = parentId
         self.dataService = dataService
 
 //        appState.map(\.data.savings)
@@ -51,66 +54,62 @@ public class SavingsStepDetailsViewModel: ObservableObject {
 //            .store(in: &cancellables)
 
         Task {
-            await loadSteps()
+            await loadTransactions()
         }
     }
 
     deinit {
-        Swift.print("[Deinit] SavingsDetailsViewModel")
+        Swift.print("[Deinit] SavingsTransactionsViewModel")
     }
 
 }
 
 // MARK: - Internal
 
-extension SavingsStepDetailsViewModel {
+extension SavingsTransactionsViewModel {
 
-    func editSavingsAction() {
-        routingState.show(sheet: .editSavings(id))
-    }
-
-    func deleteSavingsAction() {
+    func deleteAllTransactionsAction() {
 //        guard let savings = savings else { return }
-//        routingState.show(alert: .confirmDeleteSavings(savings))
+//        routingState.show(alert: .confirmDeleteAllTransactions(savings))
     }
 
-    func addSavingsStepAction() {
-        routingState.show(sheet: .addSavingsStep(id))
+    func addTransactionAction() {
+        routingState.show(sheet: .addTransaction(id))
     }
 
-    func editStepAction(_ item: SavingsStepDVO) {
-        routingState.show(sheet: .editSavingsStep(item, id))
+    func editTransactionAction(_ item: SavingsStepDVO) {
+        routingState.show(sheet: .editTransaction(item, id))
     }
 
-    func deleteStepAction(_ item: SavingsStepDVO) {
-        routingState.show(alert: .confirmDeleteStep(item))
+    func deleteTransactionAction(_ item: SavingsStepDVO) {
+        routingState.show(alert: .confirmDeleteTransaction(item))
     }
 
-    func deleteStepActionConfirmed(_ item: SavingsStepDVO) async {
+    func deleteTransactionActionConfirmed(_ item: SavingsStepDVO) async {
         do {
-            try await dataService.deleteSavingsStep(stepId: item.id, value: item.value, savingsId: id)
+            try await dataService.deleteTransaction(id: item.id, value: item.value, savingsId: id)
         } catch let error {
             Swift.print(error)
         }
     }
 
-    func deleteSavingsActionConfirmed(_ item: SavingsDVO) async {
-        do {
-            try await dataService.deleteSavings(savingsId: id)
-        } catch let error {
-            Swift.print(error)
-        }
+    func deleteAllTransactionsActionConfirmed(_ item: SavingsDVO) async {
+//        do {
+//            try await dataService.deleteAllTransactions(savingsId: id)
+//        } catch let error {
+//            Swift.print(error)
+//        }
     }
 
 }
 
 // MARK: - Private
 
-private extension SavingsStepDetailsViewModel {
+private extension SavingsTransactionsViewModel {
 
-    private func loadSteps() async {
+    private func loadTransactions() async {
         do {
-            let steps = try await dataService.getSavingsSteps(savingsId: id)
+            let steps = try await dataService.getTransactions(savingsId: id)
             DispatchQueue.main.async {
                 self.steps = steps
             }

@@ -9,7 +9,7 @@ struct SavingsListRouting: Equatable {
 
     // MARK: - Savings Details
 
-    var path: [String] = []
+    var path: [NavigationDestination] = []
 
     mutating func show(sheet: SavingsListSheetType) {
         self.currentModalSheet = sheet

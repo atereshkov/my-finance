@@ -5,25 +5,21 @@ import MyFinanceAssetsKit
 import MyFinanceDomain
 
 public struct SavingsDetailsView<EditSavings: View,
-                                 AddSavingsStep: View,
-                                 SavingsStep: View>: View {
+                                 AddSavingsStep: View>: View {
 
     @ObservedObject var viewModel: SavingsDetailsViewModel
 
     private var editSavingsViewProvider: (_ id: String) -> EditSavings
     private var addSavingsStepViewProvider: (_ id: String) -> AddSavingsStep
-    private var savingsStepDetailViewProvider: (_ id: String) -> SavingsStep
 
     public init(
         viewModel: SavingsDetailsViewModel,
         editSavingsViewProvider: @escaping (_ id: String) -> EditSavings,
-        addSavingsStepViewProvider: @escaping (_ id: String) -> AddSavingsStep,
-        savingsStepDetailViewProvider: @escaping (_ id: String) -> SavingsStep
+        addSavingsStepViewProvider: @escaping (_ id: String) -> AddSavingsStep
     ) {
         self.viewModel = viewModel
         self.editSavingsViewProvider = editSavingsViewProvider
         self.addSavingsStepViewProvider = addSavingsStepViewProvider
-        self.savingsStepDetailViewProvider = savingsStepDetailViewProvider
     }
 
     public var body: some View {
@@ -62,8 +58,6 @@ public struct SavingsDetailsView<EditSavings: View,
 
     var alertView: Alert {
         switch viewModel.routingState.currentAlert {
-        case .confirmDeleteStep(let item):
-            return confirmDeleteStepAlertView(item)
         case .confirmDeleteSavings(let item):
             return confirmDeleteSavingsAlertView(item)
         case .none:
@@ -71,21 +65,9 @@ public struct SavingsDetailsView<EditSavings: View,
         }
     }
 
-    func confirmDeleteStepAlertView(_ item: SavingsStepDVO) -> Alert {
-        Alert(
-            title: Text("Are you sure you want do delete savings step?"),
-            primaryButton: .default(Text("Delete")) {
-                Task {
-                    await viewModel.deleteStepActionConfirmed(item)
-                }
-            },
-            secondaryButton: .cancel(Text("Cancel"))
-        )
-    }
-
     func confirmDeleteSavingsAlertView(_ item: SavingsDVO) -> Alert {
         Alert(
-            title: Text("Are you sure you want do delete the savings?"),
+            title: Text("Are you sure you want to delete the savings?"),
             primaryButton: .default(Text("Delete")) {
                 Task {
                     await viewModel.deleteSavingsActionConfirmed(item)
@@ -124,18 +106,6 @@ public struct SavingsDetailsView<EditSavings: View,
         }
     }
 
-    var addSavingsStepButton: some View {
-        Button(
-            action: viewModel.addSavingsStepAction,
-            label: {
-                HStack {
-                    Image(systemName: "plus").imageScale(.large)
-                    Text("Add savings topup")
-                }
-            }
-        )
-    }
-
     var detailsSection: some View {
         Section {
             VStack(alignment: .leading) {
@@ -168,7 +138,7 @@ public struct SavingsDetailsView<EditSavings: View,
     var statsSection: some View {
         Section {
             VStack(alignment: .leading) {
-                Text("Top up by monthly to reach the goal")
+                Text("Some text")
                     .font(.system(size: 13.0, weight: .regular))
             }
         }
@@ -182,9 +152,8 @@ public struct SavingsDetailsView<EditSavings: View,
                     .foregroundColor(.gray)
                     .font(.system(size: 13.0, weight: .regular))
             }
-            addSavingsStepButton
             ForEach(viewModel.currencies) { currency in
-                NavigationLink(value: currency.currency) {
+                NavigationLink(value: NavigationDestination(id: currency.currency, parentId: viewModel.id, type: .savingsTransactions)) {
                     HStack {
                         Image(systemName: "calendar")
                         Text(currency.currency)
@@ -192,25 +161,11 @@ public struct SavingsDetailsView<EditSavings: View,
                         Text(currency.value.formattedAsCurrency() ?? "")
                     }
                 }
-                .navigationDestination(for: String.self) { id in
-                    NavigationLazyView(savingsStepDetailsView(id))
-                }
-//                .swipeActions {
-//                    Button("Delete") {
-//                        viewModel.deleteStepAction(step)
-//                    }
-//                    .tint(.red)
-//                    Button("Edit") {
-//                        viewModel.editStepAction(step)
-//                    }
-//                    .tint(.blue)
+//                .navigationDestination(for: NavigationDestination.self) { destination in
+//                    NavigationLazyView(savingsTransactionsViewProvider(destination.id))
 //                }
             }
         }
-    }
-
-    func savingsStepDetailsView(_ id: String) -> some View {
-        return savingsStepDetailViewProvider(id)
     }
 
 }
