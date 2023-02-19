@@ -12,11 +12,12 @@ public class AddSavingsViewModel: ObservableObject {
     // MARK: Input
 
     @Published var name: String?
-    @Published var start: String?
-    @Published var current: String?
+    @Published var description: String?
 
     @Published var savingsMeasureIndex: Int = 0
     @Published var startDate = Date()
+
+    @Published var currencyFields: [CurrencyViewItem] = []
 
     // MARK: Output
 
@@ -25,7 +26,7 @@ public class AddSavingsViewModel: ObservableObject {
 
     @Published var title: String?
 
-    @Published var savingsMeasureOptions = [
+    @Published var currencies = [
         SavingsMeasureViewItem(id: "USD", name: "USD"),
         SavingsMeasureViewItem(id: "EUR", name: "EUR"),
         SavingsMeasureViewItem(id: "RUB", name: "RUB"),
@@ -58,12 +59,24 @@ public class AddSavingsViewModel: ObservableObject {
 
 extension AddSavingsViewModel {
 
+    func chooseCurrencyDropDownAction(_ item: SavingsMeasureViewItem, currency: CurrencyViewItem) {
+        guard let index = currencyFields.firstIndex(where: { item.id == $0.id }) else { return }
+        currencyFields[index].currency = item.name
+    }
+
+    func addCurrencyFieldAction() {
+        currencyFields.append(.init(id: UUID().uuidString, currency: "USD", value: 0.0))
+    }
+
+    func updateCurrencyFieldValue(to value: Double, currency: CurrencyViewItem) {
+        guard let index = currencyFields.firstIndex(where: { currency.id == $0.id }) else { return }
+        currencyFields[index].value = value
+    }
+
     func addSavingsAction() async {
         let data: [String: Any] = [
             "name": name ?? "",
-            "currency": savingsMeasureOptions[savingsMeasureIndex].id,
-            "startValue": Double(start ?? "") ?? 0,
-            "currentValue": Double(current ?? "") ?? 0,
+            "description": description ?? "",
             "startDate": startDate
         ]
 

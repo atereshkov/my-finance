@@ -24,14 +24,15 @@ public struct AddSavingsView: View {
     var content: some View {
         NavigationView {
             Form {
-                moneySection
+                infoSection
+                currenciesSection
                 dateSection
                 addButtonSection
             }.navigationBarTitle(viewModel.title ?? "", displayMode: .inline)
         }
     }
 
-    var moneySection: some View {
+    var infoSection: some View {
         Section {
             HStack {
                 TextField("Name", text: Binding(
@@ -39,31 +40,59 @@ public struct AddSavingsView: View {
                             set: { viewModel.name = $0 }))
             }
             HStack {
-                Text("Currency")
-                    .foregroundColor(Color.gray)
-                Spacer()
-                Picker(viewModel.savingsMeasureOptions[viewModel.savingsMeasureIndex].name, selection: $viewModel.savingsMeasureIndex) {
-                    ForEach(0..<viewModel.savingsMeasureOptions.count, id: \.self) { index in
-                        Text(viewModel.savingsMeasureOptions[index].name).tag(index)
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
-            }
-            HStack {
-                TextField("Start", text: Binding(
-                            get: { viewModel.start ?? "" },
-                            set: { viewModel.start = $0 })
-                )
-                .keyboardType(.decimalPad)
-            }
-            HStack {
-                TextField("Current", text: Binding(
-                            get: { viewModel.current ?? "" },
-                            set: { viewModel.current = $0 })
-                )
-                .keyboardType(.decimalPad)
+                TextField("Description", text: Binding(
+                            get: { viewModel.description ?? "" },
+                            set: { viewModel.description = $0 }))
             }
         }
+    }
+
+    // TODO: Fix '[SwiftUI] Publishing changes from within view updates is not allowed, this will cause undefined behavior.'
+    // TODO: Updating currency form drop down doesn't work. Updating value from text field doesn't work.
+    var currenciesSection: some View {
+        EmptyView()
+        /*
+        Section {
+            HStack {
+                Text("Currency")
+                    .foregroundColor(Color.gray)
+            }
+            ForEach(viewModel.currencyFields) { field in
+                HStack {
+                    TextField("0", text: Binding(
+                        get: { String(field.value) },
+                        set: { viewModel.updateCurrencyFieldValue(to: Double($0) ?? 0, currency: field) })
+                    )
+                    Spacer()
+                    Menu {
+                        ForEach(viewModel.currencies) { currency in
+                            Button {
+                                viewModel.chooseCurrencyDropDownAction(currency, currency: field)
+                            } label: {
+                                Text(currency.name)
+                                Image(systemName: "arrow.down.right.circle")
+                            }
+                        }
+                    } label: {
+                        Text(field.currency)
+                        Image(systemName: "tag.circle")
+                    }
+                }
+            }
+            HStack {
+                Button(
+                    action: viewModel.addCurrencyFieldAction,
+                    label: {
+                        HStack {
+                            Spacer()
+                            Text("+")
+                            Spacer()
+                        }
+                    }
+                )
+            }
+        }
+        */
     }
 
     var dateSection: some View {
