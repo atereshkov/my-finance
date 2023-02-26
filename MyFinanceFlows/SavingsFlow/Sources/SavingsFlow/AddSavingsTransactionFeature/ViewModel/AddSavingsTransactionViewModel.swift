@@ -35,6 +35,7 @@ public class AddSavingsTransactionViewModel: ObservableObject {
     ]
 
     @Published var dismissAction: Bool = false
+    @Published var isValid: Bool = false
 
     // MARK: - Lifecycle
 
@@ -51,6 +52,13 @@ public class AddSavingsTransactionViewModel: ObservableObject {
             self.currency = currencies.first(where: { $0.id == currency })
             self.currencyCanBeChanged = false
         }
+
+        Publishers
+            .CombineLatest($currency, $value)
+            .sink(receiveValue: { [weak self] currency, value in
+                self?.isValid = currency != nil && value?.isEmpty == false
+            })
+            .store(in: &cancellables)
     }
 
     deinit {
@@ -68,6 +76,8 @@ extension AddSavingsTransactionViewModel {
     }
 
     func addTransactionAction() async {
+        guard isValid else { return }
+        
         let data: [String: Any] = [
             "date": date,
             "value": Double(value ?? "") ?? 0,

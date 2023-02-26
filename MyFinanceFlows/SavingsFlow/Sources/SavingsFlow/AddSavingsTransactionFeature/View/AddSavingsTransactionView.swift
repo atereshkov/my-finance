@@ -88,9 +88,10 @@ public struct AddSavingsTransactionView: View {
                 HStack {
                     Spacer()
                     Text("Add")
+                        .disabled(!viewModel.isValid)
                     Spacer()
                 }
-            })
+            }).disabled(!viewModel.isValid)
         }
     }
 

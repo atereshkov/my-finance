@@ -22,11 +22,11 @@ public class SavingsDetailsViewModel: ObservableObject {
     @Published var description: String = ""
     @Published var startDate: String = ""
 
-    @Published var progressValue: Double = 0.0
-
-    @Published var estimatedSum: String = ""
-
     @Published var currencies: [SavingsCurrencyValueItem] = []
+
+    @Published var transactions: [SavingsTransactionDVO] = []
+
+    @Published var chartData: [(currency: String, data: [SavingsTransactionDVO])] = []
 
     public init(
         id: String,
@@ -49,6 +49,10 @@ public class SavingsDetailsViewModel: ObservableObject {
                 self?.bind(savings)
             }
             .store(in: &cancellables)
+
+        Task {
+            await loadTransactions()
+        }
     }
 
     deinit {
@@ -87,6 +91,24 @@ extension SavingsDetailsViewModel {
 // MARK: - Private
 
 private extension SavingsDetailsViewModel {
+
+    private func loadTransactions() async {
+        let currencies = savings?.currentValues.map { $0.key }
+        guard let currencies else { return }
+
+        do {
+            let transactions = try await dataService.getTransactions(savingsId: id, currencies: currencies)
+            DispatchQueue.main.async {
+                self.transactions = transactions
+                for currency in currencies {
+                    let data = transactions.filter { $0.currency == currency }
+                    self.chartData.append((currency: currency, data: data))
+                }
+            }
+        } catch let error {
+            Swift.print(error)
+        }
+    }
 
     private func bind(_ savings: SavingsDVO) {
         bindDetails(savings)

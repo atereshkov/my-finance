@@ -93,7 +93,15 @@ public struct AppView: View {
 
     func savingsDetail(id: String) -> some View {
         SavingsDetailsView(
-            viewModel: SavingsDetailsViewModel(id: id, appState: appState, dataService: SavingsDataService(appState: appState, savingsRepository: FirebaseSavingsRepository())),
+            viewModel: SavingsDetailsViewModel(
+                id: id,
+                appState: appState,
+                dataService: SavingsDataService(
+                    appState: appState,
+                    savingsRepository: FirebaseSavingsRepository(),
+                    transactionsRepository: FirebaseSavingsTransactionRepository()
+                )
+            ),
             editSavingsViewProvider: { id in editSavings(id: id) },
             addTransactionViewProvider: { id in addTransaction(savingsId: id, currency: nil) }
         )
@@ -115,7 +123,16 @@ public struct AppView: View {
 
     func savingsTransactions(id: String, parentId: String) -> some View {
         SavingsTransactionsView(
-            viewModel: SavingsTransactionsViewModel(id: id, parentId: parentId, appState: appState, dataService: SavingsTransactionsDataService(appState: appState, transactionsRepository: FirebaseSavingsTransactionRepository(), savingsRepository: FirebaseSavingsRepository())),
+            viewModel: SavingsTransactionsViewModel(
+                id: id,
+                parentId: parentId,
+                appState: appState,
+                dataService: SavingsTransactionsDataService(
+                    appState: appState,
+                    transactionsRepository: FirebaseSavingsTransactionRepository(),
+                    savingsRepository: FirebaseSavingsRepository()
+                )
+            ),
             addTransactionViewProvider: { id, currency in addTransaction(savingsId: parentId, currency: currency) }
         )
     }

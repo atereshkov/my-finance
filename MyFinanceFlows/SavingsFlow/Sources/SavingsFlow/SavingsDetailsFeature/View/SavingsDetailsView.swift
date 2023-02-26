@@ -1,4 +1,5 @@
 import SwiftUI
+import Charts
 
 import MyFinanceComponentsKit
 import MyFinanceAssetsKit
@@ -98,45 +99,34 @@ public struct SavingsDetailsView<EditSavings: View,
 
     var list: some View {
         List {
-            detailsSection
-            statsSection
+            chartSection
+            descriptionSection
             stepsSection
         }
     }
 
-    var detailsSection: some View {
+    var chartSection: some View {
         Section {
-            VStack(alignment: .leading) {
-                HStack {
-//                    Text("Balance: \(viewModel.currentValue)")
-//                    Spacer()
-//                    MeasureBadgeView(title: viewModel.currency)
+            Chart {
+                ForEach(viewModel.chartData, id: \.currency) { series in
+                    ForEach(series.data) { item in
+                        LineMark(
+                            x: .value("Month", item.date),
+                            y: .value("Value", item.value)
+                        )
+                    }
+                    .foregroundStyle(by: .value("Currency", series.currency))
+                    .symbol(by: .value("Currency", series.currency))
                 }
             }
-            VStack(alignment: .leading) {
-                HStack {
-                    Text("viewModel.startValue")
-                        .font(.system(size: 12.0, weight: .regular))
-                    Spacer()
-                    Text(viewModel.estimatedSum)
-                        .font(.system(size: 12.0, weight: .regular))
-                }
-                GoalProgressView(value: $viewModel.progressValue).frame(height: 20)
-                HStack {
-                    Text(viewModel.startDate)
-                        .font(.system(size: 11.0, weight: .regular))
-                    Spacer()
-                    Text("End date")
-                        .font(.system(size: 11.0, weight: .regular))
-                }
-            }
+            .frame(height: 250)
         }
     }
 
-    var statsSection: some View {
+    var descriptionSection: some View {
         Section {
             VStack(alignment: .leading) {
-                Text("Some text")
+                Text(viewModel.description)
                     .font(.system(size: 13.0, weight: .regular))
             }
         }
@@ -144,23 +134,17 @@ public struct SavingsDetailsView<EditSavings: View,
 
     var stepsSection: some View {
         Section {
-            HStack {
-                Image(systemName: "calendar")
-                Text("Top up before ...")
-                    .foregroundColor(.gray)
-                    .font(.system(size: 13.0, weight: .regular))
-            }
+            addTransactionButton
             ForEach(viewModel.currencies) { currency in
                 NavigationLink(value: NavigationDestination(id: currency.currency, parentId: viewModel.id, type: .savingsTransactions)) {
                     HStack {
-                        Image(systemName: "calendar")
+                        Image(systemName: currency.currencyIconName)
                         Text(currency.currency)
                         Spacer()
                         Text(currency.value.formattedAsCurrency() ?? "")
                     }
                 }
             }
-            addTransactionButton
         }
     }
 

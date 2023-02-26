@@ -1,4 +1,5 @@
 import SwiftUI
+import Charts
 
 import MyFinanceComponentsKit
 import MyFinanceAssetsKit
@@ -100,7 +101,9 @@ public struct SavingsTransactionsView<AddTransaction: View>: View {
 
     var list: some View {
         List {
-            detailsSection
+            if !viewModel.transactions.isEmpty {
+                chartSection
+            }
             statsSection
             stepsSection
         }
@@ -112,38 +115,23 @@ public struct SavingsTransactionsView<AddTransaction: View>: View {
             label: {
                 HStack {
                     Image(systemName: "plus").imageScale(.large)
-                    Text("Add savings topup")
+                    Text("Add transaction")
                 }
             }
         )
     }
 
-    var detailsSection: some View {
+    var chartSection: some View {
         Section {
-//            VStack(alignment: .leading) {
-//                HStack {
-//                    Text("Balance: \(viewModel.currentValue)")
-//                    Spacer()
-//                    MeasureBadgeView(title: viewModel.currency)
-//                }
-//            }
-//            VStack(alignment: .leading) {
-//                HStack {
-//                    Text(viewModel.startValue)
-//                        .font(.system(size: 12.0, weight: .regular))
-//                    Spacer()
-//                    Text(viewModel.estimatedSum)
-//                        .font(.system(size: 12.0, weight: .regular))
-//                }
-//                GoalProgressView(value: $viewModel.progressValue).frame(height: 20)
-//                HStack {
-//                    Text(viewModel.startDate)
-//                        .font(.system(size: 11.0, weight: .regular))
-//                    Spacer()
-//                    Text("End date")
-//                        .font(.system(size: 11.0, weight: .regular))
-//                }
-//            }
+            Chart {
+                ForEach(viewModel.transactions, id: \.id) { item in
+                    LineMark(
+                        x: .value("Month", item.date),
+                        y: .value("Value", item.isAdd ? item.value : -item.value)
+                    )
+                }
+            }
+            .frame(height: 250)
         }
     }
 
@@ -158,12 +146,6 @@ public struct SavingsTransactionsView<AddTransaction: View>: View {
 
     var stepsSection: some View {
         Section {
-            HStack {
-                Image(systemName: "calendar")
-                Text("Top up before ...")
-                    .foregroundColor(.gray)
-                    .font(.system(size: 13.0, weight: .regular))
-            }
             addTransactionButton
             ForEach(viewModel.transactions) { transaction in
                 HStack {

@@ -26,9 +26,10 @@ public class FirebaseSavingsTransactionRepository: SavingsTransactionsRepository
             .document(savingsId)
             .collection("transactions_\(currency)")
             .getDocuments()
-        let steps = snapshot.documents
+        let transactions = snapshot
+            .documents
             .compactMap { SavingsTransactionDTO(id: $0.documentID, data: $0.data()) }
-        return steps
+        return transactions
     }
 
     public func addTransaction(_ data: AddSavingsTransactionDTO, savingsId: String, userId: String) async throws {

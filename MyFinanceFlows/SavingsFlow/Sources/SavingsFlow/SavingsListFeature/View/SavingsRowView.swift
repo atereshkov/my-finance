@@ -8,8 +8,8 @@ struct SavingsRowView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(item.id)
                 Text(item.name)
+                Text(item.description)
                 Divider()
             }
             Spacer()
