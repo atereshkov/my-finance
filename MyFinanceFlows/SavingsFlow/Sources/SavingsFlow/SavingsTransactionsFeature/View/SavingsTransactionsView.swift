@@ -8,11 +8,11 @@ public struct SavingsTransactionsView<AddTransaction: View>: View {
 
     @ObservedObject var viewModel: SavingsTransactionsViewModel
 
-    private var addTransactionViewProvider: (_ id: String) -> AddTransaction
+    private var addTransactionViewProvider: (_ id: String, _ currency: String?) -> AddTransaction
 
     public init(
         viewModel: SavingsTransactionsViewModel,
-        addTransactionViewProvider: @escaping (_ id: String) -> AddTransaction
+        addTransactionViewProvider: @escaping (_ id: String, _ currency: String?) -> AddTransaction
     ) {
         self.viewModel = viewModel
         self.addTransactionViewProvider = addTransactionViewProvider
@@ -34,15 +34,15 @@ public struct SavingsTransactionsView<AddTransaction: View>: View {
         ZStack {
             Color.primaryBackground.ignoresSafeArea()
             list
-                .navigationBarTitle(Text(viewModel.savingsName))
+                .navigationBarTitle(Text(viewModel.title))
                 .navigationBarItems(trailing: navBarButtons)
         }
     }
 
     var modalSheetView: some View {
         switch viewModel.routingState.currentModalSheet {
-        case .addTransaction(let id):
-            return AnyView(addTransactionViewProvider(id))
+        case .addTransaction(let id, let currency):
+            return AnyView(addTransactionViewProvider(id, currency))
         case .editTransaction(_, _):
             return AnyView(Text("Edit Transaction"))
         case .none:
@@ -120,30 +120,30 @@ public struct SavingsTransactionsView<AddTransaction: View>: View {
 
     var detailsSection: some View {
         Section {
-            VStack(alignment: .leading) {
-                HStack {
-                    Text("Balance: \(viewModel.currentValue)")
-                    Spacer()
-                    MeasureBadgeView(title: viewModel.currency)
-                }
-            }
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(viewModel.startValue)
-                        .font(.system(size: 12.0, weight: .regular))
-                    Spacer()
-                    Text(viewModel.estimatedSum)
-                        .font(.system(size: 12.0, weight: .regular))
-                }
-                GoalProgressView(value: $viewModel.progressValue).frame(height: 20)
-                HStack {
-                    Text(viewModel.startDate)
-                        .font(.system(size: 11.0, weight: .regular))
-                    Spacer()
-                    Text("End date")
-                        .font(.system(size: 11.0, weight: .regular))
-                }
-            }
+//            VStack(alignment: .leading) {
+//                HStack {
+//                    Text("Balance: \(viewModel.currentValue)")
+//                    Spacer()
+//                    MeasureBadgeView(title: viewModel.currency)
+//                }
+//            }
+//            VStack(alignment: .leading) {
+//                HStack {
+//                    Text(viewModel.startValue)
+//                        .font(.system(size: 12.0, weight: .regular))
+//                    Spacer()
+//                    Text(viewModel.estimatedSum)
+//                        .font(.system(size: 12.0, weight: .regular))
+//                }
+//                GoalProgressView(value: $viewModel.progressValue).frame(height: 20)
+//                HStack {
+//                    Text(viewModel.startDate)
+//                        .font(.system(size: 11.0, weight: .regular))
+//                    Spacer()
+//                    Text("End date")
+//                        .font(.system(size: 11.0, weight: .regular))
+//                }
+//            }
         }
     }
 
@@ -165,21 +165,21 @@ public struct SavingsTransactionsView<AddTransaction: View>: View {
                     .font(.system(size: 13.0, weight: .regular))
             }
             addTransactionButton
-            ForEach(viewModel.steps) { step in
+            ForEach(viewModel.transactions) { transaction in
                 HStack {
                     Image(systemName: "calendar")
-                    Text(step.date.formatted(date: .numeric, time: .omitted))
+                    Text(transaction.date.formatted(date: .numeric, time: .omitted))
                     Spacer()
-                    Text("\(step.isAdd ? "+" : "-") \(step.value.formattedAsCurrency() ?? "")")
-                        .foregroundColor(step.isAdd ? .green : .orange)
+                    Text("\(transaction.isAdd ? "+" : "-") \(transaction.value.formattedAsCurrency() ?? "")")
+                        .foregroundColor(transaction.isAdd ? .green : .orange)
                 }
                 .swipeActions {
                     Button("Delete") {
-                        viewModel.deleteTransactionAction(step)
+                        viewModel.deleteTransactionAction(transaction)
                     }
                     .tint(.red)
                     Button("Edit") {
-                        viewModel.editTransactionAction(step)
+                        viewModel.editTransactionAction(transaction)
                     }
                     .tint(.blue)
                 }

@@ -95,7 +95,7 @@ public struct AppView: View {
         SavingsDetailsView(
             viewModel: SavingsDetailsViewModel(id: id, appState: appState, dataService: SavingsDataService(appState: appState, savingsRepository: FirebaseSavingsRepository())),
             editSavingsViewProvider: { id in editSavings(id: id) },
-            addTransactionViewProvider: { id in addTransaction(savingsId: id) }
+            addTransactionViewProvider: { id in addTransaction(savingsId: id, currency: nil) }
         )
     }
 
@@ -113,24 +113,25 @@ public struct AppView: View {
         return Text("Edit Savings: \(id)")
     }
 
-    func addTransaction(savingsId: String) -> some View {
-//        AddSavingsTransactionView(
-//            viewModel: AddSavingsStepViewModel(
-//                id: savingsId,
-//                dataService: AddSavingsStepDataService(
-//                    appState: appState,
-//                    savingsStepRepository: FirebaseSavingsStepRepository(),
-//                    savingsRepository: FirebaseSavingsRepository()
-//                )
-//            )
-//        )
-        return Text("Add Transaction: \(savingsId)")
-    }
-
     func savingsTransactions(id: String, parentId: String) -> some View {
         SavingsTransactionsView(
-            viewModel: SavingsTransactionsViewModel(id: id, parentId: parentId, appState: appState, dataService: SavingsTransactionsDataService(appState: appState, transactionsRepository: FirebaseSavingsStepRepository(), savingsRepository: FirebaseSavingsRepository())),
-            addTransactionViewProvider: { id in editDeposit(id: id) } // TODO AddSavingsTransactionView
+            viewModel: SavingsTransactionsViewModel(id: id, parentId: parentId, appState: appState, dataService: SavingsTransactionsDataService(appState: appState, transactionsRepository: FirebaseSavingsTransactionRepository(), savingsRepository: FirebaseSavingsRepository())),
+            addTransactionViewProvider: { id, currency in addTransaction(savingsId: parentId, currency: currency) }
+        )
+    }
+
+    func addTransaction(savingsId: String, currency: String?) -> some View {
+        AddSavingsTransactionView(
+            viewModel: AddSavingsTransactionViewModel(
+                id: savingsId,
+                currency: currency,
+                appState: appState,
+                service: AddSavingsTransactionDataService(
+                    appState: appState,
+                    transactionsRepository: FirebaseSavingsTransactionRepository(),
+                    savingsRepository: FirebaseSavingsRepository()
+                )
+            )
         )
     }
 

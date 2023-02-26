@@ -9,7 +9,7 @@ public protocol SavingsRepository {
     func editSavings(id: String, _ data: EditSavingsDTO, userId: String) async throws
     func deleteSavings(id: String, userId: String) async throws
 
-    func updateCurrentValue(id: String, value: Double, isAdd: Bool, userId: String) async throws
+    func updateCurrentValue(id: String, currency: String, value: Double, isAdd: Bool, userId: String) async throws
 }
 
 public class FirebaseSavingsRepository: SavingsRepository {
@@ -57,14 +57,14 @@ public class FirebaseSavingsRepository: SavingsRepository {
             .delete()
     }
 
-    public func updateCurrentValue(id: String, value: Double, isAdd: Bool, userId: String) async throws {
+    public func updateCurrentValue(id: String, currency: String, value: Double, isAdd: Bool, userId: String) async throws {
         try await db
             .collection("user_savings")
             .document(userId)
             .collection("savings")
             .document(id)
             .updateData([
-                "currentValue": FieldValue.increment(isAdd ? value : -value)
+                "currentValues.\(currency)": FieldValue.increment(isAdd ? value : -value)
             ])
     }
 

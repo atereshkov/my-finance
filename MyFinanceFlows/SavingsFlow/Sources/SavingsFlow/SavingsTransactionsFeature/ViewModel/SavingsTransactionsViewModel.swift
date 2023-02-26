@@ -17,17 +17,9 @@ public class SavingsTransactionsViewModel: ObservableObject {
 
     @Published var routingState = SavingsTransactionsRouting()
 
-    @Published var savingsName: String = ""
-    @Published var currency: String = ""
-    @Published var startValue: String = ""
-    @Published var currentValue: String = ""
-    @Published var startDate: String = ""
+    @Published var title: String = ""
 
-    @Published var progressValue: Double = 0.0
-
-    @Published var estimatedSum: String = ""
-
-    @Published var steps: [SavingsTransactionDVO] = []
+    @Published var transactions: [SavingsTransactionDVO] = []
 
     public init(
         id: String,
@@ -53,6 +45,8 @@ public class SavingsTransactionsViewModel: ObservableObject {
 //            }
 //            .store(in: &cancellables)
 
+        self.title = id
+
         Task {
             await loadTransactions()
         }
@@ -74,7 +68,7 @@ extension SavingsTransactionsViewModel {
     }
 
     func addTransactionAction() {
-        routingState.show(sheet: .addTransaction(id))
+        routingState.show(sheet: .addTransaction(id, id))
     }
 
     func editTransactionAction(_ item: SavingsTransactionDVO) {
@@ -87,7 +81,7 @@ extension SavingsTransactionsViewModel {
 
     func deleteTransactionActionConfirmed(_ item: SavingsTransactionDVO) async {
         do {
-            try await dataService.deleteTransaction(id: item.id, value: item.value, savingsId: id)
+            try await dataService.deleteTransaction(id: item.id, value: item.value, currency: item.currency, isAdd: item.isAdd, savingsId: parentId)
         } catch let error {
             Swift.print(error)
         }
@@ -109,9 +103,9 @@ private extension SavingsTransactionsViewModel {
 
     private func loadTransactions() async {
         do {
-            let steps = try await dataService.getTransactions(savingsId: id)
+            let transactions = try await dataService.getTransactions(savingsId: parentId, currency: id)
             DispatchQueue.main.async {
-                self.steps = steps
+                self.transactions = transactions
             }
         } catch let error {
             Swift.print(error)
@@ -124,12 +118,12 @@ private extension SavingsTransactionsViewModel {
     }
 
     private func bindDetails(_ savings: SavingsDVO) {
-        savingsName = savings.name
+//        savingsName = savings.name
 //        currency = savings.currency
 //        currentValue = savings.currentValue.formattedAsCurrency() ?? ""
 //        startValue = savings.startValue.formattedAsCurrency() ?? ""
 
-        startDate = savings.startDate.formatted(date: .numeric, time: .omitted)
+//        startDate = savings.startDate.formatted(date: .numeric, time: .omitted)
     }
 
     private func bindStats(_ savings: SavingsDVO) {

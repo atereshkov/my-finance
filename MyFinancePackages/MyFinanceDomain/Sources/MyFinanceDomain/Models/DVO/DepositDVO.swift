@@ -70,7 +70,7 @@ public extension DepositDVO {
     }
 
     var incomeWithoutTaxes: Double {
-        return income - tax
+        return income - taxValue
     }
 
 }

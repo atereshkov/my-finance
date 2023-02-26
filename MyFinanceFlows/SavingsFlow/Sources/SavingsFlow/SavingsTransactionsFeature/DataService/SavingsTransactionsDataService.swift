@@ -5,8 +5,8 @@ import MyFinanceDomain
 import Repositories
 
 public protocol SavingsTransactionsDataServiceType {
-    func getTransactions(savingsId: String) async throws -> [SavingsTransactionDVO]
-    func deleteTransaction(id: String, value: Double, savingsId: String) async throws
+    func getTransactions(savingsId: String, currency: String) async throws -> [SavingsTransactionDVO]
+    func deleteTransaction(id: String, value: Double, currency: String, isAdd: Bool, savingsId: String) async throws
 }
 
 public class SavingsTransactionsDataService: SavingsTransactionsDataServiceType {
@@ -27,21 +27,21 @@ public class SavingsTransactionsDataService: SavingsTransactionsDataServiceType 
         self.savingsRepository = savingsRepository
     }
 
-    public func getTransactions(savingsId: String) async throws -> [SavingsTransactionDVO] {
+    public func getTransactions(savingsId: String, currency: String) async throws -> [SavingsTransactionDVO] {
         // TODO return error instead
         let userId = appState[\.user.id]!
 
-        let dto = try await transactionsRepository.getTransactions(savingsId, userId: userId)
+        let dto = try await transactionsRepository.getTransactions(savingsId, currency: currency, userId: userId)
         return dto
             .compactMap { SavingsTransactionDVO($0) }
             .sorted(by: { $0.date > $1.date })
     }
 
-    public func deleteTransaction(id: String, value: Double, savingsId: String) async throws {
+    public func deleteTransaction(id: String, value: Double, currency: String, isAdd: Bool, savingsId: String) async throws {
         let userId = appState[\.user.id]!
 
-//        try await savingsStepRepository.deleteSavingsStep(id: stepId, savingsId: savingsId, userId: userId)
-//        try await savingsRepository.updateCurrentValue(id: savingsId, value: value, isAdd: false, userId: userId)
+        try await transactionsRepository.deleteTransaction(id: id, savingsId: savingsId, currency: currency, userId: userId)
+        try await savingsRepository.updateCurrentValue(id: savingsId, currency: currency, value: value, isAdd: !isAdd, userId: userId)
     }
 
 }
