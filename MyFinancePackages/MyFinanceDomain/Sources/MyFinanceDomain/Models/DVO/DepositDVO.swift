@@ -59,9 +59,12 @@ public struct DepositDVO: Equatable, Identifiable, Hashable {
 
 public extension DepositDVO {
 
+    private var months: Int {
+        return Calendar.current.dateComponents([.month], from: startDate, to: endDate).month ?? 0
+    }
+
     var income: Double {
         let monthlyPaid = balance * rate / 100 / 12
-        let months = Calendar.current.dateComponents([.month], from: startDate, to: endDate).month ?? 0
         return monthlyPaid * Double(months)
     }
 
@@ -72,5 +75,4 @@ public extension DepositDVO {
     var incomeWithoutTaxes: Double {
         return income - taxValue
     }
-
 }

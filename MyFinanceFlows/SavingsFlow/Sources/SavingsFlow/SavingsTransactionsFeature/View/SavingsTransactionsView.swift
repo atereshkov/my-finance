@@ -138,7 +138,9 @@ public struct SavingsTransactionsView<AddTransaction: View>: View {
     var statsSection: some View {
         Section {
             VStack(alignment: .leading) {
-                Text("Text 123")
+                Text("Average transaction: 150$")
+                    .font(.system(size: 13.0, weight: .regular))
+                Text("Average transaction / month: 100$")
                     .font(.system(size: 13.0, weight: .regular))
             }
         }

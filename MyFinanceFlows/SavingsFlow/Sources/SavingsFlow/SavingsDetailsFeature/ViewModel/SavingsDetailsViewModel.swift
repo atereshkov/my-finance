@@ -94,15 +94,17 @@ private extension SavingsDetailsViewModel {
 
     private func loadTransactions() async {
         let currencies = savings?.currentValues.map { $0.key }
-        guard let currencies else { return }
+        guard let currencies = currencies else { return }
 
         do {
             let transactions = try await dataService.getTransactions(savingsId: id, currencies: currencies)
+
             DispatchQueue.main.async {
                 self.transactions = transactions
-                for currency in currencies {
-                    let data = transactions.filter { $0.currency == currency }
-                    self.chartData.append((currency: currency, data: data))
+
+                let groupedTransactions = Dictionary(grouping: transactions, by: { $0.currency })
+                self.chartData = groupedTransactions.map { currency, data in
+                    return (currency: currency, data: data)
                 }
             }
         } catch let error {

@@ -128,6 +128,10 @@ public struct SavingsDetailsView<EditSavings: View,
             VStack(alignment: .leading) {
                 Text(viewModel.description)
                     .font(.system(size: 13.0, weight: .regular))
+                Text("Total top-ups: 2000$")
+                    .font(.system(size: 13.0, weight: .regular))
+                Text("Total withdrawals: 500$")
+                    .font(.system(size: 13.0, weight: .regular))
             }
         }
     }
