@@ -62,6 +62,10 @@ public class SavingsTransactionsViewModel: ObservableObject {
 
 extension SavingsTransactionsViewModel {
 
+    func editAction() {
+        
+    }
+
     func deleteAllTransactionsAction() {
 //        guard let savings = savings else { return }
 //        routingState.show(alert: .confirmDeleteAllTransactions(savings))

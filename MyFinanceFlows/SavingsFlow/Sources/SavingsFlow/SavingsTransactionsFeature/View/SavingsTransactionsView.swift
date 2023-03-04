@@ -88,8 +88,16 @@ public struct SavingsTransactionsView<AddTransaction: View>: View {
 
     var navBarButtons: some View {
         HStack {
+            editButton
             deleteButton
         }
+    }
+
+    var editButton: some View {
+        Button(
+            action: viewModel.editAction,
+            label: { Image(systemName: "pencil.circle").imageScale(.large) }
+        )
     }
 
     var deleteButton: some View {
