@@ -1,12 +1,19 @@
 import SwiftUI
 
+// MARK: Shared
+
 import AppState
 import Repositories
 import MyFinanceDomain
 
+// MARK: Features
+
 import RootFeature
 import WelcomeFeature
 import TabBarFeature
+
+// MARK: Flows
+
 import AuthFlow
 import DepositsFlow
 import GoalsFlow

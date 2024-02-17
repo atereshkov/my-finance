@@ -23,7 +23,7 @@ public struct DepositDVO: Equatable, Identifiable, Hashable {
     public init(id: String, name: String) {
         self.id = id
         self.bankName = ""
-        self.name = ""
+        self.name = name
         self.currency = ""
         self.payout = ""
         self.rate = 0.0
